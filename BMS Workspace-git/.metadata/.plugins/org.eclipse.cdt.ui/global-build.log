@@ -2784,3 +2784,310 @@ Finished building target: "bms-1227-fw.out"
  
 
 **** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/sys_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/sys_main.d_raw" --obj_directory="source"  "../source/sys_main.c"
+ 
+>> Compilation failure
+source/subdir_rules.mk:9: recipe for target 'source/sys_main.obj' failed
+"../source/sys_main.c", line 201: error #20: identifier "command" is undefined
+"../source/sys_main.c", line 135: warning #179-D: variable "i" was declared but never referenced
+"../source/sys_main.c", line 136: warning #179-D: variable "j" was declared but never referenced
+"../source/sys_main.c", line 138: warning #179-D: variable "buf" was declared but never referenced
+"../source/sys_main.c", line 701: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 707: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../source/sys_main.c", line 897: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 906: warning #177-D: subscript out of range
+"../source/sys_main.c", line 906: warning #177-D: subscript out of range
+"../source/sys_main.c", line 911: warning #177-D: subscript out of range
+"../source/sys_main.c", line 911: warning #177-D: subscript out of range
+"../source/sys_main.c", line 906: warning #179-D: variable "digDieTemp" was declared but never referenced
+"../source/sys_main.c", line 911: warning #179-D: variable "anaDieTemp" was declared but never referenced
+1 error detected in the compilation of "../source/sys_main.c".
+gmake: *** [source/sys_main.obj] Error 1
+Building file: "../source/testinterface.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/testinterface.d_raw" --obj_directory="source"  "../source/testinterface.c"
+Finished building: "../source/testinterface.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/sys_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/sys_main.d_raw" --obj_directory="source"  "../source/sys_main.c"
+"../source/sys_main.c", line 135: warning #179-D: variable "i" was declared but never referenced
+"../source/sys_main.c", line 136: warning #179-D: variable "j" was declared but never referenced
+"../source/sys_main.c", line 138: warning #179-D: variable "buf" was declared but never referenced
+"../source/sys_main.c", line 700: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 706: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../source/sys_main.c", line 896: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 905: warning #177-D: subscript out of range
+"../source/sys_main.c", line 905: warning #177-D: subscript out of range
+"../source/sys_main.c", line 910: warning #177-D: subscript out of range
+"../source/sys_main.c", line 910: warning #177-D: subscript out of range
+"../source/sys_main.c", line 905: warning #179-D: variable "digDieTemp" was declared but never referenced
+"../source/sys_main.c", line 910: warning #179-D: variable "anaDieTemp" was declared but never referenced
+Finished building: "../source/sys_main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./source/Phantom_sci.obj" "./source/a_tp_sci.obj" "./source/can.obj" "./source/dabort.obj" "./source/errata_SSWF021_45.obj" "./source/esm.obj" "./source/gio.obj" "./source/notification.obj" "./source/phantom_can.obj" "./source/pinmux.obj" "./source/pl455.obj" "./source/rti.obj" "./source/sci.obj" "./source/sys_core.obj" "./source/sys_dma.obj" "./source/sys_intvecs.obj" "./source/sys_main.obj" "./source/sys_mpu.obj" "./source/sys_pcr.obj" "./source/sys_phantom.obj" "./source/sys_pmm.obj" "./source/sys_pmu.obj" "./source/sys_selftest.obj" "./source/sys_startup.obj" "./source/sys_vim.obj" "./source/system.obj" "./source/testinterface.obj" "../source/sys_link.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/notification.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/notification.d_raw" --obj_directory="source"  "../source/notification.c"
+Finished building: "../source/notification.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./source/Phantom_sci.obj" "./source/a_tp_sci.obj" "./source/can.obj" "./source/dabort.obj" "./source/errata_SSWF021_45.obj" "./source/esm.obj" "./source/gio.obj" "./source/notification.obj" "./source/phantom_can.obj" "./source/pinmux.obj" "./source/pl455.obj" "./source/rti.obj" "./source/sci.obj" "./source/sys_core.obj" "./source/sys_dma.obj" "./source/sys_intvecs.obj" "./source/sys_main.obj" "./source/sys_mpu.obj" "./source/sys_pcr.obj" "./source/sys_phantom.obj" "./source/sys_pmm.obj" "./source/sys_pmu.obj" "./source/sys_selftest.obj" "./source/sys_startup.obj" "./source/sys_vim.obj" "./source/system.obj" "./source/testinterface.obj" "../source/sys_link.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/testinterface.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/testinterface.d_raw" --obj_directory="source"  "../source/testinterface.c"
+ 
+>> Compilation failure
+source/subdir_rules.mk:9: recipe for target 'source/testinterface.obj' failed
+"C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include/testinterface.h", line 13: fatal error #1965: cannot open source file "notification.c"
+1 catastrophic error detected in the compilation of "../source/testinterface.c".
+Compilation terminated.
+gmake: *** [source/testinterface.obj] Error 1
+Building file: "../source/notification.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/notification.d_raw" --obj_directory="source"  "../source/notification.c"
+ 
+>> Compilation failure
+source/subdir_rules.mk:9: recipe for target 'source/notification.obj' failed
+"C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include/testinterface.h", line 13: fatal error #1965: cannot open source file "notification.c"
+1 catastrophic error detected in the compilation of "../source/notification.c".
+Compilation terminated.
+gmake: *** [source/notification.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/testinterface.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/testinterface.d_raw" --obj_directory="source"  "../source/testinterface.c"
+ 
+>> Compilation failure
+source/subdir_rules.mk:9: recipe for target 'source/testinterface.obj' failed
+"C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include/testinterface.h", line 13: fatal error #1965: cannot open source file "notification.h"
+1 catastrophic error detected in the compilation of "../source/testinterface.c".
+Compilation terminated.
+gmake: *** [source/testinterface.obj] Error 1
+Building file: "../source/notification.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/notification.d_raw" --obj_directory="source"  "../source/notification.c"
+ 
+>> Compilation failure
+source/subdir_rules.mk:9: recipe for target 'source/notification.obj' failed
+"C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include/testinterface.h", line 13: fatal error #1965: cannot open source file "notification.h"
+1 catastrophic error detected in the compilation of "../source/notification.c".
+Compilation terminated.
+gmake: *** [source/notification.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/testinterface.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/testinterface.d_raw" --obj_directory="source"  "../source/testinterface.c"
+Finished building: "../source/testinterface.c"
+ 
+Building file: "../source/notification.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/notification.d_raw" --obj_directory="source"  "../source/notification.c"
+Finished building: "../source/notification.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./source/Phantom_sci.obj" "./source/a_tp_sci.obj" "./source/can.obj" "./source/dabort.obj" "./source/errata_SSWF021_45.obj" "./source/esm.obj" "./source/gio.obj" "./source/notification.obj" "./source/phantom_can.obj" "./source/pinmux.obj" "./source/pl455.obj" "./source/rti.obj" "./source/sci.obj" "./source/sys_core.obj" "./source/sys_dma.obj" "./source/sys_intvecs.obj" "./source/sys_main.obj" "./source/sys_mpu.obj" "./source/sys_pcr.obj" "./source/sys_phantom.obj" "./source/sys_pmm.obj" "./source/sys_pmu.obj" "./source/sys_selftest.obj" "./source/sys_startup.obj" "./source/sys_vim.obj" "./source/system.obj" "./source/testinterface.obj" "../source/sys_link.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/sys_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/sys_main.d_raw" --obj_directory="source"  "../source/sys_main.c"
+"../source/sys_main.c", line 136: warning #179-D: variable "i" was declared but never referenced
+"../source/sys_main.c", line 137: warning #179-D: variable "j" was declared but never referenced
+"../source/sys_main.c", line 139: warning #179-D: variable "buf" was declared but never referenced
+"../source/sys_main.c", line 702: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 708: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../source/sys_main.c", line 898: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 907: warning #177-D: subscript out of range
+"../source/sys_main.c", line 907: warning #177-D: subscript out of range
+"../source/sys_main.c", line 912: warning #177-D: subscript out of range
+"../source/sys_main.c", line 912: warning #177-D: subscript out of range
+"../source/sys_main.c", line 907: warning #179-D: variable "digDieTemp" was declared but never referenced
+"../source/sys_main.c", line 912: warning #179-D: variable "anaDieTemp" was declared but never referenced
+Finished building: "../source/sys_main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./source/Phantom_sci.obj" "./source/a_tp_sci.obj" "./source/can.obj" "./source/dabort.obj" "./source/errata_SSWF021_45.obj" "./source/esm.obj" "./source/gio.obj" "./source/notification.obj" "./source/phantom_can.obj" "./source/pinmux.obj" "./source/pl455.obj" "./source/rti.obj" "./source/sci.obj" "./source/sys_core.obj" "./source/sys_dma.obj" "./source/sys_intvecs.obj" "./source/sys_main.obj" "./source/sys_mpu.obj" "./source/sys_pcr.obj" "./source/sys_phantom.obj" "./source/sys_pmm.obj" "./source/sys_pmu.obj" "./source/sys_selftest.obj" "./source/sys_startup.obj" "./source/sys_vim.obj" "./source/system.obj" "./source/testinterface.obj" "../source/sys_link.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/sys_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/sys_main.d_raw" --obj_directory="source"  "../source/sys_main.c"
+"../source/sys_main.c", line 137: warning #179-D: variable "i" was declared but never referenced
+"../source/sys_main.c", line 138: warning #179-D: variable "j" was declared but never referenced
+"../source/sys_main.c", line 140: warning #179-D: variable "buf" was declared but never referenced
+"../source/sys_main.c", line 703: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 709: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../source/sys_main.c", line 899: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 908: warning #177-D: subscript out of range
+"../source/sys_main.c", line 908: warning #177-D: subscript out of range
+"../source/sys_main.c", line 913: warning #177-D: subscript out of range
+"../source/sys_main.c", line 913: warning #177-D: subscript out of range
+"../source/sys_main.c", line 908: warning #179-D: variable "digDieTemp" was declared but never referenced
+"../source/sys_main.c", line 913: warning #179-D: variable "anaDieTemp" was declared but never referenced
+Finished building: "../source/sys_main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./source/Phantom_sci.obj" "./source/a_tp_sci.obj" "./source/can.obj" "./source/dabort.obj" "./source/errata_SSWF021_45.obj" "./source/esm.obj" "./source/gio.obj" "./source/notification.obj" "./source/phantom_can.obj" "./source/pinmux.obj" "./source/pl455.obj" "./source/rti.obj" "./source/sci.obj" "./source/sys_core.obj" "./source/sys_dma.obj" "./source/sys_intvecs.obj" "./source/sys_main.obj" "./source/sys_mpu.obj" "./source/sys_pcr.obj" "./source/sys_phantom.obj" "./source/sys_pmm.obj" "./source/sys_pmu.obj" "./source/sys_selftest.obj" "./source/sys_startup.obj" "./source/sys_vim.obj" "./source/system.obj" "./source/testinterface.obj" "../source/sys_link.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs920\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../source/sys_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git/bms-1227-fw/include" --include_path="C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="source/sys_main.d_raw" --obj_directory="source"  "../source/sys_main.c"
+"../source/sys_main.c", line 137: warning #179-D: variable "i" was declared but never referenced
+"../source/sys_main.c", line 138: warning #179-D: variable "j" was declared but never referenced
+"../source/sys_main.c", line 140: warning #179-D: variable "buf" was declared but never referenced
+"../source/sys_main.c", line 702: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 708: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../source/sys_main.c", line 898: warning #179-D: variable "resistance" was declared but never referenced
+"../source/sys_main.c", line 907: warning #177-D: subscript out of range
+"../source/sys_main.c", line 907: warning #177-D: subscript out of range
+"../source/sys_main.c", line 912: warning #177-D: subscript out of range
+"../source/sys_main.c", line 912: warning #177-D: subscript out of range
+"../source/sys_main.c", line 907: warning #179-D: variable "digDieTemp" was declared but never referenced
+"../source/sys_main.c", line 912: warning #179-D: variable "anaDieTemp" was declared but never referenced
+Finished building: "../source/sys_main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./source/Phantom_sci.obj" "./source/a_tp_sci.obj" "./source/can.obj" "./source/dabort.obj" "./source/errata_SSWF021_45.obj" "./source/esm.obj" "./source/gio.obj" "./source/notification.obj" "./source/phantom_can.obj" "./source/pinmux.obj" "./source/pl455.obj" "./source/rti.obj" "./source/sci.obj" "./source/sys_core.obj" "./source/sys_dma.obj" "./source/sys_intvecs.obj" "./source/sys_main.obj" "./source/sys_mpu.obj" "./source/sys_pcr.obj" "./source/sys_phantom.obj" "./source/sys_pmm.obj" "./source/sys_pmu.obj" "./source/sys_selftest.obj" "./source/sys_startup.obj" "./source/sys_vim.obj" "./source/system.obj" "./source/testinterface.obj" "../source/sys_link.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****

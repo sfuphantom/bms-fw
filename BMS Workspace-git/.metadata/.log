@@ -1095,3 +1095,154 @@ ERROR in JLINKARM_Open: Cannot connect to J-Link.
 
 !ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 16:31:49.402
 !MESSAGE ContextManager.reportWarning(): Session for current Context ended
+!SESSION 2020-04-09 17:19:14.990 -----------------------------------------------
+eclipse.buildId=4.8.0.I20180611-0500
+java.version=1.8.0_144
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product com.ti.ccstudio.branding.product -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstudio.branding.product -data C:\Users\Mahmoud Ahmed\bms-fw\BMS Workspace-git -product com.ti.ccstudio.branding.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2020-04-09 17:19:16.877
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.ti.common.core 1 0 2020-04-09 17:19:17.024
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2020-04-09 17:19:17.032
+!MESSAGE debugServerDir=C:/ti/ccs920/ccs/ccs_base/DebugServer
+
+!ENTRY org.eclipse.launchbar.core 2 0 2020-04-09 17:19:30.222
+!MESSAGE Enablement expression is missing for descriptor type org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2020-04-09 17:19:30.258
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY org.eclipse.launchbar.core 2 0 2020-04-09 17:19:30.288
+!MESSAGE Enablement expression is missing for config provider for org.eclipse.cdt.debug.core.coreBuildDescriptorType
+
+!ENTRY com.ti.ccstudio.ui 1 0 2020-04-09 17:19:30.398
+!MESSAGE CCS IDE session started!
+	CCS build: 9.2.0.00013
+	CCS location: C:/ti/ccs920/ccs
+	Workspace location: C:/Users/Mahmoud Ahmed/bms-fw/BMS Workspace-git
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.670
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.681
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.724
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.759
+!MESSAGE Platform os: win32
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.771
+!MESSAGE loading cToolsIF
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.785
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.797
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.815
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.829
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-04-09 17:19:30.870
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2020-04-09 17:19:30.954
+!MESSAGE CCS HTTP adapter started! [ccs.port:2539] - Open 'http://localhost:2539/ide' in web browser to see listing of available APIs...
+
+!ENTRY com.percepio.tracealyzer.core 1 0 2020-04-09 17:19:32.618
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.core, version: 1.1.4.v201906041456
+
+!ENTRY com.percepio.tracealyzer.core 2 0 2020-04-09 17:19:32.656
+!MESSAGE ContextManager.reportWarning(): No debug context found
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 17:19:32.669
+!MESSAGE Activator.start(): Called from com.percepio.tracealyzer.ui, version: 1.1.4.v201906041456
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:18:38.685
+!MESSAGE ContextManager.reportStatus(): Context for Session 1 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:18:57.979
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:19:04.618
+!MESSAGE ContextManager.reportStatus(): Context for Session 2 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:19:51.201
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:20:06.289
+!MESSAGE ContextManager.reportStatus(): Context for Session 3 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:21:01.836
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:21:08.000
+!MESSAGE ContextManager.reportStatus(): Context for Session 4 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:21:40.391
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:24:27.455
+!MESSAGE ContextManager.reportStatus(): Context for Session 7 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:24:42.182
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:24:47.853
+!MESSAGE ContextManager.reportStatus(): Context for Session 8 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:25:12.066
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:25:16.331
+!MESSAGE ContextManager.reportStatus(): Context for Session 9 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:25:39.334
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:26:49.132
+!MESSAGE ContextManager.reportStatus(): Context for Session 10 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:27:24.608
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:27:28.299
+!MESSAGE ContextManager.reportStatus(): Context for Session 11 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:27:49.590
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:27:53.702
+!MESSAGE ContextManager.reportStatus(): Context for Session 12 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:28:01.899
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:28:05.401
+!MESSAGE ContextManager.reportStatus(): Context for Session 13 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:29:32.564
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:29:37.992
+!MESSAGE ContextManager.reportStatus(): Context for Session 14 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:29:50.640
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:29:57.566
+!MESSAGE ContextManager.reportStatus(): Context for Session 15 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:30:25.454
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended

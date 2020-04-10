@@ -4,7 +4,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.TMS570LS1227.ccxml.SEGGER J-Link Emulator/CortexR4" value="${build_artifact:bms-1227-fw}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.TMS570LS1227.ccxml.SEGGER J-Link Emulator/CortexR4" value="bms-1227-fw"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:bms-1227-fw}"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS570LS1227.ccxml.SEGGER J-Link Emulator/CortexR4" value="C:/Users\Mahmoud Ahmed\BMS Workspace\bms-1227-fw\Debug\bms-1227-fw.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS570LS1227.ccxml.SEGGER J-Link Emulator/CortexR4" value="C:/Users\Mahmoud Ahmed\bms-fw\BMS Workspace-git\bms-1227-fw\Debug\bms-1227-fw.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/bms-1227-fw"/>
 </listAttribute>

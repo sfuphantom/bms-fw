@@ -111,8 +111,8 @@ uint8 BMS_CAN_MSG[8] = {1,2,3,4,5,6,7,8};
 static uint16 HB_LED = 0;
 static const uint8 TOTALCELLS = 10;
 static const uint8 TOTALAUX = 8;
-static unsigned char command;
 #define BMSByteArraySize  43
+static unsigned char command;
 
 BYTE  SingleSlaveReading[BMSByteArraySize];
 BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
@@ -129,6 +129,7 @@ int main(void)
 /* USER CODE BEGIN (3) */
        BMS_init();
 
+       sciReceive(sciREG, 1, (unsigned char *)&command);
        CHARGING_FLAG = false;
        // PRINTING
        uint8 STATE = STATE_HANDLING;
@@ -199,7 +200,6 @@ int main(void)
                     SENSOR_READ_FLAG = false;
                 }
 
-                sciReceive(sciREG, 1, (unsigned char *)&command);
 
                 STATE = STATE_HANDLING;
                 break;
@@ -990,32 +990,6 @@ int GetTimeout(void)
     return RTI_TIMEOUT;
 }
 
-void echoChar(void)
-{
-    /* Await further character */
-
-        sciReceive(sciREG, 1,(unsigned char *)&command);
-        processChar(command);
-
-}
-
-void processChar(unsigned char character)
-{
-    if(character == '\r')
-    {
-        UARTSend(sciREG, "\n\r");
-    }
-    else if(character == '\b')
-    {
-        UARTSend(sciREG, "\b");
-        UARTSend(sciREG, " ");
-        UARTSend(sciREG, "\b");
-    }
-    else{
-        sciSend(sciREG, 1,(unsigned char *)&character);
-
-    }
-}
 
 /* USER CODE BEGIN (4) */
 /* USER CODE END */

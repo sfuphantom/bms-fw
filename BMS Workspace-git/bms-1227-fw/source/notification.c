@@ -58,6 +58,7 @@
 
 /* USER CODE BEGIN (0) */
 #include "sys_main.h"
+#include "testinterface.h"
 
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;
@@ -154,7 +155,11 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (29) */
-    UART_RX_RDY = 1;
+    if(sci == scilinREG)
+    {
+        UART_RX_RDY = 1;
+        return;
+    }
 
     if(sci == sciREG)
     {
