@@ -17,6 +17,10 @@ source/testinterface.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS
 source/testinterface.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdbool.h
 source/testinterface.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/reg_gio.h
 source/testinterface.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/Phantom_sci.h
+source/testinterface.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/string.h
+source/testinterface.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/_ti_config.h
+source/testinterface.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/linkage.h
+source/testinterface.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/sys_main.h
 
 ../source/testinterface.c: 
 C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/testinterface.h: 
@@ -35,3 +39,7 @@ C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/sys/_stdint.h:
 C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdbool.h: 
 C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/reg_gio.h: 
 C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/Phantom_sci.h: 
+C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/string.h: 
+C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/_ti_config.h: 
+C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/linkage.h: 
+C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/sys_main.h: 

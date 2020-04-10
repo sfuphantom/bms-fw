@@ -30,6 +30,7 @@ void Thermistor_Read(void);
 void BMS_Slaves_Heartbeat(void);
 void BMS_Balance();
 int GetTimeout(void);
+void getCurrentReadings(void);
 
 typedef struct CAN_MSG{
 

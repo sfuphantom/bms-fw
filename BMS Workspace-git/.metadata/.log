@@ -1246,3 +1246,492 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstud
 
 !ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:30:25.454
 !MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 18:59:31.406
+!MESSAGE ContextManager.reportStatus(): Context for Session 16 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 18:59:57.548
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:24:25.222
+!MESSAGE ContextManager.reportStatus(): Context for Session 17 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:24:50.860
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:24:58.401
+!MESSAGE ContextManager.reportStatus(): Context for Session 18 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:26:13.428
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:26:17.709
+!MESSAGE ContextManager.reportStatus(): Context for Session 19 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:26:46.984
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:26:52.855
+!MESSAGE ContextManager.reportStatus(): Context for Session 20 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:27:25.560
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:28:30.105
+!MESSAGE ContextManager.reportStatus(): Context for Session 21 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:32:29.155
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:33:15.147
+!MESSAGE ContextManager.reportStatus(): Context for Session 22 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:35:09.839
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:35:18.023
+!MESSAGE ContextManager.reportStatus(): Context for Session 23 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:37:03.657
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 19:37:07.814
+!MESSAGE ContextManager.reportStatus(): Context for Session 24 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 19:37:29.766
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:22:35.409
+!MESSAGE ContextManager.reportStatus(): Context for Session 25 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:24:28.222
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:24:32.604
+!MESSAGE ContextManager.reportStatus(): Context for Session 26 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:24:59.180
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:25:21.262
+!MESSAGE ContextManager.reportStatus(): Context for Session 27 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:28:15.405
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:28:21.900
+!MESSAGE ContextManager.reportStatus(): Context for Session 28 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:28:49.650
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:28:52.993
+!MESSAGE ContextManager.reportStatus(): Context for Session 29 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:41:12.497
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:41:16.811
+!MESSAGE ContextManager.reportStatus(): Context for Session 30 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:42:07.940
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:42:12.355
+!MESSAGE ContextManager.reportStatus(): Context for Session 31 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:42:48.536
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:42:55.171
+!MESSAGE ContextManager.reportStatus(): Context for Session 32 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:44:21.721
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:44:43.590
+!MESSAGE ContextManager.reportStatus(): Context for Session 34 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:44:57.567
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:45:03.219
+!MESSAGE ContextManager.reportStatus(): Context for Session 35 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:46:01.783
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:47:15.731
+!MESSAGE ContextManager.reportStatus(): Context for Session 36 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:47:31.613
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:47:38.900
+!MESSAGE ContextManager.reportStatus(): Context for Session 37 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:50:54.777
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:50:59.659
+!MESSAGE ContextManager.reportStatus(): Context for Session 38 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 20:59:48.659
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 20:59:53.084
+!MESSAGE ContextManager.reportStatus(): Context for Session 39 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:00:22.744
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:00:28.592
+!MESSAGE ContextManager.reportStatus(): Context for Session 40 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:05:38.903
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:05:43.093
+!MESSAGE ContextManager.reportStatus(): Context for Session 41 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:06:04.678
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:06:18.947
+!MESSAGE ContextManager.reportStatus(): Context for Session 42 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:06:52.391
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:06:56.693
+!MESSAGE ContextManager.reportStatus(): Context for Session 43 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:10:11.423
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:10:16.633
+!MESSAGE ContextManager.reportStatus(): Context for Session 44 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:10:33.647
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:11:25.172
+!MESSAGE ContextManager.reportStatus(): Context for Session 45 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:12:34.464
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:12:46.876
+!MESSAGE ContextManager.reportStatus(): Context for Session 46 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:14:57.499
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:15:03.447
+!MESSAGE ContextManager.reportStatus(): Context for Session 47 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:16:55.496
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:16:59.890
+!MESSAGE ContextManager.reportStatus(): Context for Session 48 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:17:31.051
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:17:37.325
+!MESSAGE ContextManager.reportStatus(): Context for Session 49 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:18:03.050
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:18:06.904
+!MESSAGE ContextManager.reportStatus(): Context for Session 50 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:18:43.378
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:19:00.203
+!MESSAGE ContextManager.reportStatus(): Context for Session 51 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:19:37.996
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:19:42.298
+!MESSAGE ContextManager.reportStatus(): Context for Session 52 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:20:29.790
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:20:41.648
+!MESSAGE ContextManager.reportStatus(): Context for Session 54 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:21:34.539
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:21:38.740
+!MESSAGE ContextManager.reportStatus(): Context for Session 55 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:26:20.822
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:28:00.214
+!MESSAGE ContextManager.reportStatus(): Context for Session 59 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:29:32.316
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:29:36.440
+!MESSAGE ContextManager.reportStatus(): Context for Session 60 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:30:46.979
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:30:50.826
+!MESSAGE ContextManager.reportStatus(): Context for Session 61 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:31:37.850
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:31:43.000
+!MESSAGE ContextManager.reportStatus(): Context for Session 62 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:35:37.202
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:35:41.332
+!MESSAGE ContextManager.reportStatus(): Context for Session 63 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:36:26.758
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:36:31.204
+!MESSAGE ContextManager.reportStatus(): Context for Session 64 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:37:55.928
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:38:00.021
+!MESSAGE ContextManager.reportStatus(): Context for Session 65 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:43:56.787
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:44:01.492
+!MESSAGE ContextManager.reportStatus(): Context for Session 66 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 21:44:57.516
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 21:45:01.809
+!MESSAGE ContextManager.reportStatus(): Context for Session 67 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-09 22:17:41.327
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-09 22:17:47.005
+!MESSAGE ContextManager.reportStatus(): Context for Session 68 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 12:40:30.124
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 12:40:35.925
+!MESSAGE ContextManager.reportStatus(): Context for Session 69 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 14:56:32.799
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 14:56:43.683
+!MESSAGE ContextManager.reportStatus(): Context for Session 70 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 14:57:53.578
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 14:58:07.322
+!MESSAGE ContextManager.reportStatus(): Context for Session 71 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 14:58:18.080
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:00:33.031
+!MESSAGE ContextManager.reportStatus(): Context for Session 74 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:02:07.747
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:02:13.203
+!MESSAGE ContextManager.reportStatus(): Context for Session 75 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:26:03.252
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:28:35.988
+!MESSAGE ContextManager.reportStatus(): Context for Session 79 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:29:32.703
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:29:49.860
+!MESSAGE ContextManager.reportStatus(): Context for Session 81 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:31:16.784
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:31:22.332
+!MESSAGE ContextManager.reportStatus(): Context for Session 82 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:31:42.525
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:31:54.791
+!MESSAGE ContextManager.reportStatus(): Context for Session 83 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:32:44.719
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:32:49.020
+!MESSAGE ContextManager.reportStatus(): Context for Session 84 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:33:27.572
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:33:33.231
+!MESSAGE ContextManager.reportStatus(): Context for Session 85 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:33:59.244
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:34:11.576
+!MESSAGE ContextManager.reportStatus(): Context for Session 86 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:34:40.584
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:34:46.457
+!MESSAGE ContextManager.reportStatus(): Context for Session 87 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:35:18.553
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:35:24.490
+!MESSAGE ContextManager.reportStatus(): Context for Session 88 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:37:27.946
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:37:33.617
+!MESSAGE ContextManager.reportStatus(): Context for Session 89 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:38:30.806
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:38:36.208
+!MESSAGE ContextManager.reportStatus(): Context for Session 90 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:39:11.014
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:39:51.961
+!MESSAGE ContextManager.reportStatus(): Context for Session 91 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:40:07.603
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:40:31.667
+!MESSAGE ContextManager.reportStatus(): Context for Session 93 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:41:37.145
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:41:43.137
+!MESSAGE ContextManager.reportStatus(): Context for Session 94 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:42:26.871
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:42:32.136
+!MESSAGE ContextManager.reportStatus(): Context for Session 95 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:42:51.543
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:42:56.712
+!MESSAGE ContextManager.reportStatus(): Context for Session 96 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:43:49.312
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:43:59.481
+!MESSAGE ContextManager.reportStatus(): Context for Session 97 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:44:51.499
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:44:57.695
+!MESSAGE ContextManager.reportStatus(): Context for Session 98 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:45:29.377
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:45:33.861
+!MESSAGE ContextManager.reportStatus(): Context for Session 99 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:47:35.636
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:47:49.740
+!MESSAGE ContextManager.reportStatus(): Context for Session 101 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:50:12.019
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:50:17.008
+!MESSAGE ContextManager.reportStatus(): Context for Session 102 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:50:38.410
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:50:52.819
+!MESSAGE ContextManager.reportStatus(): Context for Session 103 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:51:53.735
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:51:58.219
+!MESSAGE ContextManager.reportStatus(): Context for Session 104 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 15:54:11.688
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 15:54:27.978
+!MESSAGE ContextManager.reportStatus(): Context for Session 105 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 16:00:14.520
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 16:00:18.549
+!MESSAGE ContextManager.reportStatus(): Context for Session 106 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 16:00:38.192
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 16:00:57.826
+!MESSAGE ContextManager.reportStatus(): Context for Session 107 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 16:01:39.051
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 16:01:43.253
+!MESSAGE ContextManager.reportStatus(): Context for Session 108 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 16:02:22.702
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 16:02:30.202
+!MESSAGE ContextManager.reportStatus(): Context for Session 109 (com.ti.ccstudio.debug.debugModel)
+
+!ENTRY com.percepio.tracealyzer.ui 2 0 2020-04-10 16:05:02.674
+!MESSAGE ContextManager.reportWarning(): Session for current Context ended
+
+!ENTRY com.percepio.tracealyzer.ui 1 0 2020-04-10 16:05:08.866
+!MESSAGE ContextManager.reportStatus(): Context for Session 110 (com.ti.ccstudio.debug.debugModel)

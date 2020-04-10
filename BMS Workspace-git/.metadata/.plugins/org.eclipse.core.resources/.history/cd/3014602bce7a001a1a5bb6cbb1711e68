@@ -1,0 +1,50 @@
+/*
+ * testinterface.c
+ *
+ *  Created on: Apr 9, 2020
+ *      Author: Mahmoud Ahmed
+ */
+
+#include "testinterface.h"
+#include "sci.h"
+#include "Phantom_sci.h"
+
+
+static unsigned char command;
+
+testBuffer testbuf = {
+    uint32_t head = 0,
+    uint32_t tail = 0
+    uint8_t buffer = charbuf[],
+    uint32_t length = BUFFER_SIZE,
+    uint32_t count = 0,
+    uint32_t datasize = sizeof(char)
+    };
+
+void echoChar(void)
+{
+    /* Await further character */
+
+        sciReceive(sciREG, 1,(unsigned char *)&command);
+        processChar(command);
+
+}
+
+void processChar(unsigned char character)
+{
+    if(character == '\r')
+    {
+        UARTSend(sciREG, "\n\r");
+    }
+    else if(character == '\b')
+    {
+        UARTSend(sciREG, "\b");
+        UARTSend(sciREG, " ");
+        UARTSend(sciREG, "\b");
+    }
+    else{
+        sciSend(sciREG, 1,(unsigned char *)&character);
+    }
+}
+
+

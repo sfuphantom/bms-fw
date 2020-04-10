@@ -34,6 +34,7 @@ source/sys_main.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1
 source/sys_main.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/reg_esm.h
 source/sys_main.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/sys_core.h
 source/sys_main.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/reg_het.h
+source/sys_main.obj: C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/testinterface.h
 source/sys_main.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdio.h
 source/sys_main.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/_ti_config.h
 source/sys_main.obj: C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/linkage.h
@@ -79,6 +80,7 @@ C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/esm.h:
 C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/reg_esm.h: 
 C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/sys_core.h: 
 C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/reg_het.h: 
+C:/Users/Mahmoud//\ Ahmed/bms-fw/BMS//\ Workspace-git/bms-1227-fw/include/testinterface.h: 
 C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/stdio.h: 
 C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/_ti_config.h: 
 C:/ti/ccs920/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include/linkage.h: 
