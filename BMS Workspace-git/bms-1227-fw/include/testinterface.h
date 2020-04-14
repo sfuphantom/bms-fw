@@ -33,6 +33,8 @@ void push_tb(unsigned char character);
 void pop_tb(void);
 void displayPrompt(void);
 void executeCommand(unsigned char command[]);
+void getSingleVoltageReading(uint8_t cell);
+void argumentParse(unsigned char charArray[]);
 
 
 #endif /* INCLUDE_TESTINTERFACE_H_ */

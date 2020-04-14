@@ -112,7 +112,6 @@ uint8 BMS_CAN_MSG[8] = {1,2,3,4,5,6,7,8};
 static uint16 HB_LED = 0;
 static const uint8 TOTALCELLS = 10;
 static const uint8 TOTALAUX = 8;
-#define BMSByteArraySize  43
 static unsigned char command;
 
 BYTE  SingleSlaveReading[BMSByteArraySize];
@@ -1121,6 +1120,11 @@ void getCurrentReadings(void)
 
                  }
 
+}
+
+void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)])
+{
+    memcpy(&BMSArray[0], &MultipleSlaveReading[0], BMSByteArraySize*(TOTALBOARDS)*sizeof(BYTE));
 }
 
 /* USER CODE BEGIN (4) */
