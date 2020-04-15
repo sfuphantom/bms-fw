@@ -22,19 +22,42 @@ typedef struct {
     uint32_t datasize;  // size of each data in buffer
 } testBuffer;
 
+typedef enum {
+    voltage,
+    temperature,
+
+    MAX_SIGNAL
+} signalIndex;
+
 typedef struct {
     char str[BUFFER_SIZE];
     void (*cmd)(void);
-} testcmd;
+} auxcmd;
+
+typedef struct {
+    char str[BUFFER_SIZE];
+    signalIndex sensor;
+} getcmd;
+
+typedef enum {
+    allvoltages,
+    alltemperatures,
+
+    MAX_AUX
+} auxIndex;
+
 
 void echoChar(void);
 void processChar(unsigned char character);
 void push_tb(unsigned char character);
 void pop_tb(void);
 void displayPrompt(void);
-void executeCommand(unsigned char command[]);
+void executeAUXCommand(unsigned char command[]);
+void executeGETCommand(unsigned char command[], uint16_t argument);
 void getSingleVoltageReading(uint8_t cell);
+void getSingleTemperature(uint8_t cell);
 void argumentParse(unsigned char charArray[]);
+void arrayCleanup(void);
 
 
 #endif /* INCLUDE_TESTINTERFACE_H_ */

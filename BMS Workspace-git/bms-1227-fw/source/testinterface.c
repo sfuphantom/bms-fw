@@ -23,11 +23,11 @@ static unsigned char charbuf[BUFFER_SIZE];
 static unsigned char command[BUFFER_SIZE];
 
 static BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)];
-
-uint16_t argint;
+static unsigned char getcmp[] = {'g', 'e', 't', '\0'};
 
 //------TEST COMMANDS----------
 void getAllReadings(void);
+void getAllTemperatures(void);
 void getSingleVoltageReading(uint8_t cell);
 
 static volatile testBuffer testbuf = {
@@ -39,10 +39,16 @@ static volatile testBuffer testbuf = {
     sizeof(unsigned char)
 };
 
-testcmd testCommands[] =
+auxcmd testAUXCommands[] =
 {
  { .str = "allvoltages", .cmd = getAllReadings},
-// { .str = "getvoltage", .cmd = getSingleVoltageReading},
+ { .str = "alltemperatures", .cmd = getAllTemperatures},
+};
+
+getcmd testGETCommands[] =
+{
+ { .str = "voltage", .sensor = voltage},
+ { .str = "temperature", .sensor = temperature},
 };
 
 void echoChar(void)
@@ -59,7 +65,6 @@ void processChar(unsigned char character)
     if(character == '\r')
     {
         argumentParse(charbuf);
-        executeCommand(command);
         displayPrompt();
     }
     else if(character == '\b')
@@ -100,36 +105,19 @@ void displayPrompt(void)
     UARTprintf("\n\r> ");
 }
 
-void executeCommand(unsigned char command[])
-{
-    if(strcmp(&command[0], testCommands[0].str) == 0)
-    {
-        testCommands[0].cmd();
-    }
-    if(strcmp(&command[0], "getvoltage") == 0)
-    {
-        getSingleVoltageReading(argint);
-    }
-    if(strcmp(&command[0], "just chillin mr tms570") == 0)
-    {
-        UARTprintf("\n\rdope");
-    }
-    if(strcmp(&command[0], "hotdog") == 0)
-    {
-        UARTprintf("\n\rMMMMmmmmm");
-    }
 
-    memset(command, 0, BUFFER_SIZE);
-    memset(charbuf, 0, BUFFER_SIZE);
-    testbuf.count = 1;
-}
-
-//--------TEST COMMANDS----------
+//--------AUX COMMANDS----------
 void getAllReadings(void)
 {
     getCurrentReadings();
 }
 
+void getAllTemperatures(void)
+{
+
+}
+
+//--------GET COMMANDS----------
 void getSingleVoltageReading(uint8_t cell)
 {
     char buf[50];
@@ -145,23 +133,107 @@ void getSingleVoltageReading(uint8_t cell)
     UARTSend(sciREG, buf);
 }
 
+void getSingleTemperature(uint8_t cell)
+{
+    UARTprintf("Read cell temperature\n\r");
+}
+
+//---------ARGUMENT PARSING-----------
 void argumentParse(unsigned char charArray[])
 {
     unsigned char arg[10];
+    unsigned char argnum[10];
+
+
     int i;
     for(i = 0; charArray[i+1] != ' ' && i < 20; i++)
     {
         command[i] = charArray[i+1];
     }
 
-    command[i] = '\0';
     i++;
 
-    uint8_t j = 0;
-    for(; charArray[i] != '\0'; i++)
+    if(strcmp(&command[0], getcmp) == 0)
     {
-        arg[j] = charArray[i];
-        j++;
+        uint8_t j = 0;
+        for(; charArray[i+1] != ' '; i++)
+        {
+            arg[j] = charArray[i+1];
+            j++;
+        }
+
+        arg[j] = '\0';
+
+        j = 0;
+
+        for(; charArray[i+1] != '\0'; i++)
+        {
+            argnum[j] = charArray[i+1];
+            j++;
+        }
+
+        uint16_t argint = atoi(argnum);
+        executeGETCommand(arg, argint);
     }
-    argint = atoi(arg);
+    else
+    {
+        command[i] = '\0';
+        executeAUXCommand(command);
+    }
 }
+
+void executeAUXCommand(unsigned char command[])
+{
+    uint8_t i;
+
+    for(i=0; i<MAX_AUX; i++)
+    {
+        if(strcmp(&command[0], testAUXCommands[i].str) == 0)
+        {
+            testAUXCommands[0].cmd();
+        }
+    }
+
+    if(strcmp(&command[0], "hotdog") == 0)
+    {
+        UARTprintf("\n\rMMMMmmmmm");
+    }
+
+    arrayCleanup();
+}
+
+void executeGETCommand(unsigned char command[], uint16_t argument)
+{
+    uint8_t i;
+    signalIndex signalRequest;
+
+    for(i=0; i<MAX_AUX; i++)
+    {
+        if(strcmp(&command[0], testGETCommands[i].str) == 0)
+        {
+            signalRequest = testGETCommands[i].sensor;
+        }
+    }
+
+    switch(signalRequest)
+    {
+        case voltage:
+            getSingleVoltageReading(argument);
+            break;
+        case temperature:
+            getSingleTemperature(argument);
+            break;
+        default:
+            break;
+    }
+
+    arrayCleanup();
+}
+
+void arrayCleanup(void)
+{
+    memset(command, 0, BUFFER_SIZE);
+    memset(charbuf, 0, BUFFER_SIZE);
+    testbuf.count = 1;
+}
+
