@@ -13,3 +13,9 @@ void UARTInit(sciBASE_t *sci, uint32 baud)
     sciInit();
     sciSetBaudrate(sci, baud);
 }
+
+void UARTprintf(char data[])
+{
+    char *first = &data[0];
+    sciSend(sciREG, strlen(data),(uint8 *)first);
+}

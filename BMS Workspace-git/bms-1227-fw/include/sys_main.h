@@ -8,6 +8,11 @@
 #ifndef INCLUDE_SYS_MAIN_H_
 #define INCLUDE_SYS_MAIN_H_
 
+#include "datatypes.h"
+#include "pl455.h"
+
+#define BMSByteArraySize  43
+
 
 enum States{
         STATE_HANDLING = 0,
@@ -30,8 +35,8 @@ void Thermistor_Read(void);
 void BMS_Slaves_Heartbeat(void);
 void BMS_Balance();
 int GetTimeout(void);
-void echoChar(void);
-void processChar(unsigned char character);
+void getCurrentReadings(void);
+void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)]);
 
 typedef struct CAN_MSG{
 
