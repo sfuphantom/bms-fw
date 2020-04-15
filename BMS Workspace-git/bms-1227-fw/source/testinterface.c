@@ -17,11 +17,8 @@
 
 
 static unsigned char chr;
-
 static unsigned char charbuf[BUFFER_SIZE];
-
 static unsigned char command[BUFFER_SIZE];
-
 static BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)];
 static unsigned char getcmp[] = {'g', 'e', 't', '\0'};
 
@@ -39,27 +36,32 @@ static volatile testBuffer testbuf = {
     sizeof(unsigned char)
 };
 
+// String input and command that is called for that input
 auxcmd testAUXCommands[] =
 {
  { .str = "allvoltages", .cmd = getAllReadings},
  { .str = "alltemperatures", .cmd = getAllTemperatures},
 };
 
+// For getting specific readings eg. "get voltage 4"
 getcmd testGETCommands[] =
 {
  { .str = "voltage", .sensor = voltage},
  { .str = "temperature", .sensor = temperature},
 };
 
+// Receives input character from serial terminal
 void echoChar(void)
 {
     /* Await further character */
 
         sciReceive(sciREG, 1,(unsigned char *)&chr);
         processChar(chr);
-
 }
 
+// Processes the incoming character, if char is a return carraige(enter) then process the
+// argument. If char is a backspace then delete a character from the buffer, else add the
+// new character to the buffer
 void processChar(unsigned char character)
 {
     if(character == '\r')
@@ -83,23 +85,24 @@ void processChar(unsigned char character)
     }
 }
 
+// Pushes character to the end of the buffer
 void push_tb(unsigned char character)
 {
-
-    //memcpy(testbuf.buffer + (testbuf.tail*testbuf.datasize), &character, testbuf.datasize);
     charbuf[testbuf.count] = character;
-    //charbuf[testbuf.count + 1] = "\0";
+
     testbuf.tail = (testbuf.tail + 1) % testbuf.length;
 
     testbuf.count++;
 }
 
+// Removes character from the top of the buffer
 void pop_tb(void)
 {
     charbuf[testbuf.count] = '\x00';
     testbuf.count--;
 }
 
+// Displays prompt
 void displayPrompt(void)
 {
     UARTprintf("\n\r> ");
@@ -107,17 +110,20 @@ void displayPrompt(void)
 
 
 //--------AUX COMMANDS----------
+// Gets all BMS readings
 void getAllReadings(void)
 {
     getCurrentReadings();
 }
 
+// Gets all temperature readings
 void getAllTemperatures(void)
 {
 
 }
 
 //--------GET COMMANDS----------
+// Get a specific cell voltage from BMS
 void getSingleVoltageReading(uint8_t cell)
 {
     char buf[50];
@@ -133,12 +139,16 @@ void getSingleVoltageReading(uint8_t cell)
     UARTSend(sciREG, buf);
 }
 
+// Get a specific cell temperature
 void getSingleTemperature(uint8_t cell)
 {
     UARTprintf("Read cell temperature\n\r");
 }
 
 //---------ARGUMENT PARSING-----------
+// Determines whether the input is a get function or an aux function. If it's a get function,
+// extracts the integer argument and calls executeGETCommand. If there's no spaces, it assumes
+// its an aux function and passes the command to executeAUXCommand
 void argumentParse(unsigned char charArray[])
 {
     unsigned char arg[10];
@@ -182,6 +192,7 @@ void argumentParse(unsigned char charArray[])
     }
 }
 
+// Compares input with predefined aux functions and executes
 void executeAUXCommand(unsigned char command[])
 {
     uint8_t i;
@@ -202,6 +213,7 @@ void executeAUXCommand(unsigned char command[])
     arrayCleanup();
 }
 
+// Compares input with predefined get functions and executes
 void executeGETCommand(unsigned char command[], uint16_t argument)
 {
     uint8_t i;
@@ -230,6 +242,7 @@ void executeGETCommand(unsigned char command[], uint16_t argument)
     arrayCleanup();
 }
 
+// Cleans up arrays by setting them back to 0
 void arrayCleanup(void)
 {
     memset(command, 0, BUFFER_SIZE);
