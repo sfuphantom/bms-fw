@@ -77,6 +77,13 @@
 #include "time.h"
 #include "sys_main.h"
 
+#include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
+#include "os_task.h"
+#include "os_queue.h"
+#include "os_semphr.h"
+#include "os_timer.h"
+
 
 /* USER CODE END */
 
@@ -122,6 +129,29 @@ uint16_t UnderVoltageCount = 0;
 volatile BMS_FLAGS BMS = { {0}, {0}, {0}, {0}, 0, false, false };
 BMS_ARRAYS BMS_Voltages = {{0},{0},{0},{0}};
 #define TMS570_CLK 80000000
+
+/*********************************************************************************
+ *                          TASK HEADER DECLARATIONS
+ *********************************************************************************/
+static void vStateMachineTask(void *);  // This task will evaluate the state machine and decide whether or not to change states
+static void vSensorReadTask(void *);    // This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
+
+/*********************************************************************************
+ *                          SOFTWARE TIMER INITIALIZATION
+ *********************************************************************************/
+#define NUMBER_OF_TIMERS   2
+
+/* array to hold handles to the created timers*/
+TimerHandle_t xTimers[NUMBER_OF_TIMERS];
+
+void Timer_10ms(TimerHandle_t xTimers);
+void Timer_2s(TimerHandle_t xTimers);
+
+/*********************************************************************************
+ *                          STATE ENUMERATION
+ *********************************************************************************/
+
+State state = RUNNING;
 /* USER CODE END */
 
 int main(void)
@@ -129,99 +159,162 @@ int main(void)
 /* USER CODE BEGIN (3) */
        BMS_init();
 
-       sciReceive(sciREG, 1, (unsigned char *)&command);
-       CHARGING_FLAG = false;
-       // PRINTING
-       uint8 STATE = STATE_HANDLING;
+/*********************************************************************************
+*                          freeRTOS SOFTWARE TIMER SETUP
+*********************************************************************************/
 
-       uint8 i;
-       uint8_t j;
+       xTimers[0] = xTimerCreate
+                  ( /* Just a text name, not used by the RTOS
+                   kernel. */
+                   "RTDS_Timer",
+                   /* The timer period in ticks, must be
+                   greater than 0. */
+                   pdMS_TO_TICKS(10),
+                   /* The timers will auto-reload themselves
+                   when they expire. */
+                   pdFALSE,
+                   /* The ID is used to store a count of the
+                   number of times the timer has expired, which
+                   is initialised to 0. */
+                   ( void * ) 0,
+                   /* Callback function for when the timer expires*/
+                   Timer_10ms
+                 );
 
-       char buf[50];
+      xTimers[1] = xTimerCreate
+                  ( /* Just a text name, not used by the RTOS
+                   kernel. */
+                   "RTDS_Timer",
+                   /* The timer period in ticks, must be
+                   greater than 0. */
+                   pdMS_TO_TICKS(2000),
+                   /* The timers will auto-reload themselves
+                   when they expire. */
+                   pdFALSE,
+                   /* The ID is used to store a count of the
+                   number of times the timer has expired, which
+                   is initialised to 0. */
+                   ( void * ) 0,
+                   /* Callback function for when the timer expires*/
+                   Timer_2s
+                 );
+      if( xTimers[0] == NULL )
+      {
+               /* The timer was not created. */
+          UARTSend(sciREG, "The timer was not created.\r\n");
+      }
+      else
+      {
+           /* Start the timer.  No block time is specified, and
+           even if one was it would be ignored because the RTOS
+           scheduler has not yet been started. */
+           if( xTimerStart( xTimers[0], 0 ) != pdPASS )
+           {
+               /* The timer could not be set into the Active
+               state. */
+               UARTSend(sciREG, "The timer could not be set into the active state.\r\n");
+           }
+      }
 
-   while(1){
-        switch(STATE){
-            case STATE_HANDLING:
-                if(CHARGING_FLAG == true){
-                    STATE = CHARGING;
-                    break;
-                }
+      if( xTimers[1] == NULL )
+      {
+           /* The timer was not created. */
+          UARTSend(sciREG, "The timer was not created.\r\n");
+      }
+      else
+      {
+           /* Start the timer.  No block time is specified, and
+           even if one was it would be ignored because the RTOS
+           scheduler has not yet been started. */
+           if( xTimerStart( xTimers[1], 0 ) != pdPASS )
+           {
+               /* The timer could not be set into the Active
+               state. */
+               UARTSend(sciREG, "The timer could not be set into the active state.\r\n");
+           }
+      }
 
-                STATE = RUNNING;
+/*********************************************************************************
+*                          freeRTOS TASK & QUEUE CREATION
+*********************************************************************************/
+      if (xTaskCreate(vStateMachineTask, (const char*)"StateMachineTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
+      {
+          // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
+          // probably need a better error handler
+          sciSend(sciREG,23,(unsigned char*)"StateMachineTask Creation Failed.\r\n");
+          while(1);
+      }
+      if (xTaskCreate(vSensorReadTask, (const char*)"SensorReadTask",  240, NULL,  (SENSOR_READ_TASK_PRIORITY), NULL) != pdTRUE)
+      {
+          // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
+          // probably need a better error handler
+          sciSend(sciREG,23,(unsigned char*)"SensorReadTask Creation Failed.\r\n");
+          while(1);
+      }
 
-                break;
-            case RUNNING:
-                if(SENSOR_READ_FLAG == true)
-                {
+      vTaskStartScheduler();
 
-                   // BMS_Read_Single(3);
-                    //BMS_Read_Single(2);
-                  // BMS_Read_Single(1);
-                    BMS_Read_All_NP();
-                    //BMS_Read_All();
-
-                    //snprintf(buf, 50, "LOW VOLTAGE: %f\n\r", BMS.cellVoltageLow);
-                   //UARTSend(sciREG, buf);
-
-
-                    /*for(i = 0; i < TOTALCELLS; i++)
-                    {
-                        snprintf(buf, 50, "Cell %d Voltage: %f\n\r", i, BMS_Voltages.BMS_Slave_1[i]);
-                       UARTSend(sciREG, buf);
-                    }
-
-                    for(i = 0; i < TOTALCELLS; i++)
-                    {
-                        snprintf(buf, 50, "Cell %d Voltage: %f\n\r", i, BMS_Voltages.BMS_Slave_2[i]);
-                       UARTSend(sciREG, buf);
-                    }
-
-                    for(i = 0; i < TOTALCELLS; i++)
-                    {
-                        snprintf(buf, 50, "Cell %d Voltage: %f\n\r", i, BMS_Voltages.BMS_Slave_3[i]);
-                       UARTSend(sciREG, buf);
-                    }
-
-                    for(i = 0; i < TOTALCELLS; i++)
-                    {
-                        snprintf(buf, 50, "Cell %d Voltage: %f\n\r", i, BMS_Voltages.BMS_Slave_4[i]);
-                       UARTSend(sciREG, buf);
-                    }
-
-                    //BMS_Balance();
-
-                    BMS_CAN_MSG[1] = BMS.TOTAL_CELL_ERROR_FLAG;
-    */
-
-
-
-                    //CANSend(BMS_CAN_MSG);
-
-                    SENSOR_READ_FLAG = false;
-                }
-
-
-                STATE = STATE_HANDLING;
-                break;
-            case CAN_COMM:
-                STATE = STATE_HANDLING;
-                break;
-            case ERROR_HANDLING:
-
-                STATE = CAN_COMM;
-                break;
-            case CHARGING:
-                STATE = ERROR_HANDLING;
-                break;
-            default:
-                STATE = STATE_HANDLING;
-
-        }
-    }
+      // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
+      while(1);
 }
 
 
 /* USER CODE BEGIN (4) */
+static void vStateMachineTask(void *pvParameters){
+    uint32 lrval;
+    char stbuf[64];
+    int nchars;
+
+    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
+    const TickType_t xFrequency = 100; // task frequency in ms
+
+    // Initialize the xLastWakeTime variable with the current time;
+    xLastWakeTime = xTaskGetTickCount();
+
+    while(1);
+}
+
+
+/***********************************************************
+ * @function                - vSensorReadTask
+ *
+ * @brief                   - This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
+ *
+ * @param[in]               - pvParameters
+ *
+ * @return                  - None
+ * @Note                    - None
+ ***********************************************************/
+static void vSensorReadTask(void *pvParameters){
+
+    // any initialization
+    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
+    const TickType_t xFrequency = 2000; // task frequency in ms
+
+    // Initialize the xLastWakeTime variable with the current time;
+    xLastWakeTime = xTaskGetTickCount();
+
+    int nchars;
+    char stbuf[64];
+    do{
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+
+    BMS_Read_All_NP();
+    }while(1);
+
+}
+
+void Timer_10ms(TimerHandle_t xTimers)
+{
+
+}
+
+/* Timer callback when it expires for the ready to drive sound */
+void Timer_2s(TimerHandle_t xTimers)
+{
+
+}
+
 void BMS_init(){
         _enable_IRQ();
         gioInit();
@@ -459,6 +552,7 @@ void BMS_init(){
         rtiStartCounter(rtiCOUNTER_BLOCK1);
 
         UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
+        sciReceive(sciREG, 1, (unsigned char *)&command);
         displayPrompt();
 }
 
@@ -497,7 +591,7 @@ void BMS_Read_All(){
         sint8 i;
         uint8 cellCount = TOTALCELLS*TOTALBOARDS;
         uint8 x = 9;
-        uint8 voltageLoopCounter = cellCount+1;
+        uint8 voltageLoopCounter = cellCount*2+1;
         uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2;
         for (i = TOTALBOARDS-1; i > -1; i--){
             for (j = 0; j < voltageLoopCounter; j++) {
@@ -831,9 +925,6 @@ void BMS_Read_Single_NP(uint8_t device){
     uint8 cellCount = 16;
     for (j = 0; j < 33; j++) {
         if (j == 0) {
-             //snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n", SingleSlaveReading[j], SingleSlaveReading[j]);
-             //UARTSend(sciREG, buf);
-             //UARTSend(sciREG, "\n\r");
              continue;
         }
 
@@ -843,25 +934,11 @@ void BMS_Read_Single_NP(uint8_t device){
         double fin = div * 5.0;
 
 
-
-
-        //snprintf(buf, 40, "Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, SingleSlaveReading[j], SingleSlaveReading[j+1], fin);
-        //UARTSend(sciREG, buf);
-        //UARTSend(sciREG, "\n\r");
-
         if(fin > 4.2){
-           // snprintf(buf, 20, "Cell %d Overvoltage\n\r", cellCount);
-            //UARTSend(sciREG, buf);
-           // UARTSend(sciREG, "\n\r");
-
             BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
             BMS.TOTAL_CELL_ERROR_COUNTER++;
         }
         else if(fin < 3.2){
-           //snprintf(buf, 21, "Cell %d Undervoltage\n\r", cellCount);
-            //UARTSend(sciREG, buf);
-            //UARTSend(sciREG, "\n\r");
-
             BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
             BMS.TOTAL_CELL_ERROR_COUNTER++;
         }
@@ -886,10 +963,6 @@ void BMS_Read_Single_NP(uint8_t device){
          BMS.TOTAL_CELL_ERROR_FLAG = true;
      }
 
-    // snprintf(buf, 26, "NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
-     //UARTSend(sciREG, buf);
-     //UARTSend(sciREG, "\n\r");
-
      BMS.TOTAL_CELL_ERROR_COUNTER = 0;
 
      uint8 auxCount = 7;
@@ -900,22 +973,13 @@ void BMS_Read_Single_NP(uint8_t device){
 
          double resistance = 10000*(fin/(4.56-fin));
 
-         //snprintf(buf, 46, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, SingleSlaveReading[j], SingleSlaveReading[j+1], fin, resistance);
-         //UARTSend(sciREG, buf);
-         //UARTSend(sciREG, "\n\r");
          j++;
          auxCount--;
      }
 
      double digDieTemp = ((((SingleSlaveReading[49]*16*16 + SingleSlaveReading[50])/65535.0)*5) - 2.287) * 131.944;
-     //snprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", SingleSlaveReading[49], SingleSlaveReading[50], digDieTemp);
-     //UARTSend(sciREG, buf);
-     //UARTSend(sciREG, "\n\r");
 
      double anaDieTemp = ((((SingleSlaveReading[51]*16*16 + SingleSlaveReading[52])/65535.0)*5) - 1.8078) * 147.514;
-     //snprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", SingleSlaveReading[51], SingleSlaveReading[52], anaDieTemp);
-     //UARTSend(sciREG, buf);
-     //UARTSend(sciREG, "\n\r");
 }
 
 void rtiNotification(uint32 notification)

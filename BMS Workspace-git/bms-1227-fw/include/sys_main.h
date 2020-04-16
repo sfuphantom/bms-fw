@@ -14,14 +14,12 @@
 #define BMSByteArraySize  43
 
 
-enum States{
-        STATE_HANDLING = 0,
-        RUNNING,
-        SENSOR_READ,
-        CAN_COMM,
-        CHARGING,
-        ERROR_HANDLING,
-} STATE;
+typedef enum {CHARGING, RUNNING, FAULT} State;
+
+enum TASK_PRIORITIES{
+    STATE_MACHINE_TASK_PRIORITY = 1,
+    SENSOR_READ_TASK_PRIORITY
+};
 
 void my_sciInit(void);
 void my_rtiInit(void);
