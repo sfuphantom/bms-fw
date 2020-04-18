@@ -83,6 +83,7 @@
 #include "os_queue.h"
 #include "os_semphr.h"
 #include "os_timer.h"
+#include "phantom_freertos.h"
 
 
 /* USER CODE END */
@@ -108,26 +109,8 @@ int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
 
 /*********************************************************************************
- *                          TASK HEADER DECLARATIONS
- *********************************************************************************/
-static void vStateMachineTask(void *);  // This task will evaluate the state machine and decide whether or not to change states
-static void vSensorReadTask(void *);    // This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
-
-/*********************************************************************************
- *                          SOFTWARE TIMER INITIALIZATION
- *********************************************************************************/
-#define NUMBER_OF_TIMERS   2
-
-/* array to hold handles to the created timers*/
-TimerHandle_t xTimers[NUMBER_OF_TIMERS];
-
-void Timer_10ms(TimerHandle_t xTimers);
-void Timer_2s(TimerHandle_t xTimers);
-
-/*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
-
 State state = RUNNING;
 /* USER CODE END */
 
@@ -136,100 +119,9 @@ int main(void)
 /* USER CODE BEGIN (3) */
        BMS_init();
 
-/*********************************************************************************
-*                          freeRTOS SOFTWARE TIMER SETUP
-*********************************************************************************/
+       xphRtosInit();
 
-       xTimers[0] = xTimerCreate
-                  ( /* Just a text name, not used by the RTOS
-                   kernel. */
-                   "RTDS_Timer",
-                   /* The timer period in ticks, must be
-                   greater than 0. */
-                   pdMS_TO_TICKS(10),
-                   /* The timers will auto-reload themselves
-                   when they expire. */
-                   pdFALSE,
-                   /* The ID is used to store a count of the
-                   number of times the timer has expired, which
-                   is initialised to 0. */
-                   ( void * ) 0,
-                   /* Callback function for when the timer expires*/
-                   Timer_10ms
-                 );
-
-      xTimers[1] = xTimerCreate
-                  ( /* Just a text name, not used by the RTOS
-                   kernel. */
-                   "RTDS_Timer",
-                   /* The timer period in ticks, must be
-                   greater than 0. */
-                   pdMS_TO_TICKS(2000),
-                   /* The timers will auto-reload themselves
-                   when they expire. */
-                   pdFALSE,
-                   /* The ID is used to store a count of the
-                   number of times the timer has expired, which
-                   is initialised to 0. */
-                   ( void * ) 0,
-                   /* Callback function for when the timer expires*/
-                   Timer_2s
-                 );
-      if( xTimers[0] == NULL )
-      {
-               /* The timer was not created. */
-          UARTSend(sciREG, "The timer was not created.\r\n");
-      }
-      else
-      {
-           /* Start the timer.  No block time is specified, and
-           even if one was it would be ignored because the RTOS
-           scheduler has not yet been started. */
-           if( xTimerStart( xTimers[0], 0 ) != pdPASS )
-           {
-               /* The timer could not be set into the Active
-               state. */
-               UARTSend(sciREG, "The timer could not be set into the active state.\r\n");
-           }
-      }
-
-      if( xTimers[1] == NULL )
-      {
-           /* The timer was not created. */
-          UARTSend(sciREG, "The timer was not created.\r\n");
-      }
-      else
-      {
-           /* Start the timer.  No block time is specified, and
-           even if one was it would be ignored because the RTOS
-           scheduler has not yet been started. */
-           if( xTimerStart( xTimers[1], 0 ) != pdPASS )
-           {
-               /* The timer could not be set into the Active
-               state. */
-               UARTSend(sciREG, "The timer could not be set into the active state.\r\n");
-           }
-      }
-
-/*********************************************************************************
-*                          freeRTOS TASK & QUEUE CREATION
-*********************************************************************************/
-      if (xTaskCreate(vStateMachineTask, (const char*)"StateMachineTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
-      {
-          // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
-          // probably need a better error handler
-          sciSend(sciREG,23,(unsigned char*)"StateMachineTask Creation Failed.\r\n");
-          while(1);
-      }
-      if (xTaskCreate(vSensorReadTask, (const char*)"SensorReadTask",  240, NULL,  (SENSOR_READ_TASK_PRIORITY), NULL) != pdTRUE)
-      {
-          // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
-          // probably need a better error handler
-          sciSend(sciREG,23,(unsigned char*)"SensorReadTask Creation Failed.\r\n");
-          while(1);
-      }
-
-      vTaskStartScheduler();
+       vTaskStartScheduler();
 
       // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
       while(1);
@@ -237,7 +129,10 @@ int main(void)
 
 
 /* USER CODE BEGIN (4) */
-static void vStateMachineTask(void *pvParameters){
+/*********************************************************************************
+ *                          FreeRTOS Tasks
+ *********************************************************************************/
+void vStateMachineTask(void *pvParameters){
     uint32 lrval;
     char stbuf[64];
     int nchars;
@@ -265,7 +160,7 @@ static void vStateMachineTask(void *pvParameters){
  * @return                  - None
  * @Note                    - None
  ***********************************************************/
-static void vSensorReadTask(void *pvParameters){
+void vSensorReadTask(void *pvParameters){
 
     // any initialization
     TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
