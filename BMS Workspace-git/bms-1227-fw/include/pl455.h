@@ -18,6 +18,8 @@
 #define PL455_H_
 
 #include "datatypes.h"
+#include "hal_stdtypes.h"
+#include "stdint.h"
 
 // User defines
 #define FRMWRT_SGL_R    0x00 // single device write with response
@@ -51,25 +53,6 @@ int  WaitRespFrame(BYTE *pFrame, BYTE bLen, uint32 dwTimeOut);
 
 void delayms(uint16 ms);
 void delayus(uint16 us);
-
-typedef struct BMS_FLAGS{
-    bool CELL_OVERVOLTAGE_FLAG[16];
-    bool CELL_UNDERVOLTAGE_FLAG[16];
-    bool CELL_HIGH_TEMPRATURE_FLAG[16];
-    uint16 CELL_VOLTAGE_ERROR_COUNTER[16];
-    uint8 TOTAL_CELL_ERROR_COUNTER;
-    bool TOTAL_CELL_ERROR_FLAG;
-    bool CELL_3SECOND_FLAG;
-
-    double cellVoltageLow;
-} BMS_FLAGS;
-
-typedef struct BMS_ARRAYS{
-    double BMS_Slave_1[10];
-    double BMS_Slave_2[10];
-    double BMS_Slave_3[10];
-    double BMS_Slave_4[10];
-} BMS_ARRAYS;
 
 #endif /* PL455_H_ */
 //EOF

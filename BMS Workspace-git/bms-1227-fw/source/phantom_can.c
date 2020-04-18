@@ -32,7 +32,7 @@ void CANSend(uint8 can_msg[]){
             canTransmit(canREG1, canMESSAGE_BOX1, tx_ptr); /* transmitting 8 different chunks 1 by 1 */
             while (timeout != 1U)
             {
-              timeout = GetTimeout(); /* ... wait until transmit request is through */
+              //timeout = GetTimeout(); /* ... wait until transmit request is through */
             }
 
             timeout = 0U;
@@ -63,7 +63,7 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
 
     }
 }
-void getVCUMSG(void)
+char getVCUMSG(void)
 {
     return vcu_data;
 }
