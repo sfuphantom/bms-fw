@@ -58,7 +58,6 @@
 
 #include "gio.h"
 #include "sci.h"
-//#include "a_tp_sci.h"
 #include "rti.h"
 #include "system.h"
 #include "sys_vim.h"
@@ -107,28 +106,15 @@
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
 
-
-int nSent, nRead, nTopFound = 0;
-int nDev_ID, nGrp_ID;
-uint32_t  wTemp = 0;
-bool SENSOR_READ_FLAG = false;
-bool CHARGING_FLAG;
-const uint32_t BMS_slaves_period = 100000;
-uint8_t LED_Counter;
-uint8 BMS_CAN_MSG[8] = {1,2,3,4,5,6,7,8};
 static uint16 HB_LED = 0;
 static const uint8 TOTALCELLS = 10;
 static const uint8 TOTALAUX = 8;
-static unsigned char command;
 
 BYTE  SingleSlaveReading[BMSByteArraySize];
 BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
 
-uint16_t OverVoltageCount = 0;
-uint16_t UnderVoltageCount = 0;
 volatile BMS_FLAGS BMS = { {0}, {0}, {0}, {0}, 0, false, false };
 BMS_ARRAYS BMS_Voltages = {{0},{0},{0},{0}};
-#define TMS570_CLK 80000000
 
 /*********************************************************************************
  *                          TASK HEADER DECLARATIONS
@@ -266,12 +252,15 @@ static void vStateMachineTask(void *pvParameters){
     int nchars;
 
     TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 100; // task frequency in ms
+    const TickType_t xFrequency = 4000; // task frequency in ms
 
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
+    do{
+    vTaskDelayUntil(&xLastWakeTime, xFrequency);
 
-    while(1);
+    UARTprintf("STATE MACHINE TASK\n\r");
+    }while(1);
 }
 
 
@@ -316,11 +305,15 @@ void Timer_2s(TimerHandle_t xTimers)
 }
 
 void BMS_init(){
+        int nSent, nRead, nTopFound = 0;
+        int nDev_ID, nGrp_ID;
+        uint32_t  wTemp = 0;
+        unsigned char command;
+
         _enable_IRQ();
         gioInit();
         sciInit();
         while ((scilinREG->FLR & 0x4) == 4);
-        rtiInit();
 
         _enable_interrupt_();
         canInit();
@@ -543,14 +536,6 @@ void BMS_init(){
         nSent = WriteReg(nDev_ID, 120, 0x3F, 1, FRMWRT_ALL_NR); // set GPIO direction for GPIO4 and GPIO[2:0] as outputs, GPIO3 and GPIO5 as inputs
         nSent = WriteReg(nDev_ID, 19, 0x08, 1, FRMWRT_ALL_NR);
 
-
-
-        rtiEnableNotification(rtiNOTIFICATION_COMPARE3);
-
-        setBMSTimerPeriod(BMS_slaves_period);
-
-        rtiStartCounter(rtiCOUNTER_BLOCK1);
-
         UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
         sciReceive(sciREG, 1, (unsigned char *)&command);
         displayPrompt();
@@ -560,20 +545,23 @@ void Thermistor_Read(void)
 {
     UARTSend(sciREG, "Thermistor read \n\r");
 }
+
 void BMS_Slaves_Heartbeat(void){
+    int nSent = 0;
     if(HB_LED == 0)
     {
-        nSent = WriteReg(nDev_ID, 121, 0x00, 1, FRMWRT_ALL_NR); // set GPIO4 and GPIO1, clear GPIO2 and GPIO0
+        nSent = WriteReg(0, 121, 0x00, 1, FRMWRT_ALL_NR); // set GPIO4 and GPIO1, clear GPIO2 and GPIO0
         HB_LED = 1;
     }
     else
     {
-        nSent = WriteReg(nDev_ID, 121, 0x02, 1, FRMWRT_ALL_NR);
+        nSent = WriteReg(0, 121, 0x02, 1, FRMWRT_ALL_NR);
         HB_LED = 0;
     }
 }
 
 void BMS_Read_All(){
+        int nSent = 0;
 
         char buf[100];
 
@@ -710,6 +698,7 @@ void BMS_Read_All(){
 }
 
 void BMS_Read_All_NP(){
+        int nSent = 0;
 
         nSent = WriteReg(0, 2, TOTALBOARDS-1, 1, FRMWRT_ALL_R); // send sync sample command
 
@@ -807,7 +796,7 @@ void BMS_Read_All_NP(){
 }
 
 void BMS_Read_Single(uint8_t device){
-
+    int nSent = 0;
 
     char buf[100];
 
@@ -910,7 +899,7 @@ void BMS_Read_Single(uint8_t device){
 }
 
 void BMS_Read_Single_NP(uint8_t device){
-
+    int nSent = 0;
 
     nSent = WriteReg(device, 2, 0x02, 1, FRMWRT_SGL_R); // send sync sample command
 
@@ -982,28 +971,9 @@ void BMS_Read_Single_NP(uint8_t device){
      double anaDieTemp = ((((SingleSlaveReading[51]*16*16 + SingleSlaveReading[52])/65535.0)*5) - 1.8078) * 147.514;
 }
 
-void rtiNotification(uint32 notification)
-{
-    if(notification == rtiNOTIFICATION_COMPARE3){
-        SENSOR_READ_FLAG = true;
-        LED_Counter++;
-        if(LED_Counter == 5)
-        {
-            LED_Counter = 0;
-
-            BMS_Slaves_Heartbeat();
-            gioToggleBit(gioPORTB, 1);
-        }
-    }
-    if(notification == rtiNOTIFICATION_COMPARE1)
-    {
-
-        //RTI_TIMEOUT = 1U;
-    }
-}
-
 void BMS_Balance()
 {
+    int nSent = 0;
     uint8_t i;
     double voltageDiff;
     char buf[50];

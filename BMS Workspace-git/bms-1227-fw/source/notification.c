@@ -158,6 +158,10 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
 }
 
 /* USER CODE BEGIN (30) */
+void rtiNotification(uint32 notification)
+{
+
+}
 /* USER CODE END */
 
 
