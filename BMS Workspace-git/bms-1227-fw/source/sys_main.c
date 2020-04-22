@@ -143,9 +143,8 @@ void vStateMachineTask(void *pvParameters){
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
     do{
-    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
 
-    UARTprintf("STATE MACHINE TASK\n\r");
     }while(1);
 }
 

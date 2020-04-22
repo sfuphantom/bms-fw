@@ -43,8 +43,5 @@ TimerHandle_t xTimers[NUMBER_OF_TIMERS];
 void Timer_10ms(TimerHandle_t xTimers);
 void Timer_2s(TimerHandle_t xTimers);
 
-typedef struct CAN_MSG{
-
-} CAN_MSG;
 
 #endif /* INCLUDE_SYS_MAIN_H_ */
