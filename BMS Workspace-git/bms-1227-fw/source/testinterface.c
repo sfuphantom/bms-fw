@@ -8,6 +8,7 @@
 #include "testinterface.h"
 #include "sci.h"
 #include "Phantom_sci.h"
+#include "phantom_pl455.h"
 #include "string.h"
 #include "stdbool.h"
 #include "sys_main.h"

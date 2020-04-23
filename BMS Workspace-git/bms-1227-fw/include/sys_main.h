@@ -11,35 +11,37 @@
 #include "datatypes.h"
 #include "pl455.h"
 
-#define BMSByteArraySize  43
+#include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
+#include "os_task.h"
+#include "os_queue.h"
+#include "os_semphr.h"
+#include "os_timer.h"
+#include "phantom_freertos.h"
 
+typedef enum {CHARGING, RUNNING, FAULT} State;
 
-enum States{
-        STATE_HANDLING = 0,
-        RUNNING,
-        SENSOR_READ,
-        CAN_COMM,
-        CHARGING,
-        ERROR_HANDLING,
-} STATE;
+enum TASK_PRIORITIES{
+    STATE_MACHINE_TASK_PRIORITY = 1,
+    SENSOR_READ_TASK_PRIORITY
+};
 
-void my_sciInit(void);
-void my_rtiInit(void);
-void BMS_init(void);
-void BMS_Read_Single(uint8_t device);
-void BMS_Read_Single_NP(uint8_t device);
-void BMS_Read_All(void);
-void BMS_Read_All_NP();
-void setBMSTimerPeriod(uint32 timems);
-void Thermistor_Read(void);
-void BMS_Slaves_Heartbeat(void);
-void BMS_Balance();
-int GetTimeout(void);
-void getCurrentReadings(void);
-void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)]);
+/*********************************************************************************
+ *                          TASK HEADER DECLARATIONS
+ *********************************************************************************/
+void vStateMachineTask(void *);  // This task will evaluate the state machine and decide whether or not to change states
+void vSensorReadTask(void *);    // This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
 
-typedef struct CAN_MSG{
+/*********************************************************************************
+ *                          SOFTWARE TIMER INITIALIZATION
+ *********************************************************************************/
+#define NUMBER_OF_TIMERS   2
 
-} CAN_MSG;
+/* array to hold handles to the created timers*/
+TimerHandle_t xTimers[NUMBER_OF_TIMERS];
+
+void Timer_10ms(TimerHandle_t xTimers);
+void Timer_2s(TimerHandle_t xTimers);
+
 
 #endif /* INCLUDE_SYS_MAIN_H_ */
