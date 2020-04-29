@@ -40,6 +40,7 @@ void BMS_init(){
         _enable_IRQ();
         gioInit();
         sciInit();
+
         while ((scilinREG->FLR & 0x4) == 4);
 
         _enable_interrupt_();
@@ -425,9 +426,9 @@ void BMS_Read_All(){
 }
 
 void BMS_Read_All_NP(){
-        int nSent = 0;
+        uint32_t  wTemp = 0;
 
-        nSent = WriteReg(0, 2, TOTALBOARDS-1, 1, FRMWRT_ALL_R); // send sync sample command
+        WriteReg(0, 2, TOTALBOARDS-1, 1, FRMWRT_ALL_R); // send sync sample command
 
         sciReceive(scilinREG, BMSByteArraySize*TOTALBOARDS, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
 
@@ -507,7 +508,8 @@ void BMS_Read_All_NP(){
 
              uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
          for (i = TOTALBOARDS-1; i > -1; i--){
-             for (j = voltageLoopCounter; j < auxLoopCounter; j++) {
+             for (j = voltageLoopCounter; j < auxLoopCounter; j++)
+             {
                  int tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
                  double div = tempVal/65535.0; //FFFF
                  double fin = div * 5.0;
@@ -519,7 +521,9 @@ void BMS_Read_All_NP(){
              }
 
              double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
-             }
+         }
+
+         ReadReg(0, 10, &wTemp, 1, 0);
 }
 
 void BMS_Read_Single(uint8_t device){

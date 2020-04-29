@@ -20,6 +20,7 @@
 #include "datatypes.h"
 #include "hal_stdtypes.h"
 #include "stdint.h"
+#include "stdbool.h"
 
 // User defines
 #define FRMWRT_SGL_R    0x00 // single device write with response
@@ -39,6 +40,9 @@ void WakePL455();
 void CommClear(void);
 void CommReset(void);
 BOOL GetFaultStat();
+
+bool getBMSinitFlag(void);
+void setBMSinitFlag(bool state);
 
 uint16  B2SWORD(uint16 wIN);
 uint32 B2SDWORD(uint32 dwIN);
