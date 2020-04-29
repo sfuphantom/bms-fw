@@ -168,12 +168,15 @@ void vSensorReadTask(void *pvParameters){
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
-    int nchars;
-    char stbuf[64];
     do{
-    vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
 
-    BMS_Read_All_NP();
+        if(!getBMSinitFlag())
+        {
+            BMS_init();
+        }
+
+        BMS_Read_All_NP();
     }while(1);
 
 }

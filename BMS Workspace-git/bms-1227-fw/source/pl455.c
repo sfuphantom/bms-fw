@@ -20,25 +20,38 @@
 #include "rti.h"
 #include "reg_rti.h"
 #include "reg_het.h"
+#include "Phantom_sci.h"
 
 #include "pl455.h"
 #include "datatypes.h"
 
 #include "gio.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include "stdbool.h"
+
 
 
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;
+static bool BMSinitFlag = false;
 
 
 // internal function prototype
 uint16 CRC16(BYTE *pBuf, int nLen);
+bool getBMSinitFlag(void)
+{
+    return BMSinitFlag;
+}
+
+void setBMSinitFlag(bool state)
+{
+    BMSinitFlag = state;
+}
 
 void CommClear(void)
 {
     int baudRate;
+    uint16_t retryCount = 0;
     baudRate = scilinREG->BRS;
 
     scilinREG->GCR1 &= ~(1U << 7U); // put SCI into reset
@@ -47,22 +60,34 @@ void CommClear(void)
 
     delayus(baudRate * 2); // ~= 1/BAUDRATE/16*(155+1)*1.01
     sciInit();
-    while ((scilinREG->FLR & 0x4) == 4);
+    do{
+        retryCount++;
+    }while ((scilinREG->FLR & 0x4) == 4 && retryCount < 10000);
+    retryCount = 0;
     sciSetBaudrate(scilinREG, BAUDRATE);
-    while ((scilinREG->FLR & 0x4) == 4);
+    do{
+        retryCount++;
+    }while ((scilinREG->FLR & 0x4) == 4 && retryCount < 10000);
 }
 
 void CommReset(void)
 {
+    uint16_t retryCount = 0;
+
     scilinREG->GCR1 &= ~(1U << 7U); // put SCI into reset
     scilinREG->PIO0 &= ~(1U << 2U); // disable transmit function - now a GPIO
     scilinREG->PIO3 &= ~(1U << 2U); // set output to low
 
     delayus(200); // should cover any possible baud rate
     sciInit();
-    while ((scilinREG->FLR & 0x4) == 4);
+    do{
+        retryCount++;
+    }while ((scilinREG->FLR & 0x4) == 4 && retryCount < 10000);
+    retryCount = 0;
     sciSetBaudrate(scilinREG, BAUDRATE);
-    while ((scilinREG->FLR & 0x4) == 4);
+    do{
+        retryCount++;
+    }while ((scilinREG->FLR & 0x4) == 4 && retryCount < 10000);
 }
 
 void ResetPL455()
@@ -472,34 +497,32 @@ int  WaitRespFrame(BYTE *pFrame, BYTE bLen, uint32 dwTimeOut)
     uint16 wCRC = 0, wCRC16;
     BYTE bBuf[132];
     BYTE bRxDataLen;
+    uint32 retryCount = 0;
 
     memset(bBuf, 0, sizeof(bBuf));
 
-    //sciEnableNotification(scilinREG, SCI_RX_INT);
-    rtiEnableNotification(rtiNOTIFICATION_COMPARE1);
+    sciEnableNotification(scilinREG, SCI_RX_INT);
 
 
 
     sciReceive(scilinREG, bLen, bBuf);
 
 
-
-    rtiResetCounter(rtiCOUNTER_BLOCK0);
-    rtiStartCounter(rtiCOUNTER_BLOCK0);
-
     while(UART_RX_RDY == 0U)
     {
+        retryCount++;
         // Check for timeout.
-        if(RTI_TIMEOUT == 1U)
+        if(retryCount > 5000)
         {
-            //RTI_TIMEOUT = 0;
-            //return 0; // timed out
+            UARTprintf("Communication with BMS Slave TIMED OUT\n\r");
+            BMSinitFlag = false;
+            return 0; // timed out
         }
     } /* Wait */
-    rtiStopCounter(rtiCOUNTER_BLOCK0);
 
     UART_RX_RDY = 0;
     bRxDataLen = bBuf[0];
+    BMSinitFlag = true;
 
     delayms(dwTimeOut);
 
