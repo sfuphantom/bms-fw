@@ -16,6 +16,6 @@ extern "C" {
 
 void UARTInit(sciBASE_t *sci, uint32 baud);
 void UARTSend(sciBASE_t *sci, char data[]);
-void UARTprintf(char data[]);
+void UARTprintf(const char *_format, ...);
 
 #endif /* INCLUDE_PHANTOM_SCI_H_ */
