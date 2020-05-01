@@ -765,9 +765,7 @@ void getCurrentReadings(void)
             for (i = TOTALBOARDS-1; i > -1; i--){
                 for (j = 0; j < voltageLoopCounter; j++) {
                     if (j == 0) {
-                         snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
-                         UARTSend(sciREG, buf);
-                         UARTSend(sciREG, "\n\r");
+                         UARTprintf("Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
                          continue;
                     }
 
@@ -800,22 +798,18 @@ void getCurrentReadings(void)
 
 
 
-                    snprintf(buf, 40, "Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin);
-                    UARTSend(sciREG, buf);
-                    UARTSend(sciREG, "\n\r");
+                    UARTprintf("Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin);
+
 
                     if(fin > 4.2){
-                        snprintf(buf, 20, "Cell %d Overvoltage\n\r", cellCount);
-                        UARTSend(sciREG, buf);
-                        UARTSend(sciREG, "\n\r");
+                        UARTprintf("Cell %d Overvoltage\n\n\r", cellCount);
+
 
                         BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
                         BMS.TOTAL_CELL_ERROR_COUNTER++;
                     }
                     else if(fin < 3.2){
-                        snprintf(buf, 21, "Cell %d Undervoltage\n\r", cellCount);
-                        UARTSend(sciREG, buf);
-                        UARTSend(sciREG, "\n\r");
+                        UARTprintf("Cell %d Undervoltage\n\n\r", cellCount);
 
                         BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
                         BMS.TOTAL_CELL_ERROR_COUNTER++;
@@ -843,39 +837,35 @@ void getCurrentReadings(void)
                      BMS.TOTAL_CELL_ERROR_FLAG = true;
                  }
 
-                 snprintf(buf, 26, "NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
-                 UARTSend(sciREG, buf);
-                 UARTSend(sciREG, "\n\r");
+                 UARTprintf("NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
 
                  BMS.TOTAL_CELL_ERROR_COUNTER = 0;
 
                  uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
-             for (i = TOTALBOARDS-1; i > -1; i--){
-                 for (j = voltageLoopCounter; j < auxLoopCounter; j++) {
+             for (i = TOTALBOARDS-1; i > -1; i--)
+             {
+                 for (j = voltageLoopCounter; j < auxLoopCounter; j++)
+                 {
                      int tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
                      double div = tempVal/65535.0; //FFFF
                      double fin = div * 5.0;
 
                      double resistance = 10000*(fin/(4.56-fin));
 
-                     snprintf(buf, 46, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
-                     UARTSend(sciREG, buf);
-                     UARTSend(sciREG, "\n\r");
+                     UARTprintf("AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
+
                      j++;
                      auxCount--;
                  }
 
                  double digDieTemp = ((((MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i])/65535.0)*5) - 2.287) * 131.944;
-                 snprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
-                 UARTSend(sciREG, buf);
-                 UARTSend(sciREG, "\n\r");
+                 UARTprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
+
 
                  double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
-                 snprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
-                 UARTSend(sciREG, buf);
-                 UARTSend(sciREG, "\n\r");
+                 UARTprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
 
-                 }
+              }
 
 }
 
