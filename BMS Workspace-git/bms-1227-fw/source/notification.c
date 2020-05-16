@@ -150,7 +150,7 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
         return;
     }
 
-    if(sci == sciREG)
+    if(sci == sciREG && CLI_ENABLE == true)
     {
         echoChar();
     }

@@ -41,9 +41,11 @@ void BMS_Read_Single(uint8_t device);
 void BMS_Read_Single_NP(uint8_t device);
 void BMS_Read_All(void);
 void BMS_Read_All_NP();
+void BMS_Read_All_NP_SIM();
 void Thermistor_Read(void);
 void BMS_Slaves_Heartbeat(void);
 void BMS_Balance();
+void BMS_Balance_SIM();
 void getCurrentReadings(void);
 void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)]);
 

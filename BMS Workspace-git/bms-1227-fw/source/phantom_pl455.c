@@ -312,9 +312,9 @@ void BMS_Read_All(){
         for (i = TOTALBOARDS-1; i > -1; i--){
             for (j = 0; j < voltageLoopCounter; j++) {
                 if (j == 0) {
-                     snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
+                     snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
                      UARTSend(sciREG, buf);
-                     UARTSend(sciREG, "\n\r");
+
                      continue;
                 }
 
@@ -405,7 +405,7 @@ void BMS_Read_All(){
 
                  double resistance = 10000*(fin/(4.56-fin));
 
-                 snprintf(buf, 46, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
+                 snprintf(buf, 70, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
                  UARTSend(sciREG, buf);
                  UARTSend(sciREG, "\n\r");
                  j++;
@@ -869,6 +869,150 @@ void getCurrentReadings(void)
 
 }
 
+//-------SIMULATION FUNCTIONS--------
+void BMS_Read_All_NP_SIM(){
+        uint32_t  wTemp = 0;
+
+        WriteReg(0, 2, TOTALBOARDS-1, 1, FRMWRT_ALL_R); // send sync sample command
+
+        sciReceive(sciREG, BMSByteArraySize*TOTALBOARDS, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
+
+        delayms(5); // for the tms to record all the data first
+
+
+        BMS.cellVoltageLow = 5;
+        uint8 j;
+        sint8 i;
+        uint8 cellCount = TOTALCELLS;
+        uint8 voltageLoopCounter = cellCount*2+1;
+        uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2;
+        for (i = TOTALBOARDS-1; i > -1; i--){
+            for (j = 0; j < voltageLoopCounter; j++) {
+                if (j == 0) {
+                     continue;
+                }
+
+
+                uint32 tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+                double div = tempVal/65535.0; //FFFF
+                double fin = div * 5.0;
+
+                if(i == 0){
+                        BMS_Voltages.BMS_Slave_1[cellCount-1] = fin;
+                }
+                if(i == 1){
+                        BMS_Voltages.BMS_Slave_2[cellCount-1] = fin;
+                }
+                if(i == 2){
+                        BMS_Voltages.BMS_Slave_3[cellCount-1] = fin;
+                }
+                if(i == 3){
+                        BMS_Voltages.BMS_Slave_4[cellCount-1] = fin;
+                }
+
+                if(fin < BMS.cellVoltageLow)
+                {
+                    BMS.cellVoltageLow = fin;
+                }
+
+
+                if(fin > 4.2){
+
+                    //BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
+                    //BMS.TOTAL_CELL_ERROR_COUNTER++;
+                }
+                else if(fin < 3.2){
+
+                    //BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
+                    //BMS.TOTAL_CELL_ERROR_COUNTER++;
+                }
+
+                if(BMS.CELL_OVERVOLTAGE_FLAG[cellCount] == true || BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] == true){
+                    //BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount]++;
+                }
+                else{
+                    //BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] = 0;
+                }
+
+                if(BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] > 300){
+                    BMS.CELL_3SECOND_FLAG = true;
+                }
+
+                cellCount--;
+                j++;
+             }
+            cellCount = TOTALCELLS;
+        }
+
+             if(BMS.TOTAL_CELL_ERROR_COUNTER > 4){
+                 BMS.TOTAL_CELL_ERROR_FLAG = true;
+             }
+
+             BMS.TOTAL_CELL_ERROR_COUNTER = 0;
+
+             uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
+         for (i = TOTALBOARDS-1; i > -1; i--){
+             for (j = voltageLoopCounter; j < auxLoopCounter; j++)
+             {
+                 int tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+                 double div = tempVal/65535.0; //FFFF
+                 double fin = div * 5.0;
+
+                 double resistance = 10000*(fin/(4.56-fin));
+
+                 j++;
+                 auxCount--;
+             }
+
+             double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
+         }
+
+         ReadReg(0, 10, &wTemp, 1, 0);
+}
+
+void BMS_Balance_SIM()
+{
+    int nSent = 0;
+    uint8_t i;
+    double voltageDiff;
+    char buf[50];
+    uint16 CellBalanceMask1 = 0x0000;
+   // uint16 CellBalanceMask2 = 0x0000;
+    //uint16 CellBalanceMask3 = 0x0000;
+    //uint16 CellBalanceMask4 = 0x0000;
+
+    for(i = 0; i < 10; i++)
+    {
+        voltageDiff = BMS_Voltages.BMS_Slave_1[i] - BMS.cellVoltageLow;;
+        if(voltageDiff >= 0.01)
+        {
+            CellBalanceMask1 = CellBalanceMask1 | (uint32)((uint32)1U << i);
+        }
+
+//        voltageDiff = BMS_Voltages.BMS_Slave_2[i] - BMS.cellVoltageLow;;
+//        if(voltageDiff >= 0.01)
+//        {
+//            CellBalanceMask2 = CellBalanceMask2 | (uint32)((uint32)1U << i);
+//        }
+//
+//        voltageDiff = BMS_Voltages.BMS_Slave_3[i] - BMS.cellVoltageLow;;
+//        if(voltageDiff >= 0.1)
+//        {
+//            CellBalanceMask3 = CellBalanceMask3 | (uint32)((uint32)1U << i);
+//        }
+//
+//        voltageDiff = BMS_Voltages.BMS_Slave_4[i] - BMS.cellVoltageLow;;
+//        if(voltageDiff >= 0.1)
+//        {
+//            CellBalanceMask4 = CellBalanceMask4 | (uint32)((uint32)1U << i);
+//        }
+    }
+
+        UARTprintf("%d\n\r", CellBalanceMask1);
+
+}
+
+//-------TEST INTERFACE FUNCTIONS----
 void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)])
 {
     memcpy(&BMSArray[0], &MultipleSlaveReading[0], BMSByteArraySize*(TOTALBOARDS)*sizeof(BYTE));
