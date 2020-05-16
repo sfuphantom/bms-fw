@@ -104,6 +104,9 @@
 */
 
 /* USER CODE BEGIN (2) */
+void Thermistor_read(void);
+void printRandoms(int lower, int upper, int count);
+
 
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
@@ -176,7 +179,11 @@ void vSensorReadTask(void *pvParameters){
             BMS_init();
         }
 
-        BMS_Read_All_NP();
+        BMS_Read_All_NP_SIM();
+
+        BMS_Balance_SIM();
+
+        //Thermistor_read();
     }while(1);
 
 }
@@ -193,6 +200,21 @@ void Timer_2s(TimerHandle_t xTimers)
 }
 
 /* USER CODE BEGIN (4) */
+void Thermistor_read(void){
+   printRandoms(20, 30, 40);
+
+
+}
+
+void printRandoms(int lower, int upper,
+                             int count)
+{
+    int i;
+    for (i = 0; i < count; i++) {
+        float num = ((rand() % (upper - lower + 1)) + lower)/0.98;
+        UARTprintf("Thermistor %d temperature = %f \n\r", i, num);
+    }
+}
 /* USER CODE END */
 
 
