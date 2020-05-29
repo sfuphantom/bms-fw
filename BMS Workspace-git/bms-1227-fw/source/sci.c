@@ -428,7 +428,6 @@ uint32 sciIsRxReady(sciBASE_t *sci)
 /* USER CODE BEGIN (13) */
 /* USER CODE END */
 
-
     return sci->FLR & (uint32)SCI_RX_INT;
 }
 

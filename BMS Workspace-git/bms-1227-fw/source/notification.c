@@ -52,7 +52,9 @@
 #include "sys_selftest.h"
 #include "can.h"
 #include "gio.h"
+#include "mibspi.h"
 #include "sci.h"
+#include "het.h"
 #include "sys_dma.h"
 
 /* USER CODE BEGIN (0) */
@@ -138,6 +140,25 @@ void gioNotification(gioPORT_t *port, uint32 bit)
 
 /* USER CODE BEGIN (20) */
 /* USER CODE END */
+#pragma WEAK(mibspiNotification)
+void mibspiNotification(mibspiBASE_t *mibspi, uint32 flags)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (25) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (26) */
+/* USER CODE END */
+#pragma WEAK(mibspiGroupNotification)
+void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (27) */
+/* USER CODE END */
+}
+/* USER CODE BEGIN (28) */
+/* USER CODE END */
 
 #pragma WEAK(sciNotification)
 void sciNotification(sciBASE_t *sci, uint32 flags)     
@@ -164,6 +185,36 @@ void rtiNotification(uint32 notification)
 }
 /* USER CODE END */
 
+#pragma WEAK(pwmNotification)
+void pwmNotification(hetBASE_t * hetREG,uint32 pwm, uint32 notification)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (35) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (36) */
+/* USER CODE END */
+#pragma WEAK(edgeNotification)
+void edgeNotification(hetBASE_t * hetREG,uint32 edge)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (37) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (38) */
+/* USER CODE END */
+#pragma WEAK(hetNotification)
+void hetNotification(hetBASE_t *het, uint32 offset)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (39) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (40) */
+/* USER CODE END */
 
 
 /* USER CODE BEGIN (43) */
