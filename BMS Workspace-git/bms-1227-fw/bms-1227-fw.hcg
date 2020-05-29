@@ -242,7 +242,9 @@
       <HDRMIBSPI>
         <NAME>mibspi.h</NAME>
       </HDRMIBSPI>
-      <SRCMIBSPI/>
+      <SRCMIBSPI>
+        <NAME>mibspi.c</NAME>
+      </SRCMIBSPI>
       <HDRSPI_R>
         <NAME>reg_spi.h</NAME>
       </HDRSPI_R>
@@ -288,7 +290,8 @@
         <NAME>htu.h</NAME>
       </HDRHTU>
       <SRCHET>
-</SRCHET>
+        <NAME>het.c</NAME>
+      </SRCHET>
       <HET2ASMHDR>
         <NAME/>
       </HET2ASMHDR>
@@ -487,7 +490,7 @@
         <PATH>include\mibspi.h</PATH>
       </HDRMIBSPI>
       <SRCMIBSPI>
-        <PATH/>
+        <PATH>source\mibspi.c</PATH>
       </SRCMIBSPI>
     </FILENAMES>
   </MIBSPI>
@@ -548,7 +551,7 @@
         <PATH>include\htu.h</PATH>
       </HDRHTU>
       <SRCHET>
-        <PATH></PATH>
+        <PATH>source\het.c</PATH>
       </SRCHET>
     </FILENAMES>
   </HET>

@@ -84,6 +84,8 @@
 #include "os_semphr.h"
 #include "os_timer.h"
 #include "phantom_freertos.h"
+#include "thermistor.h"
+#include "temperature_yash.h"
 
 
 /* USER CODE END */
@@ -120,7 +122,12 @@ State state = RUNNING;
 int main(void)
 {
 /* USER CODE BEGIN (3) */
+       phantomSystemInit();
+
        BMS_init();
+
+       InitializeTemperature();
+       setup_mibspi_thermistor();
 
        xphRtosInit();
 
@@ -173,17 +180,20 @@ void vSensorReadTask(void *pvParameters){
 
     do{
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        TickType_t xLastWakeTime = xTaskGetTickCount();
 
         if(!getBMSinitFlag())
         {
             BMS_init();
         }
 
-        BMS_Read_All_NP_SIM();
+        //BMS_Balance_SIM();
 
-        BMS_Balance_SIM();
+        thermistorRead();
 
-        //Thermistor_read();
+        BMS_Read_All_NP();
+
+        //UARTprintf("sensor read task \n\r");
     }while(1);
 
 }
@@ -200,23 +210,27 @@ void Timer_2s(TimerHandle_t xTimers)
 }
 
 /* USER CODE BEGIN (4) */
-void Thermistor_read(void){
-   printRandoms(20, 30, 40);
-
-
-}
-
-void printRandoms(int lower, int upper,
-                             int count)
+void phantomSystemInit()
 {
-    int i;
-    for (i = 0; i < count; i++) {
-        float num = ((rand() % (upper - lower + 1)) + lower)/0.98;
-        UARTprintf("Thermistor %d temperature = %f \n\r", i, num);
-    }
+    unsigned char command;
+
+    _enable_IRQ();  //Enables global interrupts
+    mibspiInit();   //Initialize the mibspi3 module; mibspi3 = mibspiREG3
+    gioInit();      //Initialize the GIO module;
+    hetInit();
+    sciInit();
+
+    while ((scilinREG->FLR & 0x4) == 4);
+
+    _enable_interrupt_();
+    canInit();
+    canEnableErrorNotification(canREG1);
+
+    sciEnableNotification(scilinREG, SCI_RX_INT);
+
+    UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
 }
 /* USER CODE END */
-
 
 
 /* USER CODE BEGIN (4) */

@@ -37,18 +37,6 @@ void BMS_init(){
         uint32_t  wTemp = 0;
         unsigned char command;
 
-        _enable_IRQ();
-        gioInit();
-        sciInit();
-
-        while ((scilinREG->FLR & 0x4) == 4);
-
-        _enable_interrupt_();
-        canInit();
-        canEnableErrorNotification(canREG1);
-
-        sciEnableNotification(scilinREG, SCI_RX_INT);
-
         char buf[50];
 
         snprintf(buf, 29, "log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
@@ -264,9 +252,9 @@ void BMS_init(){
         nSent = WriteReg(nDev_ID, 120, 0x3F, 1, FRMWRT_ALL_NR); // set GPIO direction for GPIO4 and GPIO[2:0] as outputs, GPIO3 and GPIO5 as inputs
         nSent = WriteReg(nDev_ID, 19, 0x08, 1, FRMWRT_ALL_NR);
 
-        UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
         sciReceive(sciREG, 1, (unsigned char *)&command);
         displayPrompt();
+
 }
 
 void Thermistor_Read(void)

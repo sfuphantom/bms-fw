@@ -15,6 +15,7 @@
 #include "pl455.h"
 #include <stdio.h>
 #include "stdlib.h"
+#include "thermistor.h"
 
 
 static unsigned char chr;
@@ -120,7 +121,14 @@ void getAllReadings(void)
 // Gets all temperature readings
 void getAllTemperatures(void)
 {
+    uint8_t input;
+    for(input=0;input<8;input++)
+    {
+        print_thermistor_readings_voltage(input);
+        UARTprintf("\n\r");
+    }
 
+    sciReceive(sciREG, 1,(unsigned char *)&chr);
 }
 
 //--------GET COMMANDS----------
@@ -202,7 +210,7 @@ void executeAUXCommand(unsigned char command[])
     {
         if(strcmp(&command[0], testAUXCommands[i].str) == 0)
         {
-            testAUXCommands[0].cmd();
+            testAUXCommands[i].cmd();
         }
     }
 

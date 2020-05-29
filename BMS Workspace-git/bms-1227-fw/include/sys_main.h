@@ -21,7 +21,7 @@
 
 typedef enum {CHARGING, RUNNING, FAULT} State;
 
-#define CLI_ENABLE false
+#define CLI_ENABLE true
 
 enum TASK_PRIORITIES{
     STATE_MACHINE_TASK_PRIORITY = 1,
@@ -44,6 +44,8 @@ TimerHandle_t xTimers[NUMBER_OF_TIMERS];
 
 void Timer_10ms(TimerHandle_t xTimers);
 void Timer_2s(TimerHandle_t xTimers);
+
+void phantomSystemInit();
 
 
 #endif /* INCLUDE_SYS_MAIN_H_ */
