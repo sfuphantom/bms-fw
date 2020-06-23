@@ -257,9 +257,9 @@ void BMS_init(){
 
 }
 
-void Thermistor_Read(void)
+void BMS_processState(void)
 {
-    UARTSend(sciREG, "Thermistor read \n\r");
+    // TODO: Check faults to determine BMS state
 }
 
 void BMS_Slaves_Heartbeat(void){
