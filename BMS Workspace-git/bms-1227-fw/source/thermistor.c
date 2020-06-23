@@ -35,6 +35,7 @@ static uint16 adc_mode[12]={0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3
 //adc_mode[12]={0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800};
 
 static volatile int currentIndex;
+static thermistorState thState = THERMISTOR_STARTUP;
 
 void setup_mibspi_thermistor()        //prepare the thermistor to start reading
 {
@@ -47,6 +48,8 @@ void setup_mibspi_thermistor()        //prepare the thermistor to start reading
         mibspiTransfer(mibspiREG3, TransferGroup0);
         adcConfigured = 0;
         while(!adcConfigured);
+
+        thState = THERMISTOR_GOOD;
 
 }
 
@@ -87,9 +90,6 @@ void thermistorRead()
 
 void thermistorReadPrint()
 {
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    //UARTprintf("current time = %d\n\r", xLastWakeTime);
-
     mibspiSetData(mibspiREG3, TransferGroup1, adc_mode);
     mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
     ReceivedData = 0;
@@ -115,8 +115,6 @@ void thermistorReadPrint()
            while(!ReceivedData);
 
         }
-        xLastWakeTime = xTaskGetTickCount() - xLastWakeTime ;
-        //UARTprintf("current time = %d\n\r", xLastWakeTime);
     }
 }
 
@@ -204,34 +202,45 @@ void    print_thermistor_readings_voltage(uint8 input)
 
 void update_thermistor_temperature_and_flag_structure(uint8 input)      //logging and updating flag functions can be merged
 {
-    uint8 location = input*12, channel = 0;
+    uint8 location = input*12;
+    uint8 channel = 0;
+    uint8 totalTempFaults = 0;
     for (; channel < 12; channel++, location++)
     {
         //logging Temperature
         thermistor_temperature_and_flag_struct[location].temperature = DoCalculation( (((float)rxData_Buffer[channel])/4095)*REFERENCE_VOLTAGE);
         //Updating Flag
-        (thermistor_temperature_and_flag_struct[location].temperature >= 60) ?  (thermistor_temperature_and_flag_struct[location].temperature_flag = 1) : (thermistor_temperature_and_flag_struct[location].temperature_flag = 0);
+        if(thermistor_temperature_and_flag_struct[location].temperature >= 60 || thermistor_temperature_and_flag_struct[location].temperature =< 5)
+        {
+            thermistor_temperature_and_flag_struct[location].temperature_flag = 1;
+            totalTempFaults++;
+        }
+        else
+        {
+            thermistor_temperature_and_flag_struct[location].temperature_flag = 0;
+        }
+
     }
+}
+
+void processThermistorState()
+{
+
 }
 
 void update_input(uint8 current_input)      //can have a structure array and quickly approach the element the GIO config depending on the current mux, instead of scanning
 {
-    //gioSetBit(gioPORTB, 2, 1);
-
-
     if (current_input == 0)
     {
-        gioSetBit(hetPORT1, 4, 0);
-        gioSetBit(hetPORT1, 5, 0);
-        gioSetBit(hetPORT1, 7, 0);
+            gioSetBit(hetPORT1, 4, 0);
+            gioSetBit(hetPORT1, 5, 0);
+            gioSetBit(hetPORT1, 7, 0);
     }
     else if (current_input == 1)
     {
-        gioSetBit(hetPORT1, 4, 1);
-        gioSetBit(hetPORT1, 5, 0);
-        gioSetBit(hetPORT1, 7, 0);
-
-       // gioSetBit(gioPORTB, 2, 0);
+            gioSetBit(hetPORT1, 4, 1);
+            gioSetBit(hetPORT1, 5, 0);
+            gioSetBit(hetPORT1, 7, 0);
     }
     else if (current_input == 2)
         {
