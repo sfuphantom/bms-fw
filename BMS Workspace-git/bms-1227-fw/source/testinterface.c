@@ -124,7 +124,7 @@ void getAllTemperatures(void)
     uint8_t input;
     for(input=0;input<8;input++)
     {
-        print_thermistor_readings_voltage(input);
+        printThermistorReadings(input);
         UARTprintf("\n\r");
     }
 

@@ -31,12 +31,12 @@ static uint16 adc_configuration[11] = {0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0
 
 static uint16 adc_mode[12]={0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000,0x3000};
 
-//static uint16
-//adc_mode[12]={0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800,0x3800};
-
 static volatile int currentIndex;
+static thermistorStruct thStruct = {{0}, THERMISTOR_STARTUP, 0};
 
-void setup_mibspi_thermistor()        //prepare the thermistor to start reading
+
+
+void setupThermistor()        //prepare the thermistor to start reading
 {
         /*
          * Configuring ADS7952.
@@ -48,12 +48,15 @@ void setup_mibspi_thermistor()        //prepare the thermistor to start reading
         adcConfigured = 0;
         while(!adcConfigured);
 
+        thStruct.State = THERMISTOR_GOOD;
+
 }
 
 void thermistorRead()
 {
     TickType_t xLastWakeTime = xTaskGetTickCount();
     //UARTprintf("current time = %d\n\r", xLastWakeTime);
+    uint8 tempFaults = 0;
 
     mibspiSetData(mibspiREG3, TransferGroup1, adc_mode);
     mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
@@ -75,20 +78,23 @@ void thermistorRead()
            mibspiTransfer(mibspiREG3, TransferGroup1);
            while(!ReceivedData);
 
-           extract_thermistor_readings_rx_data_buffer();
-           update_thermistor_temperature_and_flag_structure(input);
-           //print_thermistor_readings_voltage(input);
+           parseThermistorRXBuffer();
+           tempFaults += updateTemperature(input);
 
         }
         xLastWakeTime = xTaskGetTickCount() - xLastWakeTime ;
         //UARTprintf("current time = %d\n\r", xLastWakeTime);
     }
+
+    thStruct.totalFaults = tempFaults;
+
+    processThermistorState();
 }
 
 void thermistorReadPrint()
 {
-    TickType_t xLastWakeTime = xTaskGetTickCount();
-    //UARTprintf("current time = %d\n\r", xLastWakeTime);
+
+    uint8 tempFaults = 0;
 
     mibspiSetData(mibspiREG3, TransferGroup1, adc_mode);
     mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
@@ -104,9 +110,9 @@ void thermistorReadPrint()
 //               update_input(input);
            update_input(input);
 
-           extract_thermistor_readings_rx_data_buffer();
-           update_thermistor_temperature_and_flag_structure(input);
-           print_thermistor_readings_voltage(input);
+           parseThermistorRXBuffer();
+           tempFaults += updateTemperature(input);
+           printThermistorReadings(input);
 
            mibspiSetData(mibspiREG3, TransferGroup1, adc_mode);
            mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
@@ -115,47 +121,25 @@ void thermistorReadPrint()
            while(!ReceivedData);
 
         }
-        xLastWakeTime = xTaskGetTickCount() - xLastWakeTime ;
-        //UARTprintf("current time = %d\n\r", xLastWakeTime);
     }
+
+    thStruct.totalFaults = tempFaults;
+
+    processThermistorState();
 }
-
-void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
-{
-    mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
-    mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
-
-    if (mibspi == mibspiREG3 && group == TransferGroup0) {
-                mibspiGetData(mibspi, group, TG0_dummydata);
-                mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
-                adcConfigured = 1;
-
-    }
-
-    if (mibspi == mibspiREG3 && group == TransferGroup1 && adcConfigured == 1) {
-
-
-            mibspiGetData(mibspi, group, rxData_Buffer);
-
-              ReceivedData = 1;
-
-
-
-        }
-    }
 
 /************************************************************************************************************************************************/
 /*Validating usage status */
 /************************************************************************************************************************************************/
-
-uint8 measuring_charge_thermistor =   0;
-uint8 measuring_run_thermistor =   0;
-
-uint8_t validate_usage_status_thermistor(uint8_t status )      //Inquires whether the car is charging or running while the thermistor is measuring?
-{
-   (status == 0)   ?   (measuring_charge_thermistor = 1)   :   (measuring_run_thermistor = 1);
-   return status;
-}
+// TODO: is this needed?
+//uint8 measuring_charge_thermistor =   0;
+//uint8 measuring_run_thermistor =   0;
+//
+//uint8_t validate_usage_status_thermistor(uint8_t status )      //Inquires whether the car is charging or running while the thermistor is measuring?
+//{
+//   (status == 0)   ?   (measuring_charge_thermistor = 1)   :   (measuring_run_thermistor = 1);
+//   return status;
+//}
 
 
 /************************************************************************************************************************************************/
@@ -163,7 +147,7 @@ uint8_t validate_usage_status_thermistor(uint8_t status )      //Inquires whethe
 /************************************************************************************************************************************************/
 
 
-void    extract_thermistor_readings_rx_data_buffer()
+void    parseThermistorRXBuffer()
 {
     uint8 channel=0;
     for (;  channel<12;   channel++)
@@ -173,8 +157,7 @@ void    extract_thermistor_readings_rx_data_buffer()
     }
 }
 
-#define REFERENCE_VOLTAGE 3.0
-void    print_thermistor_readings_voltage(uint8 input)
+void    printThermistorReadings(uint8 input)
 {
     sciInit();
 
@@ -186,9 +169,7 @@ void    print_thermistor_readings_voltage(uint8 input)
         value   =   (uint16)rxData_Buffer[channel];
         voltage =   (((float)value)/4095)*REFERENCE_VOLTAGE;
 
-        char* buff[90];
-
-        UARTprintf("INPUT : CHANNEL : VOLTAGE : TEMP\t||\t%d : %d\t: %f : %d\n\r", input, channel+1, (float)voltage, thermistor_temperature_and_flag_struct[location].temperature);
+        UARTprintf("INPUT : CHANNEL : VOLTAGE : TEMP\t||\t%d : %d\t: %f : %d\n\r", input, channel+1, (float)voltage, thStruct.cellTemp[location]);
         //sciSend(scilinREG, 90,(uint8 *)buff );
 
     }
@@ -202,36 +183,69 @@ void    print_thermistor_readings_voltage(uint8 input)
 /*Updating the Temperature logging sructure*/
 /************************************************************************************************************************************************/
 
-void update_thermistor_temperature_and_flag_structure(uint8 input)      //logging and updating flag functions can be merged
+uint8 updateTemperature(uint8 input)      //logging and updating flag functions can be merged
 {
-    uint8 location = input*12, channel = 0;
+    uint8 location = input*12;
+    uint8 channel = 0;
+    uint8 tempFaults = 0;
     for (; channel < 12; channel++, location++)
     {
         //logging Temperature
-        thermistor_temperature_and_flag_struct[location].temperature = DoCalculation( (((float)rxData_Buffer[channel])/4095)*REFERENCE_VOLTAGE);
+        thStruct.cellTemp[location] = DoCalculation( (((float)rxData_Buffer[channel])/4095)*REFERENCE_VOLTAGE);
         //Updating Flag
-        (thermistor_temperature_and_flag_struct[location].temperature >= 60) ?  (thermistor_temperature_and_flag_struct[location].temperature_flag = 1) : (thermistor_temperature_and_flag_struct[location].temperature_flag = 0);
+        if((thStruct.cellTemp[location] >= 60) || (thStruct.cellTemp[location] <= 5))
+        {
+            tempFaults++;
+        }
+        else
+        {
+
+        }
+
     }
+
+    return tempFaults;
+}
+
+void processThermistorState()
+{
+    // TODO: Check faults to determine thermistor state
+    if(thStruct.totalFaults > 3)
+    {
+        thStruct.State = THERMISTOR_CRITICAL_FAULT;
+        return;
+    }
+    else
+    if(thStruct.totalFaults != 0)
+    {
+        thStruct.State = THERMISTOR_TEMPERATURE_FAULT;
+        return;
+    }
+    else
+    {
+        thStruct.State = THERMISTOR_GOOD;
+        return;
+    }
+}
+
+bool pollThermistorState(void)
+{
+    return thStruct.State;
 }
 
 void update_input(uint8 current_input)      //can have a structure array and quickly approach the element the GIO config depending on the current mux, instead of scanning
 {
-    //gioSetBit(gioPORTB, 2, 1);
-
-
     if (current_input == 0)
     {
-        gioSetBit(hetPORT1, 4, 0);
-        gioSetBit(hetPORT1, 5, 0);
-        gioSetBit(hetPORT1, 7, 0);
+            gioSetBit(hetPORT1, 4, 0);
+            gioSetBit(hetPORT1, 5, 0);
+            gioSetBit(hetPORT1, 7, 0);
     }
     else if (current_input == 1)
     {
-        gioSetBit(hetPORT1, 4, 1);
-        gioSetBit(hetPORT1, 5, 0);
-        gioSetBit(hetPORT1, 7, 0);
-
-       // gioSetBit(gioPORTB, 2, 0);
+            gioSetBit(hetPORT1, 4, 1);
+            gioSetBit(hetPORT1, 5, 0);
+            gioSetBit(hetPORT1, 7, 0);
     }
     else if (current_input == 2)
         {
@@ -271,7 +285,29 @@ void update_input(uint8 current_input)      //can have a structure array and qui
         }
     }
 
+void getCellTemperatureArray(uint8* tempArray)
+{
+    memcpy(&tempArray, &thStruct.cellTemp[0], TOTAL_MUXES);
+}
+
+void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
+{
+    mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+    mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
+
+    if (mibspi == mibspiREG3 && group == TransferGroup0) {
+                mibspiGetData(mibspi, group, TG0_dummydata);
+                mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+                adcConfigured = 1;
+
+    }
+
+    if (mibspi == mibspiREG3 && group == TransferGroup1 && adcConfigured == 1) {
 
 
+            mibspiGetData(mibspi, group, rxData_Buffer);
 
+              ReceivedData = 1;
 
+        }
+}

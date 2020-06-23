@@ -16,6 +16,15 @@
 
 
 #define BMSByteArraySize  43
+#define CELLS_PER_BOARD   10
+
+typedef enum{
+    BMS_OPERATIONAL,
+    BMS_TEMPERATURE_FAULT,
+    BMS_VOLTAGE_FAULT,
+    BMS_TEMPERATURE_VOLTAGE_FAULT,
+    BMS_CRITICAL_FAULT
+}BMS_STATE;
 
 typedef struct BMS_FLAGS{
     bool CELL_OVERVOLTAGE_FLAG[16];
@@ -30,10 +39,10 @@ typedef struct BMS_FLAGS{
 } BMS_FLAGS;
 
 typedef struct BMS_ARRAYS{
-    double BMS_Slave_1[10];
-    double BMS_Slave_2[10];
-    double BMS_Slave_3[10];
-    double BMS_Slave_4[10];
+    double BMS_Slave_1[CELLS_PER_BOARD];
+    double BMS_Slave_2[CELLS_PER_BOARD];
+    double BMS_Slave_3[CELLS_PER_BOARD];
+    double BMS_Slave_4[CELLS_PER_BOARD];
 } BMS_ARRAYS;
 
 void BMS_init(void);
@@ -42,7 +51,7 @@ void BMS_Read_Single_NP(uint8_t device);
 void BMS_Read_All(void);
 void BMS_Read_All_NP();
 void BMS_Read_All_NP_SIM();
-void Thermistor_Read(void);
+void BMS_processState(void);
 void BMS_Slaves_Heartbeat(void);
 void BMS_Balance();
 void BMS_Balance_SIM();

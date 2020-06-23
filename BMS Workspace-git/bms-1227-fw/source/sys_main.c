@@ -127,7 +127,7 @@ int main(void)
        BMS_init();
 
        InitializeTemperature();
-       setup_mibspi_thermistor();
+       setupThermistor();
 
        xphRtosInit();
 

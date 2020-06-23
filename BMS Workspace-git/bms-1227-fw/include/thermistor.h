@@ -37,15 +37,18 @@
 #include "os_timer.h"
 
 
+#define TOTAL_MUXES 96
+#define REFERENCE_VOLTAGE 3.0
+
 /*TERMISTOR INTERFACE FUNCTIONS************************************************************************************************************************************/
 
 /*Setting up mibSPI communication with the ADC*/
 
-void setup_mibspi_thermistor();        //prepare the thermistor to start reading
+void setupThermistor();        //prepare the thermistor to start reading
 
 /*Validating usage status (0/1)*/
 
-uint8_t         validate_usage_status_thermistor(uint8_t status );      //Inquires whether the car is charging or running while the thermistor is measuring?
+uint8_t     validate_usage_status_thermistor(uint8_t status );      //Inquires whether the car is charging or running while the thermistor is measuring?
 
 /*Reading Thermistor values*/  /*following three functions might require transitioning back to Manual mode*/
 
@@ -55,26 +58,41 @@ uint16_t    read_specific_mux_all_channels_thermistor(uint8_t mux_identity);    
 uint16_t    read_specific_mux_specific_channel_thermistor(uint8_t mux_identity, uint8_t channel_identity);  //reads and returns the thermistor values from a specific mux on a specific channel
 void thermistorRead();
 void thermistorReadPrint();
+void processThermistorState();
+bool pollThermistorState(void);
 
 /*Print ADC readings*/
-void        extract_thermistor_readings_rx_data_buffer();
-void        print_thermistor_readings_voltage(uint8 input);                   //prints using SCI
+void        parseThermistorRXBuffer();
+void        printThermistorReadings(uint8 input);                   //prints using SCI
 
 /*Converting Thermistor readings*/
 void        convert_reading_thermistor ();        //converts thermistor reading into temperature
 
 /*Structure for storing temperature and resistance values from the thermistor*/
-struct thermistor_temperature_and_flag
+typedef enum{
+    THERMISTOR_GOOD, // Thermistor working properly
+    THERMISTOR_LOST_COMS, // Communication dropped with thermistor board
+    THERMISTOR_STARTUP, // Initialization state
+    THERMISTOR_TEMPERATURE_FAULT, // Less than 3 cells over 60 degrees
+    THERMISTOR_CRITICAL_FAULT // Shutdown tier fault
+}thermistorState;
+
+//typedef struct
+//{
+//    uint8 temperature;
+//    bool temperature_flag;       // 0 or 1
+//}thermistor_temperature_and_flag;
+
+typedef struct
 {
-    uint16 temperature;
-    uint16 temperature_flag;       // 0 or 1
-};
+    uint8 cellTemp[TOTAL_MUXES];
+    thermistorState State;
+    uint8 totalFaults;
+}thermistorStruct;
 
-#define TOTAL_MUXES 96
+//thermistor_temperature_and_flag thermistor_temperature_and_flag_struct[TOTAL_MUXES];     //can be a double pointer
 
-struct thermistor_temperature_and_flag thermistor_temperature_and_flag_struct[TOTAL_MUXES];     //can be a double pointer
-
-void update_thermistor_temperature_and_flag_structure(uint8 mux);
+uint8 updateTemperature(uint8 mux);
 
 /*Update mux*/
 
@@ -93,6 +111,6 @@ uint16_t    send_fault_details_thermistor();      //sends fault details to the V
 
 /*mibspi Interrupts*/
 //void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group);
-
+void getCellTemperatureArray(uint8* tempStruct);
 
 #endif /* THERMISTOR_H_ */
