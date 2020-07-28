@@ -88,7 +88,7 @@ int main(void)
 /* USER CODE BEGIN (3) */
        phantomSystemInit();
 
-       //BMS_init();
+       BMS_init();
 
        InitializeTemperature();
        setupThermistor();
@@ -118,7 +118,7 @@ void vStateMachineTask(void *pvParameters){
     xLastWakeTime = xTaskGetTickCount();
     do{
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        UARTprintf("battery level = %f\n\r", getBattLevel());
+        //UARTprintf("battery level = %f\n\r", getBattLevel());
 
     }while(1);
 }
@@ -149,21 +149,22 @@ void vSensorReadTask(void *pvParameters){
 
         if(!getBMSinitFlag())
         {
-            //BMS_init();
+           BMS_init();
         }
 
         //BMS_Balance_SIM();
 
-        thermistorRead();
+        //thermistorRead();
 
-        BMS_Read_All_NP();
+        //BMS_Read_All_NP();
 
         //UARTprintf("sensor read task \n\r");
     }while(1);
 
 }
 
-void Timer_10ms(TimerHandle_t xTimers)
+// Called periodically every 1ms
+void socTimer(TimerHandle_t xTimers)
 {
     socUpdate();
 }
@@ -186,13 +187,13 @@ void phantomSystemInit()
     sciInit();
     socInit();
 
-    while ((scilinREG->FLR & 0x4) == 4);
+    while ((BMS_UART->FLR & 0x4) == 4);
 
     _enable_interrupt_();
     canInit();
     canEnableErrorNotification(canREG1);
 
-    sciEnableNotification(scilinREG, SCI_RX_INT);
+    sciEnableNotification(PC_UART, SCI_RX_INT);
 
     sciReceive(PC_UART, 1, (unsigned char *)&command);
     displayPrompt();

@@ -8,8 +8,8 @@
 #ifndef PHANTOM_DRIVERS_INCLUDE_HWCONFIG_H_
 #define PHANTOM_DRIVERS_INCLUDE_HWCONFIG_H_
 
-#define LAUNCHPAD_CONFIG        true
-//#define BMS_MASTER_CONFIG       true
+//#define LAUNCHPAD_CONFIG        true
+#define BMS_MASTER_CONFIG       true
 
 // BMS Hardware Pins
 #ifdef LAUNCHPAD_CONFIG

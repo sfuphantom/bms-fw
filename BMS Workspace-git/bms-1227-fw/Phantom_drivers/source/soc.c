@@ -11,11 +11,11 @@
 #include "phantom_pl455.h"
 #include "thermistor.h"
 
-static const uint16 MAX_CAPACITY = 6840;   // 1.9Ah = 6840 Coloumbs
+static const float MAX_CAPACITY = 6840;   // 1.9Ah = 6840 Coloumbs
 static const float  MAX_LEVEL = 100;
 
 static float battLevel = 0;
-static uint16 battCapacity = 0;
+static float battCapacity = 0;
 static float fakeCurrentArray[] = {10, 8.7, 9.2, 16.5, 12.6, 19.5, 5, 3.5, -5, -2, -6, 12.2};
 
 static float getInstantaneousCurrent();
@@ -25,7 +25,7 @@ void socInit(void)
     //float totalVoltage = getTotalBattVolt();
     //float avgTemp = getAvgTemp();
     //battLevel = (totalVoltage, avgTemp);
-
+    battCapacity = MAX_CAPACITY;
 }
 
 void socUpdate(void)
@@ -34,8 +34,15 @@ void socUpdate(void)
     current = getInstantaneousCurrent();
 
     battCapacity = battCapacity - current*SOC_TIMER_PERIOD;
-
     battLevel = battCapacity/MAX_CAPACITY * 100;
+    if(battLevel >= 0 && battLevel <= 100)
+    {
+        //UARTprintf("battery capacity = %f | battery level = %f | current = %f \n\r ", battCapacity, battLevel, current);
+    }
+    else
+    {
+       // UARTprintf("battery empty");
+    }
 }
 
 float getBattLevel(void)

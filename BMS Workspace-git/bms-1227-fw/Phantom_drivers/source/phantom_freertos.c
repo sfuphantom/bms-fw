@@ -35,13 +35,13 @@ void xphTimerInit(void)
                        pdMS_TO_TICKS(1),
                        /* The timers will auto-reload themselves
                        when they expire. */
-                       pdFALSE,
+                       pdTRUE,
                        /* The ID is used to store a count of the
                        number of times the timer has expired, which
                        is initialised to 0. */
                        ( void * ) 0,
                        /* Callback function for when the timer expires*/
-                       Timer_10ms
+                       socTimer
                      );
 
           xTimers[1] = xTimerCreate
@@ -53,7 +53,7 @@ void xphTimerInit(void)
                        pdMS_TO_TICKS(2000),
                        /* The timers will auto-reload themselves
                        when they expire. */
-                       pdFALSE,
+                       pdTRUE,
                        /* The ID is used to store a count of the
                        number of times the timer has expired, which
                        is initialised to 0. */

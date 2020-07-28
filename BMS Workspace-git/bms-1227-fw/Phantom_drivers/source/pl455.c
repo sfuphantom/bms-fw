@@ -60,12 +60,12 @@ void CommClear(void)
     BMS_UART->PIO3 &= ~(1U << 2U); // set output to low
 
     delayus(baudRate * 2); // ~= 1/BAUDRATE/16*(155+1)*1.01
-    sciInit();
+    //sciInit();
     do{
         retryCount++;
     }while ((BMS_UART->FLR & 0x4) == 4 && retryCount < 10000);
     retryCount = 0;
-    sciSetBaudrate(BMS_UART, BAUDRATE);
+    //sciSetBaudrate(BMS_UART, BAUDRATE);
     do{
         retryCount++;
     }while ((BMS_UART->FLR & 0x4) == 4 && retryCount < 10000);
@@ -80,12 +80,12 @@ void CommReset(void)
     BMS_UART->PIO3 &= ~(1U << 2U); // set output to low
 
     delayus(200); // should cover any possible baud rate
-    sciInit();
+    //sciInit();
     do{
         retryCount++;
     }while ((BMS_UART->FLR & 0x4) == 4 && retryCount < 10000);
     retryCount = 0;
-    sciSetBaudrate(BMS_UART, BAUDRATE);
+    //sciSetBaudrate(BMS_UART, BAUDRATE);
     do{
         retryCount++;
     }while ((BMS_UART->FLR & 0x4) == 4 && retryCount < 10000);

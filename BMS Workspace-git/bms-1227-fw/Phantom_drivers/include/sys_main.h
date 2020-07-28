@@ -42,7 +42,7 @@ void vSensorReadTask(void *);    // This task will read all the sensors in the v
 /* array to hold handles to the created timers*/
 TimerHandle_t xTimers[NUMBER_OF_TIMERS];
 
-void Timer_10ms(TimerHandle_t xTimers);
+void socTimer(TimerHandle_t xTimers);
 void Timer_2s(TimerHandle_t xTimers);
 
 void phantomSystemInit();

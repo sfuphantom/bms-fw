@@ -41,10 +41,8 @@ void BMS_init(){
         unsigned char command;
 
         //snprintf(buf, 29, "log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
-        UARTSend(PC_UART, "hello it's me\n\r");
         WakePL455();
         //snprintf(buf, 29, "log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
-        UARTSend(PC_UART, "yyuuuup\n\r");
 
 
 
