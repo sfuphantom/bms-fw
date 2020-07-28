@@ -10,7 +10,7 @@
 
 #include "hal_stdtypes.h"
 
-#define SOC_TIMER_PERIOD 0.1
+#define SOC_TIMER_PERIOD 0.05
 
 void socInit(void);
 void socUpdate(void);
