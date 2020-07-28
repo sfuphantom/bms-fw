@@ -11,6 +11,14 @@
 #include "phantom_pl455.h"
 #include "thermistor.h"
 
+#include "FreeRTOS.h"
+#include "FreeRTOSConfig.h"
+#include "os_task.h"
+#include "os_queue.h"
+#include "os_semphr.h"
+#include "os_timer.h"
+
+
 static const float MAX_CAPACITY = 6840;   // 1.9Ah = 6840 Coloumbs
 static const float  MAX_LEVEL = 100;
 
@@ -30,7 +38,9 @@ void socInit(void)
 
 void socUpdate(void)
 {
-    float current = 0;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    UARTprintf("current time = %d\n\r", xLastWakeTime);
+    float current = 0.0;
     current = getInstantaneousCurrent();
 
     battCapacity = battCapacity - current*SOC_TIMER_PERIOD;

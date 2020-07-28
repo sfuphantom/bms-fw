@@ -32,7 +32,7 @@ void xphTimerInit(void)
                        "RTDS_Timer",
                        /* The timer period in ticks, must be
                        greater than 0. */
-                       pdMS_TO_TICKS(1),
+                       pdMS_TO_TICKS(50),
                        /* The timers will auto-reload themselves
                        when they expire. */
                        pdTRUE,
