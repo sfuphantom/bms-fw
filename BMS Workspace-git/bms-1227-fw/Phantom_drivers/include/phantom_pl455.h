@@ -19,10 +19,9 @@
 #define CELLS_PER_BOARD   10
 
 typedef enum{
+    BMS_INIT,
     BMS_OPERATIONAL,
-    BMS_TEMPERATURE_FAULT,
-    BMS_VOLTAGE_FAULT,
-    BMS_TEMPERATURE_VOLTAGE_FAULT,
+    BMS_FAULT,
     BMS_CRITICAL_FAULT
 }BMS_STATE;
 
@@ -45,7 +44,9 @@ typedef struct BMS_ARRAYS{
     double BMS_Slave_4[CELLS_PER_BOARD];
 } BMS_ARRAYS;
 
-void BMS_init(void);
+BMS_STATE bms_process();
+void bms_operational();
+void bms_init(void);
 void BMS_Read_Single(uint8_t device);
 void BMS_Read_Single_NP(uint8_t device);
 void BMS_Read_All(void);

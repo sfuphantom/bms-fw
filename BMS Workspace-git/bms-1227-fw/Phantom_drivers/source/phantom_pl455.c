@@ -30,9 +30,27 @@ BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
 
 volatile BMS_FLAGS BMS = { {0}, {0}, {0}, {0}, 0, false, false };
 BMS_ARRAYS BMS_Voltages = {{0},{0},{0},{0}};
+static BMS_STATE state = BMS_INIT;
 
+BMS_STATE bms_process()
+{
+    switch(state)
+    {
+        case BMS_INIT:
+            bms_init();
+            break;
+        case BMS_OPERATIONAL:
+            bms_operational();
+            break;
+        case BMS_CRITICAL_FAULT:
+            UARTprintf("CRITICAL BMS FAULT\n\r");
+            break;
+    }
 
-void BMS_init(){
+    return state;
+}
+
+void bms_init(){
         char buf[50];
 
         int nSent, nRead, nTopFound = 0;
@@ -255,11 +273,33 @@ void BMS_init(){
         nSent = WriteReg(nDev_ID, 120, 0x3F, 1, FRMWRT_ALL_NR); // set GPIO direction for GPIO4 and GPIO[2:0] as outputs, GPIO3 and GPIO5 as inputs
         nSent = WriteReg(nDev_ID, 19, 0x08, 1, FRMWRT_ALL_NR);
 
+        state = BMS_OPERATIONAL;
 }
 
-void BMS_processState(void)
+void bms_operational(void)
 {
-    // TODO: Check faults to determine BMS state
+    if(!getBMSinitFlag())
+    {
+       state = BMS_INIT;
+       return;
+    }
+
+    BMS_Read_All_NP();
+
+    // Error Checking
+    if(BMS.TOTAL_CELL_ERROR_FLAG == true)
+    {
+        state = BMS_CRITICAL_FAULT;
+    }
+    else
+    if(BMS.CELL_3SECOND_FLAG == true)
+    {
+        state = BMS_CRITICAL_FAULT;
+    }
+
+    // Temporary for testing reset state to operational
+    state = BMS_OPERATIONAL;
+    //BMS_Balance();
 }
 
 void BMS_Slaves_Heartbeat(void){
@@ -461,20 +501,20 @@ void BMS_Read_All_NP(){
 
                 if(fin > 4.2){
 
-                    //BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
-                    //BMS.TOTAL_CELL_ERROR_COUNTER++;
+                    BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
+                    BMS.TOTAL_CELL_ERROR_COUNTER++;
                 }
                 else if(fin < 3.2){
 
-                    //BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
-                    //BMS.TOTAL_CELL_ERROR_COUNTER++;
+                    BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
+                    BMS.TOTAL_CELL_ERROR_COUNTER++;
                 }
 
                 if(BMS.CELL_OVERVOLTAGE_FLAG[cellCount] == true || BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] == true){
-                    //BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount]++;
+                    BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount]++;
                 }
                 else{
-                    //BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] = 0;
+                    BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] = 0;
                 }
 
                 if(BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] > 300){
@@ -485,16 +525,16 @@ void BMS_Read_All_NP(){
                 j++;
              }
             cellCount = TOTALCELLS;
-        }
+         }
 
-        BMS.cellVoltageLow = 3.8;
-             if(BMS.TOTAL_CELL_ERROR_COUNTER > 4){
-                 BMS.TOTAL_CELL_ERROR_FLAG = true;
-             }
+         BMS.cellVoltageLow = 3.8;
+         if(BMS.TOTAL_CELL_ERROR_COUNTER > 4){
+             BMS.TOTAL_CELL_ERROR_FLAG = true;
+         }
 
-             BMS.TOTAL_CELL_ERROR_COUNTER = 0;
+         BMS.TOTAL_CELL_ERROR_COUNTER = 0;
 
-             uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
+         uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
          for (i = TOTALBOARDS-1; i > -1; i--){
              for (j = voltageLoopCounter; j < auxLoopCounter; j++)
              {

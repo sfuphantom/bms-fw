@@ -88,7 +88,7 @@ int main(void)
 /* USER CODE BEGIN (3) */
        phantomSystemInit();
 
-       BMS_init();
+       bms_init();
 
        InitializeTemperature();
        setupThermistor();
@@ -135,8 +135,8 @@ void vStateMachineTask(void *pvParameters){
  * @Note                    - None
  ***********************************************************/
 void vSensorReadTask(void *pvParameters){
-
     // any initialization
+    // TODO: Initialize pointer to BMS data structure and thermistor data structure
     TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
     const TickType_t xFrequency = 2000; // task frequency in ms
 
@@ -147,16 +147,8 @@ void vSensorReadTask(void *pvParameters){
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         TickType_t xLastWakeTime = xTaskGetTickCount();
 
-        if(!getBMSinitFlag())
-        {
-           BMS_init();
-        }
-
-        //BMS_Balance_SIM();
-
-        //thermistorRead();
-
-        BMS_Read_All_NP();
+        bms_process();
+        //thermistor_process();
 
         //UARTprintf("sensor read task \n\r");
     }while(1);
