@@ -37,6 +37,15 @@
 
 #ifdef BMS_MASTER_CONFIG
 
+
+/*
+ *  3V3         -> bq76PL455A-Q1 EVM J3 pin 3 (VIO)
+ *  SCI1_RX     -> bq76PL455A-Q1 EVM J3 pin 5 (TX) **remove R8 from TMS570LS04x Launchpad
+ *  SCI1_TX     -> bq76PL455A-Q1 EVM J3 pin 4 (RX)
+ *  GND         -> bq76PL455A-Q1 EVM J3 pin 1 (DGND)
+ *  HET1_9       -> bq76PL455A-Q1 EVM J3 pin 6 (nWAKE)
+ *  HET1_25       -> bq76PL455A-Q1 EVM J3 pin 2 (nFAULT)
+ */
 #define BMS_UART                scilinREG
 #define WAKEUP_PORT             hetPORT1
 #define WAKEUP_PIN              9
