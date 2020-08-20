@@ -39,7 +39,7 @@ void socInit(void)
 void socUpdate(void)
 {
     TickType_t xLastWakeTime = xTaskGetTickCount();
-    UARTprintf("current time = %d\n\r", xLastWakeTime);
+    //UARTprintf("current time = %d\n\r", xLastWakeTime);
     float current = 0.0;
     current = getInstantaneousCurrent();
 

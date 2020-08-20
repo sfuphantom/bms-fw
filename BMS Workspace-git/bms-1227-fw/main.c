@@ -156,7 +156,7 @@ void vSensorReadTask(void *pvParameters){
 
         //thermistorRead();
 
-        //BMS_Read_All_NP();
+        BMS_Read_All_NP();
 
         //UARTprintf("sensor read task \n\r");
     }while(1);
@@ -166,7 +166,7 @@ void vSensorReadTask(void *pvParameters){
 // Called periodically every 1ms
 void socTimer(TimerHandle_t xTimers)
 {
-    socUpdate();
+    //socUpdate();
 }
 
 /* Timer callback when it expires for the ready to drive sound */

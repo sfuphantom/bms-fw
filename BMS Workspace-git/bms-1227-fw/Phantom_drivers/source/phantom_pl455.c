@@ -40,14 +40,18 @@ void BMS_init(){
         uint32_t  wTemp = 0;
         unsigned char command;
 
-        //snprintf(buf, 29, "log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
+        UARTprintf("log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
         WakePL455();
-        //snprintf(buf, 29, "log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
+        UARTprintf("log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
 
 
 
         CommClear();
         CommReset();
+
+        // TODO: Make sci init function with these functions built in
+        sciEnableNotification(PC_UART, SCI_RX_INT);
+        sciReceive(PC_UART, 1, (unsigned char *)&command);
 
         for(nDev_ID = 0; nDev_ID < TOTALBOARDS>>1; nDev_ID++) {
                 nSent = WriteReg(nDev_ID, 12, 0x40, 1, FRMWRT_ALL_NR);  // send out broadcast pwrdown command
