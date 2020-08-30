@@ -11,7 +11,6 @@
 #include "stdint.h"
 
 void CANSend(uint8_t can_msg[]);
-char getVCUMSG(void);
 
 
 #endif /* INCLUDE_PHANTOM_CAN_H_ */
