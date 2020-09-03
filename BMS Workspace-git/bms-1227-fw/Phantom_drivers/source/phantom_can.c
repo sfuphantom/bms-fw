@@ -63,5 +63,9 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
 
     }
 }
+char getVCUMSG(void)
+{
+    return vcu_data;
+}
 
 
