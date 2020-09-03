@@ -315,6 +315,9 @@ void rtiGetConfigValue(rti_config_reg_t *config_reg, config_value_type_t type);
 */
 void rtiNotification(uint32 notification);
 
+void rtiCompare3Interrupt(void);
+void rtiCompare1Interrupt(void);
+
 /* USER CODE BEGIN (6) */
 /* USER CODE END */
 

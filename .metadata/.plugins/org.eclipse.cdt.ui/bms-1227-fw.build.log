@@ -1,0 +1,18 @@
+
+**** Build of configuration Debug for project bms-1227-fw ****
+
+"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../halcogen_bms_master/source/sys_vim.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_launchpad/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_vim.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_vim.c"
+ 
+>> Compilation failure
+halcogen_bms_master/source/subdir_rules.mk:9: recipe for target 'halcogen_bms_master/source/sys_vim.obj' failed
+"../halcogen_bms_master/source/sys_vim.c", line 75: error #20: identifier "rtiCompare1Interrupt" is undefined
+"../halcogen_bms_master/source/sys_vim.c", line 77: error #20: identifier "rtiCompare3Interrupt" is undefined
+2 errors detected in the compilation of "../halcogen_bms_master/source/sys_vim.c".
+gmake: *** [halcogen_bms_master/source/sys_vim.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
