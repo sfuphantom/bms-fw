@@ -1,0 +1,235 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+CMD_SRCS += \
+../halcogen_bms_master/source/sys_linker_freeRTOS.cmd 
+
+ASM_SRCS += \
+../halcogen_bms_master/source/dabort.asm \
+../halcogen_bms_master/source/os_portasm.asm \
+../halcogen_bms_master/source/sys_core.asm \
+../halcogen_bms_master/source/sys_intvecs.asm \
+../halcogen_bms_master/source/sys_mpu.asm \
+../halcogen_bms_master/source/sys_pmu.asm 
+
+C_SRCS += \
+../halcogen_bms_master/source/can.c \
+../halcogen_bms_master/source/errata_SSWF021_45.c \
+../halcogen_bms_master/source/esm.c \
+../halcogen_bms_master/source/gio.c \
+../halcogen_bms_master/source/het.c \
+../halcogen_bms_master/source/mibspi.c \
+../halcogen_bms_master/source/notification.c \
+../halcogen_bms_master/source/os_croutine.c \
+../halcogen_bms_master/source/os_event_groups.c \
+../halcogen_bms_master/source/os_heap.c \
+../halcogen_bms_master/source/os_list.c \
+../halcogen_bms_master/source/os_mpu_wrappers.c \
+../halcogen_bms_master/source/os_port.c \
+../halcogen_bms_master/source/os_queue.c \
+../halcogen_bms_master/source/os_tasks.c \
+../halcogen_bms_master/source/os_timer.c \
+../halcogen_bms_master/source/pinmux.c \
+../halcogen_bms_master/source/rti.c \
+../halcogen_bms_master/source/sci.c \
+../halcogen_bms_master/source/sys_dma.c \
+../halcogen_bms_master/source/sys_main.c \
+../halcogen_bms_master/source/sys_pcr.c \
+../halcogen_bms_master/source/sys_phantom.c \
+../halcogen_bms_master/source/sys_pmm.c \
+../halcogen_bms_master/source/sys_selftest.c \
+../halcogen_bms_master/source/sys_startup.c \
+../halcogen_bms_master/source/sys_vim.c \
+../halcogen_bms_master/source/system.c 
+
+C_DEPS += \
+./halcogen_bms_master/source/can.d \
+./halcogen_bms_master/source/errata_SSWF021_45.d \
+./halcogen_bms_master/source/esm.d \
+./halcogen_bms_master/source/gio.d \
+./halcogen_bms_master/source/het.d \
+./halcogen_bms_master/source/mibspi.d \
+./halcogen_bms_master/source/notification.d \
+./halcogen_bms_master/source/os_croutine.d \
+./halcogen_bms_master/source/os_event_groups.d \
+./halcogen_bms_master/source/os_heap.d \
+./halcogen_bms_master/source/os_list.d \
+./halcogen_bms_master/source/os_mpu_wrappers.d \
+./halcogen_bms_master/source/os_port.d \
+./halcogen_bms_master/source/os_queue.d \
+./halcogen_bms_master/source/os_tasks.d \
+./halcogen_bms_master/source/os_timer.d \
+./halcogen_bms_master/source/pinmux.d \
+./halcogen_bms_master/source/rti.d \
+./halcogen_bms_master/source/sci.d \
+./halcogen_bms_master/source/sys_dma.d \
+./halcogen_bms_master/source/sys_main.d \
+./halcogen_bms_master/source/sys_pcr.d \
+./halcogen_bms_master/source/sys_phantom.d \
+./halcogen_bms_master/source/sys_pmm.d \
+./halcogen_bms_master/source/sys_selftest.d \
+./halcogen_bms_master/source/sys_startup.d \
+./halcogen_bms_master/source/sys_vim.d \
+./halcogen_bms_master/source/system.d 
+
+OBJS += \
+./halcogen_bms_master/source/can.obj \
+./halcogen_bms_master/source/dabort.obj \
+./halcogen_bms_master/source/errata_SSWF021_45.obj \
+./halcogen_bms_master/source/esm.obj \
+./halcogen_bms_master/source/gio.obj \
+./halcogen_bms_master/source/het.obj \
+./halcogen_bms_master/source/mibspi.obj \
+./halcogen_bms_master/source/notification.obj \
+./halcogen_bms_master/source/os_croutine.obj \
+./halcogen_bms_master/source/os_event_groups.obj \
+./halcogen_bms_master/source/os_heap.obj \
+./halcogen_bms_master/source/os_list.obj \
+./halcogen_bms_master/source/os_mpu_wrappers.obj \
+./halcogen_bms_master/source/os_port.obj \
+./halcogen_bms_master/source/os_portasm.obj \
+./halcogen_bms_master/source/os_queue.obj \
+./halcogen_bms_master/source/os_tasks.obj \
+./halcogen_bms_master/source/os_timer.obj \
+./halcogen_bms_master/source/pinmux.obj \
+./halcogen_bms_master/source/rti.obj \
+./halcogen_bms_master/source/sci.obj \
+./halcogen_bms_master/source/sys_core.obj \
+./halcogen_bms_master/source/sys_dma.obj \
+./halcogen_bms_master/source/sys_intvecs.obj \
+./halcogen_bms_master/source/sys_main.obj \
+./halcogen_bms_master/source/sys_mpu.obj \
+./halcogen_bms_master/source/sys_pcr.obj \
+./halcogen_bms_master/source/sys_phantom.obj \
+./halcogen_bms_master/source/sys_pmm.obj \
+./halcogen_bms_master/source/sys_pmu.obj \
+./halcogen_bms_master/source/sys_selftest.obj \
+./halcogen_bms_master/source/sys_startup.obj \
+./halcogen_bms_master/source/sys_vim.obj \
+./halcogen_bms_master/source/system.obj 
+
+ASM_DEPS += \
+./halcogen_bms_master/source/dabort.d \
+./halcogen_bms_master/source/os_portasm.d \
+./halcogen_bms_master/source/sys_core.d \
+./halcogen_bms_master/source/sys_intvecs.d \
+./halcogen_bms_master/source/sys_mpu.d \
+./halcogen_bms_master/source/sys_pmu.d 
+
+OBJS__QUOTED += \
+"halcogen_bms_master\source\can.obj" \
+"halcogen_bms_master\source\dabort.obj" \
+"halcogen_bms_master\source\errata_SSWF021_45.obj" \
+"halcogen_bms_master\source\esm.obj" \
+"halcogen_bms_master\source\gio.obj" \
+"halcogen_bms_master\source\het.obj" \
+"halcogen_bms_master\source\mibspi.obj" \
+"halcogen_bms_master\source\notification.obj" \
+"halcogen_bms_master\source\os_croutine.obj" \
+"halcogen_bms_master\source\os_event_groups.obj" \
+"halcogen_bms_master\source\os_heap.obj" \
+"halcogen_bms_master\source\os_list.obj" \
+"halcogen_bms_master\source\os_mpu_wrappers.obj" \
+"halcogen_bms_master\source\os_port.obj" \
+"halcogen_bms_master\source\os_portasm.obj" \
+"halcogen_bms_master\source\os_queue.obj" \
+"halcogen_bms_master\source\os_tasks.obj" \
+"halcogen_bms_master\source\os_timer.obj" \
+"halcogen_bms_master\source\pinmux.obj" \
+"halcogen_bms_master\source\rti.obj" \
+"halcogen_bms_master\source\sci.obj" \
+"halcogen_bms_master\source\sys_core.obj" \
+"halcogen_bms_master\source\sys_dma.obj" \
+"halcogen_bms_master\source\sys_intvecs.obj" \
+"halcogen_bms_master\source\sys_main.obj" \
+"halcogen_bms_master\source\sys_mpu.obj" \
+"halcogen_bms_master\source\sys_pcr.obj" \
+"halcogen_bms_master\source\sys_phantom.obj" \
+"halcogen_bms_master\source\sys_pmm.obj" \
+"halcogen_bms_master\source\sys_pmu.obj" \
+"halcogen_bms_master\source\sys_selftest.obj" \
+"halcogen_bms_master\source\sys_startup.obj" \
+"halcogen_bms_master\source\sys_vim.obj" \
+"halcogen_bms_master\source\system.obj" 
+
+C_DEPS__QUOTED += \
+"halcogen_bms_master\source\can.d" \
+"halcogen_bms_master\source\errata_SSWF021_45.d" \
+"halcogen_bms_master\source\esm.d" \
+"halcogen_bms_master\source\gio.d" \
+"halcogen_bms_master\source\het.d" \
+"halcogen_bms_master\source\mibspi.d" \
+"halcogen_bms_master\source\notification.d" \
+"halcogen_bms_master\source\os_croutine.d" \
+"halcogen_bms_master\source\os_event_groups.d" \
+"halcogen_bms_master\source\os_heap.d" \
+"halcogen_bms_master\source\os_list.d" \
+"halcogen_bms_master\source\os_mpu_wrappers.d" \
+"halcogen_bms_master\source\os_port.d" \
+"halcogen_bms_master\source\os_queue.d" \
+"halcogen_bms_master\source\os_tasks.d" \
+"halcogen_bms_master\source\os_timer.d" \
+"halcogen_bms_master\source\pinmux.d" \
+"halcogen_bms_master\source\rti.d" \
+"halcogen_bms_master\source\sci.d" \
+"halcogen_bms_master\source\sys_dma.d" \
+"halcogen_bms_master\source\sys_main.d" \
+"halcogen_bms_master\source\sys_pcr.d" \
+"halcogen_bms_master\source\sys_phantom.d" \
+"halcogen_bms_master\source\sys_pmm.d" \
+"halcogen_bms_master\source\sys_selftest.d" \
+"halcogen_bms_master\source\sys_startup.d" \
+"halcogen_bms_master\source\sys_vim.d" \
+"halcogen_bms_master\source\system.d" 
+
+ASM_DEPS__QUOTED += \
+"halcogen_bms_master\source\dabort.d" \
+"halcogen_bms_master\source\os_portasm.d" \
+"halcogen_bms_master\source\sys_core.d" \
+"halcogen_bms_master\source\sys_intvecs.d" \
+"halcogen_bms_master\source\sys_mpu.d" \
+"halcogen_bms_master\source\sys_pmu.d" 
+
+C_SRCS__QUOTED += \
+"../halcogen_bms_master/source/can.c" \
+"../halcogen_bms_master/source/errata_SSWF021_45.c" \
+"../halcogen_bms_master/source/esm.c" \
+"../halcogen_bms_master/source/gio.c" \
+"../halcogen_bms_master/source/het.c" \
+"../halcogen_bms_master/source/mibspi.c" \
+"../halcogen_bms_master/source/notification.c" \
+"../halcogen_bms_master/source/os_croutine.c" \
+"../halcogen_bms_master/source/os_event_groups.c" \
+"../halcogen_bms_master/source/os_heap.c" \
+"../halcogen_bms_master/source/os_list.c" \
+"../halcogen_bms_master/source/os_mpu_wrappers.c" \
+"../halcogen_bms_master/source/os_port.c" \
+"../halcogen_bms_master/source/os_queue.c" \
+"../halcogen_bms_master/source/os_tasks.c" \
+"../halcogen_bms_master/source/os_timer.c" \
+"../halcogen_bms_master/source/pinmux.c" \
+"../halcogen_bms_master/source/rti.c" \
+"../halcogen_bms_master/source/sci.c" \
+"../halcogen_bms_master/source/sys_dma.c" \
+"../halcogen_bms_master/source/sys_main.c" \
+"../halcogen_bms_master/source/sys_pcr.c" \
+"../halcogen_bms_master/source/sys_phantom.c" \
+"../halcogen_bms_master/source/sys_pmm.c" \
+"../halcogen_bms_master/source/sys_selftest.c" \
+"../halcogen_bms_master/source/sys_startup.c" \
+"../halcogen_bms_master/source/sys_vim.c" \
+"../halcogen_bms_master/source/system.c" 
+
+ASM_SRCS__QUOTED += \
+"../halcogen_bms_master/source/dabort.asm" \
+"../halcogen_bms_master/source/os_portasm.asm" \
+"../halcogen_bms_master/source/sys_core.asm" \
+"../halcogen_bms_master/source/sys_intvecs.asm" \
+"../halcogen_bms_master/source/sys_mpu.asm" \
+"../halcogen_bms_master/source/sys_pmu.asm" 
+
+
