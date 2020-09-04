@@ -4017,3 +4017,295 @@ Finished building target: "bms-1227-fw.out"
  
 
 **** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../Phantom_drivers/source/Phantom_sci.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/Phantom_sci.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/Phantom_sci.c"
+Finished building: "../Phantom_drivers/source/Phantom_sci.c"
+ 
+Building file: "../Phantom_drivers/source/a_tp_sci.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/a_tp_sci.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/a_tp_sci.c"
+"../Phantom_drivers/source/a_tp_sci.c", line 92: warning #179-D: variable "index" was declared but never referenced
+Finished building: "../Phantom_drivers/source/a_tp_sci.c"
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 58: warning #169-D: argument of type "char *" is incompatible with parameter of type "uint8 *const"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building file: "../Phantom_drivers/source/phantom_freertos.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_freertos.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_freertos.c"
+Finished building: "../Phantom_drivers/source/phantom_freertos.c"
+ 
+Building file: "../halcogen_bms_master/source/dabort.asm"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/dabort.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/dabort.asm"
+Finished building: "../halcogen_bms_master/source/dabort.asm"
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 113: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 114: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 115: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+Building file: "../Phantom_drivers/source/soc.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/soc.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/soc.c"
+"../Phantom_drivers/source/soc.c", line 23: warning #179-D: variable "MAX_LEVEL" was declared but never referenced
+Finished building: "../Phantom_drivers/source/soc.c"
+ 
+Building file: "../Phantom_drivers/source/pl455.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/pl455.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/pl455.c"
+Finished building: "../Phantom_drivers/source/pl455.c"
+ 
+Building file: "../Phantom_drivers/source/testinterface.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/testinterface.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/testinterface.c"
+"../Phantom_drivers/source/testinterface.c", line 139: warning #179-D: variable "buf" was declared but never referenced
+"../Phantom_drivers/source/testinterface.c", line 175: warning #169-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *"
+"../Phantom_drivers/source/testinterface.c", line 175: warning #169-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *"
+"../Phantom_drivers/source/testinterface.c", line 194: warning #169-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *"
+"../Phantom_drivers/source/testinterface.c", line 211: warning #169-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *"
+"../Phantom_drivers/source/testinterface.c", line 217: warning #169-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *"
+"../Phantom_drivers/source/testinterface.c", line 233: warning #169-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *"
+Finished building: "../Phantom_drivers/source/testinterface.c"
+ 
+Building file: "../Phantom_drivers/source/thermistor.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/thermistor.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/thermistor.c"
+Finished building: "../Phantom_drivers/source/thermistor.c"
+ 
+Building file: "../halcogen_bms_master/source/can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/can.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/can.c"
+Finished building: "../halcogen_bms_master/source/can.c"
+ 
+Building file: "../halcogen_bms_master/source/errata_SSWF021_45.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/errata_SSWF021_45.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/errata_SSWF021_45.c"
+Finished building: "../halcogen_bms_master/source/errata_SSWF021_45.c"
+ 
+Building file: "../halcogen_bms_master/source/esm.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/esm.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/esm.c"
+Finished building: "../halcogen_bms_master/source/esm.c"
+ 
+Building file: "../halcogen_bms_master/source/gio.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/gio.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/gio.c"
+Finished building: "../halcogen_bms_master/source/gio.c"
+ 
+Building file: "../halcogen_bms_master/source/het.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/het.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/het.c"
+Finished building: "../halcogen_bms_master/source/het.c"
+ 
+Building file: "../halcogen_bms_master/source/os_port.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/os_port.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/os_port.c"
+Finished building: "../halcogen_bms_master/source/os_port.c"
+ 
+Building file: "../halcogen_bms_master/source/mibspi.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/mibspi.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/mibspi.c"
+Finished building: "../halcogen_bms_master/source/mibspi.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_core.asm"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_core.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_core.asm"
+Finished building: "../halcogen_bms_master/source/sys_core.asm"
+ 
+Building file: "../halcogen_bms_master/source/sys_intvecs.asm"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_intvecs.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_intvecs.asm"
+Finished building: "../halcogen_bms_master/source/sys_intvecs.asm"
+ 
+Building file: "../halcogen_bms_master/source/rti.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/rti.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/rti.c"
+Finished building: "../halcogen_bms_master/source/rti.c"
+ 
+Building file: "../halcogen_bms_master/source/notification.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/notification.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/notification.c"
+Finished building: "../halcogen_bms_master/source/notification.c"
+ 
+Building file: "../Phantom_drivers/source/phantom_pl455.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_pl455.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_pl455.c"
+"../Phantom_drivers/source/phantom_pl455.c", line 36: warning #179-D: variable "buf" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 38: warning #552-D: variable "nSent" was set but never used
+"../Phantom_drivers/source/phantom_pl455.c", line 39: warning #179-D: variable "nGrp_ID" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 266: warning #552-D: variable "nSent" was set but never used
+"../Phantom_drivers/source/phantom_pl455.c", line 280: warning #552-D: variable "nSent" was set but never used
+"../Phantom_drivers/source/phantom_pl455.c", line 505: warning #179-D: variable "resistance" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 511: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 518: warning #552-D: variable "nSent" was set but never used
+"../Phantom_drivers/source/phantom_pl455.c", line 682: warning #179-D: variable "resistance" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 688: warning #177-D: subscript out of range
+"../Phantom_drivers/source/phantom_pl455.c", line 688: warning #177-D: subscript out of range
+"../Phantom_drivers/source/phantom_pl455.c", line 690: warning #177-D: subscript out of range
+"../Phantom_drivers/source/phantom_pl455.c", line 690: warning #177-D: subscript out of range
+"../Phantom_drivers/source/phantom_pl455.c", line 621: warning #552-D: variable "nSent" was set but never used
+"../Phantom_drivers/source/phantom_pl455.c", line 688: warning #179-D: variable "digDieTemp" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 690: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 695: warning #552-D: variable "nSent" was set but never used
+"../Phantom_drivers/source/phantom_pl455.c", line 949: warning #179-D: variable "resistance" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 955: warning #179-D: variable "anaDieTemp" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 963: warning #179-D: variable "nSent" was declared but never referenced
+"../Phantom_drivers/source/phantom_pl455.c", line 966: warning #179-D: variable "buf" was declared but never referenced
+Finished building: "../Phantom_drivers/source/phantom_pl455.c"
+ 
+Building file: "../halcogen_bms_master/source/pinmux.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/pinmux.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/pinmux.c"
+Finished building: "../halcogen_bms_master/source/pinmux.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_main.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_main.c"
+Finished building: "../halcogen_bms_master/source/sys_main.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_mpu.asm"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_mpu.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_mpu.asm"
+Finished building: "../halcogen_bms_master/source/sys_mpu.asm"
+ 
+Building file: "../halcogen_bms_master/source/sys_dma.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_dma.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_dma.c"
+Finished building: "../halcogen_bms_master/source/sys_dma.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_pcr.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_pcr.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_pcr.c"
+Finished building: "../halcogen_bms_master/source/sys_pcr.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_pmu.asm"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_pmu.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_pmu.asm"
+Finished building: "../halcogen_bms_master/source/sys_pmu.asm"
+ 
+Building file: "../halcogen_bms_master/source/sys_phantom.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_phantom.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_phantom.c"
+Finished building: "../halcogen_bms_master/source/sys_phantom.c"
+ 
+Building file: "../halcogen_bms_master/source/sci.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sci.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sci.c"
+Finished building: "../halcogen_bms_master/source/sci.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_pmm.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_pmm.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_pmm.c"
+Finished building: "../halcogen_bms_master/source/sys_pmm.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_startup.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_startup.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_startup.c"
+Finished building: "../halcogen_bms_master/source/sys_startup.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_vim.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_vim.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_vim.c"
+Finished building: "../halcogen_bms_master/source/sys_vim.c"
+ 
+Building file: "../halcogen_bms_master/source/system.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/system.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/system.c"
+Finished building: "../halcogen_bms_master/source/system.c"
+ 
+Building file: "../halcogen_bms_master/source/sys_selftest.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="halcogen_bms_master/source/sys_selftest.d_raw" --obj_directory="halcogen_bms_master/source"  "../halcogen_bms_master/source/sys_selftest.c"
+Finished building: "../halcogen_bms_master/source/sys_selftest.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/lib" -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_main.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+error #10056: symbol "main" redefined: first defined in "./main.obj"; redefined in "./halcogen_bms_master/source/sys_main.obj"
+error #10010: errors encountered during linking; "bms-1227-fw.out" not built
+ 
+>> Compilation failure
+makefile:189: recipe for target 'bms-1227-fw.out' failed
+gmake[1]: *** [bms-1227-fw.out] Error 1
+makefile:185: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/XW_Personal/Phantom_Firmware/Github/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/lib" -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_main.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+error #10056: symbol "main" redefined: first defined in "./main.obj"; redefined in "./halcogen_bms_master/source/sys_main.obj"
+error #10010: errors encountered during linking; "bms-1227-fw.out" not built
+ 
+>> Compilation failure
+makefile:189: recipe for target 'bms-1227-fw.out' failed
+gmake[1]: *** [bms-1227-fw.out] Error 1
+makefile:185: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/lib" -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_main.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+error #10056: symbol "main" redefined: first defined in "./main.obj"; redefined in "./halcogen_bms_master/source/sys_main.obj"
+error #10010: errors encountered during linking; "bms-1227-fw.out" not built
+ 
+>> Compilation failure
+makefile:189: recipe for target 'bms-1227-fw.out' failed
+gmake[1]: *** [bms-1227-fw.out] Error 1
+makefile:185: recipe for target 'all' failed
+gmake: *** [all] Error 2
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/lib" -i"C:/ti/ccs1010/ccs/tools/compiler/ti-cgt-arm_20.2.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****

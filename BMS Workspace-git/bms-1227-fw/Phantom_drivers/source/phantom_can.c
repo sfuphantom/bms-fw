@@ -11,10 +11,8 @@
 
 #define D_COUNT 8
 uint32 cnt = 0, error = 0, tx_done = 0;
-//const uint8 tx_data[D_COUNT] = { 21,32,54,2,0,21,3,200 };
-char vcu_data[D_COUNT] = { 0 };
-//const uint8 *tx_ptr = &tx_data[0];
-char *vcu_ptr = &vcu_data[0];
+uint8 rx_data1[8] = {0};
+uint8 *rx_ptr1 = &rx_data1[0];
 uint8 vcuint = 0;
 int timeout;
 
@@ -52,11 +50,10 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
     //The following is executed when reception is successful
     if ((node == canREG1) && (messageBox == canMESSAGE_BOX2))
     {
-        while (!canIsRxMessageArrived(canREG1, canMESSAGE_BOX2))
-            ;
+        while (!canIsRxMessageArrived(canREG1, canMESSAGE_BOX2));
 
-        canGetData(canREG1, canMESSAGE_BOX2, vcu_ptr); /* copy to RAM */
-        vcu_ptr += 8;
+        canGetData(canREG1, canMESSAGE_BOX2, rx_ptr1); /* copy to RAM */
+        rx_ptr1 += 8;
         receiveVCUCounter++;
 
     }
