@@ -86,16 +86,19 @@ State state = RUNNING;
 int main(void)
 {
 /* USER CODE BEGIN (3) */
+
+
        phantomSystemInit();
 
        BMS_init();
-
+       CANSend();
        InitializeTemperature();
        setupThermistor();
 
        xphRtosInit();
 
        vTaskStartScheduler();
+
 
       // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
       while(1);

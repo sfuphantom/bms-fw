@@ -21,11 +21,9 @@ int timeout;
 volatile uint32_t transmitCounter = 0;
 volatile uint32_t receiveVCUCounter = 0;
 
-void CANSend(uint8 can_msg[]){
-    uint8 tx_data[D_COUNT] = {0};
-    memcpy(tx_data, can_msg, 8);
-
-    const uint8 *tx_ptr = &tx_data[0];
+void CANSend(){
+    uint8 tx_data[D_COUNT] = {'B','M','S','R','E','A','D','Y'};
+    uint8 *tx_ptr = &tx_data[0];
 
     for (cnt = 0; cnt < D_COUNT; cnt++)
         {

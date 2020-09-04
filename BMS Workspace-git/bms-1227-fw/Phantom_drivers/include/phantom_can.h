@@ -10,7 +10,7 @@
 
 #include "stdint.h"
 
-void CANSend(uint8_t can_msg[]);
+void CANSend();
 
 
 #endif /* INCLUDE_PHANTOM_CAN_H_ */
