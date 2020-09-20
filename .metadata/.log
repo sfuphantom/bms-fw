@@ -508,3 +508,55 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstud
 
 !ENTRY org.eclipse.cdt.core 1 0 2020-09-03 20:36:52.713
 !MESSAGE Indexed 'bms-1227-fw' (39 sources, 125 headers) in 1.21 sec: 10,353 declarations; 31,196 references; 3 unresolved inclusions; 30 syntax errors; 104 unresolved names (0.25%)
+!SESSION 2020-09-19 21:15:11.892 -----------------------------------------------
+eclipse.buildId=4.14.0.I20191210-0610
+java.version=1.8.0_144
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 1 0 2020-09-19 21:15:40.541
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 1 0 2020-09-19 21:15:40.548
+!MESSAGE debugServerDir=C:/ti/ccs1010/ccs/ccs_base/DebugServer
+
+!ENTRY com.ti.ccstudio.ui 1 0 2020-09-19 21:16:04.832
+!MESSAGE CCS IDE session started!
+	CCS build: 10.1.0.00010
+	CCS location: C:/ti/ccs1010/ccs
+	Workspace location: C:/XW_Personal/Phantom_Firmware/Github/bms-fw
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.186
+!MESSAGE constructor
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.195
+!MESSAGE done with directories
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.205
+!MESSAGE loading ti_logger
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.216
+!MESSAGE Platform os: win32
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.226
+!MESSAGE loading cToolsIF
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.260
+!MESSAGE loading cTools
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.298
+!MESSAGE loading TraceFactory
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.351
+!MESSAGE loading sqlite3
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.399
+!MESSAGE loading CloudTrace
+
+!ENTRY com.ti.dbgtrc.webapp.CloudTraceInterface 0 0 2020-09-19 21:16:05.505
+!MESSAGE CloudTrace interface loaded
+
+!ENTRY com.ti.ccstudio.project.ui.webcontent 1 0 2020-09-19 21:16:05.649
+!MESSAGE CCS HTTP adapter started! [ccs.port:56449] - Open 'http://localhost:56449/ide' in web browser to see listing of available APIs...

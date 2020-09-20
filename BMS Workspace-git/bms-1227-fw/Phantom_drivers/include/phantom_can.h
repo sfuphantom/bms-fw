@@ -11,6 +11,7 @@
 #include "stdint.h"
 
 void CANSend();
-
+void sendVoltageArray();
+void sendFloat(float val);
 
 #endif /* INCLUDE_PHANTOM_CAN_H_ */

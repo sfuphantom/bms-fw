@@ -91,7 +91,12 @@ int main(void)
        phantomSystemInit();
 
        BMS_init();
+
+       // CAN Testing
        CANSend();
+       sendVoltageArray();
+
+
        InitializeTemperature();
        setupThermistor();
 
