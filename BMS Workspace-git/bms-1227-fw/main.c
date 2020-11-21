@@ -93,9 +93,19 @@ int main(void)
        BMS_init();
 
        // CAN Testing
-       CANSend();
-       sendVoltageArray();
+//       CANSend();
+//       sendVoltageArray();
 
+       // CAN Charger Testing
+       while(1){
+           testMessage1();
+           delayms(1500);
+       }
+
+
+
+
+       while(1);
 
        InitializeTemperature();
        setupThermistor();
