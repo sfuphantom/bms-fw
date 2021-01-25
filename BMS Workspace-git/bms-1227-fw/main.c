@@ -96,14 +96,20 @@ int main(void)
 //       CANSend();
 //       sendVoltageArray();
 
+
+       UARTprintf("start");
        // CAN Charger Testing
+
+
        while(1){
            testMessage1();
            delayms(1500);
        }
 
 
-
+//       sendVoltageArray();
+       //sendVoltageBox23(data[])
+       //readvaluefromqueue
 
        while(1);
 

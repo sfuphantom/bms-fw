@@ -24,31 +24,6 @@ int timeout;
 volatile uint32_t transmitCounter = 0;
 volatile uint32_t receiveVCUCounter = 0;
 
-// A structure to represent a queue
-struct Queue {
-    int front, rear, size;
-    unsigned capacity;
-    int* array;
-};
-
-// function to create a queue
-// of given capacity.
-// It initializes size of queue as 0
-struct Queue* createQueue(unsigned capacity)
-{
-    struct Queue* queue = (struct Queue*)malloc(
-        sizeof(struct Queue));
-    queue->capacity = capacity;
-    queue->front = queue->size = 0;
-
-    // This is important, see the enqueue
-    queue->rear = capacity - 1;
-    queue->array = (int*)malloc(
-        queue->capacity * sizeof(int));
-    return queue;
-}
-
-
 
 
 void CANSend()
@@ -69,6 +44,15 @@ void CANSend()
         tx_ptr += 8; /* next chunk ...*/
     }
 }
+
+//void sendTemperatureArray22(int[] data){
+//    int i, clk;
+//        for (i = 0; i < 40; i++)
+//        {
+//            sendFloat(voltArr[i]);
+//            for (clk = 0; clk < 5000000; clk++); // Min 5000 or else breaks it
+//        }
+//}
 
 void sendVoltageArray() // need to package it so that it sends 4 values in 1 message (10 msgs total)
 {
@@ -103,12 +87,29 @@ void sendFloat(float val)
     }
 }
 
+void sendFloatArray(float[] val)
+{
+    uint16 tx_data5[D_COUNT] = { 'A', 'B', 'C', 'D' }; //just default values
+    tx_data5[0] = val[0];
+    tx_data5[1] = val[1];
+    tx_data5[2] = val[2];
+    tx_data5[3] = val[3];
+    // or convert val into uint16?
+    uint16 *tx_ptr2 = &tx_data2[0]; //rename better
+    int j = 0;
+    for (j = 0; j < D_COUNT; j++)
+    {
+        canTransmit(canREG1, canMESSAGE_BOX12, tx_ptr2); // technically it wants 8 bit but it works
+        tx_ptr2 += 16; /* next chunk ...*/
+    }
+}
+
 // For Charger
 void testMessage1()
 {
     uint16 tx_data3[4] = { 0 }; //make it a struct
-    int maxVoltage = 68;
-    int maxCurrent = 2;
+    int maxVoltage = 105;
+    int maxCurrent = 5;
     maxVoltage *= 10;
     maxCurrent *= 10;
     tx_data3[0] = maxVoltage;
@@ -136,8 +137,8 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
     //now they are saved as 4 separate integers (converted from hex)
 //     if(node==canREG1)
 //     {
-//      while(!canIsRxMessageArrived(canREG1, canMESSAGE_BOX7));
-//      canGetData(canREG1, canMESSAGE_BOX7, rx_ptr1); /* copy to RAM */
+//      while(!canIsRxMessageArrived(canREG1, canMESSAGE_BOX2));
+//      canGetData(canREG1, canMESSAGE_BOX2, rx_ptr1); /* copy to RAM */
 //      enqueue(queue, rx_data1[0]);
 //      enqueue(queue, rx_data1[1]);
 //      enqueue(queue, rx_data1[2]);
@@ -170,7 +171,7 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
 //     rx_ptr1 +=8;
 //    }
 
-    /* Note: since only message box 1 is used on both nodes we dont check it here.*/
+
 }
 
 
@@ -178,7 +179,34 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
 
 /*********************************************************************************
  *                          Queue Code
+ *
+ * Note: This should be moved to the main code, does not belong in CAN
+ *       Maybe its own file?
  *********************************************************************************/
+
+// A structure to represent a queue
+struct Queue {
+    int front, rear, size;
+    unsigned capacity;
+    int* array;
+};
+
+// function to create a queue
+// of given capacity.
+// It initializes size of queue as 0
+struct Queue* createQueue(unsigned capacity)
+{
+    struct Queue* queue = (struct Queue*)malloc(
+        sizeof(struct Queue));
+    queue->capacity = capacity;
+    queue->front = queue->size = 0;
+
+    // This is important, see the enqueue
+    queue->rear = capacity - 1;
+    queue->array = (int*)malloc(
+        queue->capacity * sizeof(int));
+    return queue;
+}
 
 
 // Queue is full when size becomes
