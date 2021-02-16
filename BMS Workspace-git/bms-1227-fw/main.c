@@ -27,6 +27,8 @@
 #include "Phantom_sci.h"
 #include "phantom_can.h"
 #include "phantom_pl455.h"
+#include "soc.h"
+#include "bms_data.h"
 #include "can.h"
 #include "esm.h"
 #include "sys_core.h"
@@ -89,6 +91,7 @@ int main(void)
        phantomSystemInit();
 
        BMS_init();
+       initBMSData();
 
        InitializeTemperature();
        setupThermistor();
@@ -159,6 +162,35 @@ void vSensorReadTask(void *pvParameters){
         BMS_Read_All_NP();
 
         //UARTprintf("sensor read task \n\r");
+    }while(1);
+
+}
+
+/***********************************************************
+ * @function                - vSOCTask
+ *
+ * @brief                   - This task will update the state of charge and remaining run time estimations, and check for blown fuses)
+ *
+ * @param[in]               - pvParameters
+ *
+ * @return                  - None
+ * @Note                    - None
+ ***********************************************************/
+void vSOCTask(void *pvParameters){
+
+    // any initialization
+    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
+    const TickType_t xFrequency = 1000; // task frequency in ms
+
+    // Initialize the xLastWakeTime variable with the current time;
+    xLastWakeTime = xTaskGetTickCount();
+
+    do{
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        TickType_t xLastWakeTime = xTaskGetTickCount();
+
+        socProcess();
+
     }while(1);
 
 }
