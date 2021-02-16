@@ -117,6 +117,13 @@ void xphTaskInit(void)
       sciSend(sciREG,23,(unsigned char*)"SensorReadTask Creation Failed.\r\n");
       while(1);
   }
+  if (xTaskCreate(vSOCTask, (const char*)"SensorReadTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
+  {
+      // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
+      // probably need a better error handler
+      sciSend(sciREG,23,(unsigned char*)"SensorReadTask Creation Failed.\r\n");
+      while(1);
+  }
 }
 
 
