@@ -253,7 +253,14 @@ void BMS_init(){
         nSent = WriteReg(nDev_ID, 142, 0xA3D6, 2, FRMWRT_SGL_NR); // set UV threshold = 3.2000V
 
         nSent = WriteReg(nDev_ID, 120, 0x3F, 1, FRMWRT_ALL_NR); // set GPIO direction for GPIO4 and GPIO[2:0] as outputs, GPIO3 and GPIO5 as inputs
-        nSent = WriteReg(nDev_ID, 19, 0x08, 1, FRMWRT_ALL_NR);
+
+        // Configure cell-balancing (datasheet, Section 7.6.3.13)
+        nDev_ID = 0;
+        nSent = WriteReg(nDev_ID, 19, 0x20, 1, FRMWRT_ALL_NR); // Sets balance time for 1 minute whenever balancing function is called
+                                                               // Disables balancing whenever FAULT is detected
+
+        // Configure test configuration (datasheet, Section 7.6.3.15)
+        nSent = WriteReg(nDev_ID, 30, 0x0, 2, FRMWRT_SGL_NR); // Sets EN_SQUEEZE = 0 so BALANCE_EN controls the channels which are balancing
 
 }
 
@@ -703,25 +710,25 @@ void BMS_Balance()
 
     for(i = 0; i < 10; i++)
     {
-        voltageDiff = BMS_Voltages.BMS_Slave_1[i] - BMS.cellVoltageLow;;
+        voltageDiff = BMS_Voltages.BMS_Slave_1[i] - BMS.cellVoltageLow;
         if(voltageDiff >= 0.1)
         {
             CellBalanceMask1 = CellBalanceMask1 | (uint32)((uint32)1U << i);
         }
 
-        voltageDiff = BMS_Voltages.BMS_Slave_2[i] - BMS.cellVoltageLow;;
-        if(voltageDiff >= 0.01)
+        voltageDiff = BMS_Voltages.BMS_Slave_2[i] - BMS.cellVoltageLow;
+        if(voltageDiff >= 0.1)
         {
             CellBalanceMask2 = CellBalanceMask2 | (uint32)((uint32)1U << i);
         }
 
-        voltageDiff = BMS_Voltages.BMS_Slave_3[i] - BMS.cellVoltageLow;;
+        voltageDiff = BMS_Voltages.BMS_Slave_3[i] - BMS.cellVoltageLow;
         if(voltageDiff >= 0.1)
         {
             CellBalanceMask3 = CellBalanceMask3 | (uint32)((uint32)1U << i);
         }
 
-        voltageDiff = BMS_Voltages.BMS_Slave_4[i] - BMS.cellVoltageLow;;
+        voltageDiff = BMS_Voltages.BMS_Slave_4[i] - BMS.cellVoltageLow;
         if(voltageDiff >= 0.1)
         {
             CellBalanceMask4 = CellBalanceMask4 | (uint32)((uint32)1U << i);

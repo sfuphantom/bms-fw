@@ -11,6 +11,8 @@
 
 typedef struct flags
 {
+	uint8_t BALANCE_EN; // If 1, then cell balancing is enabled (only done during charging), if 0, then cell balancing is disabled
+						// TODO: Set this = 1 if state machine evaluates to CHARGING state
 	uint8_t FUSE_FAULT; // If 1, then fuse has blown, if 0, then fuses are intact
 } flags;
 

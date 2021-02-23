@@ -11,6 +11,7 @@ void initBMSData(bms_data* BMSDataPtr)
 	/***********************************************************
      *              FLAG INITIALIZATION
      ***********************************************************/
+	BMSDataPtr->Flags.BALANCE_EN = 0;
 	BMSDataPtr->Flags.FUSE_FAULT = 0;
 
 	/***********************************************************

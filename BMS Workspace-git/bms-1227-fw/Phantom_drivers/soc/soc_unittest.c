@@ -24,6 +24,8 @@ extern float lastCurrentValue;
 /* Testing getSOCFromVoltage function */
 void testGetSOCFromVoltage(void)
 {
+	printf("Testing getSOCFromVoltage():\n");
+
 	float test_val;
 
 	state = CHARGE;
@@ -45,11 +47,15 @@ void testGetSOCFromVoltage(void)
 	{
 		printf("FAIL: With initial estimation of 0%%, SOC for battery at 4V and 5 degrees predicted to be %f%%\n", test_val);
 	}
+
+	printf("\n");
 }
 
 /* Testing GetOCV function */
 void testGetOCV(void)
 {
+	printf("Testing getOCV():\n");
+
 	float test_val;
 
 	state = CHARGE;
@@ -83,11 +89,15 @@ void testGetOCV(void)
 	{
 		printf("FAIL: OCV for battery discharging with 2%% SOC at 77 degrees predicted to be %fV\n", test_val);
 	}
+
+	printf("\n");
 }
 
 /* Testing updateSOC function */
 void testUpdateSOC(void)
 {
+	printf("Testing updateSOC():\n");
+
 	state = DISCHARGE;
 	battLevel = 5000;
 	battCapacity = 6840;
@@ -104,6 +114,8 @@ void testUpdateSOC(void)
 	{
 		printf("FAIL: SOC updated to %f%%\n", test_val);
 	}
+
+	printf("\n");
 }
 
 /* Testing updateBattCapacity function */
@@ -113,6 +125,8 @@ void testUpdateSOC(void)
 	xTaskGetTickCount() always returns 5,000,000 */
 void testUpdateBattCapacity(void)
 {
+	printf("Testing updateBattCapacity():\n");
+
 	state = LOW_DISCHARGE;
 	battCapacity = 6840;
 	battLevel = 5000;
@@ -131,11 +145,14 @@ void testUpdateBattCapacity(void)
 	{
 		printf("FAIL: Battery capacity updated to %f\n", test_val);
 	}
+
+	printf("\n");
 }
 
 // Run test functions in here
 int main(void)
 {
+	// testGetSOCFromVoltage();
 	// testGetOCV();
 	// testUpdateSOC();
 	// testUpdateBattCapacity();
