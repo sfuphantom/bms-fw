@@ -90,8 +90,8 @@ int main(void)
 /* USER CODE BEGIN (3) */
        phantomSystemInit();
 
-       BMS_init();
-       initBMSData();
+       BMS_init();      // Initialize BMS slaves
+       initBMSData();   // Initializes BMS data structure
 
        InitializeTemperature();
        setupThermistor();
@@ -190,6 +190,35 @@ void vSOCTask(void *pvParameters){
         TickType_t xLastWakeTime = xTaskGetTickCount();
 
         socProcess();
+
+    }while(1);
+
+}
+
+/***********************************************************
+ * @function                - vBalanceTask
+ *
+ * @brief                   - This task will passively balance the cells during CHARGING state
+ *
+ * @param[in]               - pvParameters
+ *
+ * @return                  - None
+ * @Note                    - None
+ ***********************************************************/
+void vBalanceTask(void *pvParameters){
+
+    // any initialization
+    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
+    const TickType_t xFrequency = 1000; // task frequency in ms
+
+    // Initialize the xLastWakeTime variable with the current time;
+    xLastWakeTime = xTaskGetTickCount();
+
+    do{
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        TickType_t xLastWakeTime = xTaskGetTickCount();
+
+        BMS_Balance();
 
     }while(1);
 
