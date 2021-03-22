@@ -15,7 +15,7 @@
 const float eps = 0.005;
 const int eps_large = 10;
 
-extern State_t state;
+extern SOCState_t SOCtate;
 extern float battLevel; 
 extern float battCapacity;
 extern bms_data* BMSDataPtr;
@@ -28,7 +28,7 @@ void testGetSOCFromVoltage(void)
 
 	float test_val;
 
-	state = CHARGE;
+	SOCState = CHARGE;
 	test_val = 	getSOCFromVoltage(4, 5, 100);
 	if (abs(test_val - 87.5) < eps)
 	{
@@ -58,7 +58,7 @@ void testGetOCV(void)
 
 	float test_val;
 
-	state = CHARGE;
+	SOCState = CHARGE;
 	test_val = getOCV(62, 5);
 	if (abs(test_val - 3.7795) < eps)
 	{
@@ -79,7 +79,7 @@ void testGetOCV(void)
 		printf("FAIL: OCV for battery charging with 87%% SOC at 32 degrees predicted to be %fV\n", test_val);
 	}
 
-	state = DISCHARGE;
+	SOCState = DISCHARGE;
 	test_val = getOCV(2, 77);
 	if (abs(test_val - 3.2558) < eps)
 	{
@@ -98,7 +98,7 @@ void testUpdateSOC(void)
 {
 	printf("Testing updateSOC():\n");
 
-	state = DISCHARGE;
+	SOCState = DISCHARGE;
 	battLevel = 5000;
 	battCapacity = 6840;
 
@@ -127,14 +127,14 @@ void testUpdateBattCapacity(void)
 {
 	printf("Testing updateBattCapacity():\n");
 
-	state = LOW_DISCHARGE;
+	SOCState = LOW_DISCHARGE;
 	battCapacity = 6840;
 	battLevel = 5000;
 	lastCurrentValue = 1;
 
 	BMSDataPtr = malloc(sizeof(bms_data));
 	initBMSData(BMSDataPtr);
-	BMSDataPtr->SOC.SOC = 73.2;
+	BMSDataPtr->Data.SOC = 73.2;
 	updateBattCapacity();
 	float test_val = getBattCapacity();
 	if (abs(test_val - 6840) < eps_large)

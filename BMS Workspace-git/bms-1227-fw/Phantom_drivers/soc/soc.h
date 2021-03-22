@@ -19,7 +19,7 @@ typedef enum
 	CHARGE,
 	DISCHARGE,
 	LOW_DISCHARGE
-} State_t;
+} SOCState_t;
 
 /* Parameters of OCV model */
 // Charging at 5 degrees

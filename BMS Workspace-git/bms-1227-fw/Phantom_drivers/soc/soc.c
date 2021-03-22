@@ -31,7 +31,7 @@ float battCapacity = 0; // Max chemical capacity for cell TODO: Make static afte
 static TickType_t xLastWakeTime = 0;
 float lastCurrentValue = 0; // TODO: Make static after unit-testing
 
-State_t state = CHARGE; // TODO: Make static after unit-testing 
+SOCState_t SOCState = CHARGE; // TODO: Make static after unit-testing 
 bms_data* BMSDataPtr; // TODO: Make this extern and initialize BMSDataPtr when BMS is initialized
 
 /**
@@ -42,7 +42,7 @@ void socProcess(void)
 {
     float current = getInstantaneousCurrent();
 
-    if (state == INIT)
+    if (SOCState == INIT)
     {
         if (1) // TODO: Change this to "if BMS slaves have been initialized"
         {
@@ -50,15 +50,15 @@ void socProcess(void)
 
             if (current < 0) // TODO: Make sure current is recorded as negative when it's charging
             {
-                state = CHARGE;
+                SOCState = CHARGE;
             }
             else if (current < LOW_DISCHARGE_CURRENT_THRESH)
             {
-                state = LOW_DISCHARGE;
+                SOCState = LOW_DISCHARGE;
             }
             else
             {
-                state = DISCHARGE;
+                SOCState = DISCHARGE;
             }
         }
         return;
@@ -67,18 +67,18 @@ void socProcess(void)
     {
         if (current < 0) // TODO: Make sure current is recorded as negative when it's charging
         {
-            state = CHARGE;
+            SOCState = CHARGE;
             updateBattCapacity();
         }
         else if (current < LOW_DISCHARGE_CURRENT_THRESH)
         {
-            state = LOW_DISCHARGE;
+            SOCState = LOW_DISCHARGE;
             updateBattCapacity();
             calculateRemainingRunTime(getBattLevel(), current);
         }
         else
         {
-            state = DISCHARGE;
+            SOCState = DISCHARGE;
             updateSOC(xTaskGetTickCount(), current);
             calculateRemainingRunTime(getBattLevel(), current);
             calculateImpedance(getOCV(getSOC(), getInstantaneousTemp()), getInstantaneousVoltage(), current);
@@ -92,8 +92,8 @@ void socProcess(void)
  */
 void socInit(void)
 {
-    BMSDataPtr->SOC.SOC = getSOCFromVoltage(getInstantaneousVoltage(), getInstantaneousTemp(), 100);
-    battLevel = BMSDataPtr->SOC.SOC*battCapacity/100;
+    BMSDataPtr->Data.SOC = getSOCFromVoltage(getInstantaneousVoltage(), getInstantaneousTemp(), 100);
+    battLevel = BMSDataPtr->Data.SOC*battCapacity/100;
     battCapacity = MAX_CAPACITY;
     xLastWakeTime = xTaskGetTickCount();
     lastCurrentValue = getInstantaneousCurrent();
@@ -139,7 +139,7 @@ void updateSOC(TickType_t xWakeTime, float current)
     float chargePassed = current*portTICK_PERIOD_MS*(xWakeTime - xLastWakeTime)/1000; // in Coulombs
     //printf("Current = %f, xLastWakeTime = %f, chargePassed = %f\n", current, xLastWakeTime, chargePassed);
     
-    if(state == CHARGE)
+    if(SOCState == CHARGE)
     {
         battLevel = battLevel + chargePassed;
     }
@@ -148,7 +148,7 @@ void updateSOC(TickType_t xWakeTime, float current)
         battLevel = battLevel - chargePassed;
     }
 
-    BMSDataPtr->SOC.SOC = battLevel/battCapacity*100;
+    BMSDataPtr->Data.SOC = battLevel/battCapacity*100;
 
     if(battLevel >= 0 && battLevel <= 100)
     {
@@ -168,7 +168,7 @@ void updateSOC(TickType_t xWakeTime, float current)
  */
 float getSOC(void)
 {
-    return BMSDataPtr->SOC.SOC;
+    return BMSDataPtr->Data.SOC;
 }
 
 /**
@@ -215,7 +215,7 @@ float getOCV(float SOC, float temp)
     float alpha1;
     float alpha2;
 
-    switch(state)
+    switch(SOCState)
     {
         case CHARGE:
             if (temp <= 5)
@@ -383,7 +383,7 @@ void calculateRemainingRunTime(float battLevel, float current)
     float battLevel_Ah = battLevel/3600;
     float runTime_hours = battLevel_Ah/current;
     
-    BMSDataPtr->SOC.remainingRunTime = runTime_hours*60;
+    BMSDataPtr->Data.remainingRunTime = runTime_hours*60;
 
     return;
 }
