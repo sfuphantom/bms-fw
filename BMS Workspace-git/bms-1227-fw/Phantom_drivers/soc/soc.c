@@ -31,7 +31,7 @@ float battCapacity = 0; // Max chemical capacity for cell TODO: Make static afte
 static TickType_t xLastWakeTime = 0;
 float lastCurrentValue = 0; // TODO: Make static after unit-testing
 
-SOCState_t SOCState = CHARGE; // TODO: Make static after unit-testing 
+SOCState_t SOCState = INIT; // TODO: Make static after unit-testing 
 bms_data* BMSDataPtr; // TODO: Make this extern and initialize BMSDataPtr when BMS is initialized
 
 /**

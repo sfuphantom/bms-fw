@@ -26,7 +26,7 @@ typedef enum{
     BMS_VOLTAGE_FAULT,
     BMS_TEMPERATURE_VOLTAGE_FAULT,
     BMS_CRITICAL_FAULT*/
-}BMS_STATE;
+}BMS_SLAVE_STATE;
 
 typedef struct BMS_FLAGS{
     bool CELL_OVERVOLTAGE_FLAG[CELLS_PER_BOARD];            // 1 if a cell in the board being evaluated is overvoltage. Else, 0

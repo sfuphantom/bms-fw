@@ -30,7 +30,7 @@ BYTE  SingleSlaveReading[BMSByteArraySize];
 BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
 
 volatile BMS_FLAGS BMS = {{0}, {0}, {0}, {0}, 0};
-BMS_STATE bmsSlaveState[TOTALBOARDS];
+BMS_SLAVE_STATE bmsSlaveState[TOTALBOARDS];
 
 extern bms_data* BMSDataPtr;
 
