@@ -37,10 +37,8 @@ extern bms_data* BMSDataPtr;
 
 void BMS_init()
 {
-        char buf[50];
-
-        int nSent, nRead, nTopFound = 0;
-        int nDev_ID, nGrp_ID;
+        int nRead, nSent, nTopFound = 0;
+        int nDev_ID;
         uint32_t  wTemp = 0;
         unsigned char command;
 
@@ -266,7 +264,7 @@ void BMS_init()
         // Configure test configuration (datasheet, Section 7.6.3.15)
         nSent = WriteReg(nDev_ID, 30, 0x0, 2, FRMWRT_ALL_NR); // Sets EN_SQUEEZE = 0 so BALANCE_EN controls the channels which are balancing
 
-        for (int nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
+        for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
             bmsSlaveState[nDev_ID] = SLAVE_CONNECTION_GOOD;
         }
 
@@ -274,25 +272,29 @@ void BMS_init()
 
 void BMS_ProcessState(void)
 {
-    for (int nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+    int nDev_ID;
+
+    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
     {
         switch (bmsSlaveState[nDev_ID])
+        {
             case SLAVE_CONNECTION_GOOD:
-                if (BMS.CELL_RW_ERROR_FLAG[nDevID] > 3) {
+                if (BMS.CELL_RW_ERROR_FLAG[nDev_ID] > 3) {
                     BMS_ReconnectSlave(nDev_ID);
                     bmsSlaveState[nDev_ID] = SLAVE_CONNECTION_BAD;
-                    BMS.CELL_RW_ERROR_FLAG[nDevID] = 0;
+                    BMS.CELL_RW_ERROR_FLAG[nDev_ID] = 0;
                 }
                 break;
 
             case SLAVE_CONNECTION_BAD:
-                if (BMS.CELL_RW_ERROR_FLAG[nDevID] > 3) {
+                if (BMS.CELL_RW_ERROR_FLAG[nDev_ID] > 3) {
                     BMSDataPtr->Flags.BAD_SLAVE_CONNECTION_FLAG = 1;
                 }
                 else {
                     bmsSlaveState[nDev_ID] = SLAVE_CONNECTION_GOOD;
                 }
                 break;
+        }
     }
 }
 
@@ -471,7 +473,7 @@ void BMS_Slaves_Heartbeat(void)
     int nDev_ID = 0;
     int gpioData[TOTALBOARDS] = {0};
 
-    for (nDev_ID = 0; nDevID < TOTALBOARDS; nDev_ID++) {
+    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
         nRead = ReadReg(nDev_ID, 121, &gpioData[nDev_ID], 1, 0);
         if (nRead == 0) {
             BMS.CELL_RW_ERROR_FLAG[nDev_ID]++;
@@ -526,16 +528,17 @@ void BMS_Slaves_Heartbeat(void)
 void BMS_Read_All(bool printToUART, bool update)
 {
     char buf[100];
+    int nDev_ID;
 
     if (update) {
         int nSent = WriteReg(0, 2, TOTALBOARDS-1, 1, FRMWRT_ALL_R); // send sync sample command
         if (nSent != 1) {
-            for (int nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
+            for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
                 BMS.CELL_RW_ERROR_FLAG[nDev_ID]++;
             }
         }
         else {
-            for (int nDev_ID = 0; nDev_ID < TOTALBOARDS: nDev_ID++) {
+            for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
                 BMS.CELL_RW_ERROR_FLAG[nDev_ID] = 0;
             }
         }
@@ -618,7 +621,7 @@ void BMS_Read_All(bool printToUART, bool update)
             }
 
             if (BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount - 1] > 300) {
-                BMSDataPtr->Flags.3SECOND_FLAG = true;
+                BMSDataPtr->Flags.THREE_SECOND_FLAG = true;
             }
 
             totalCellCount--;
@@ -759,7 +762,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
         }
 
         if (BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] > 300) {
-            BMSDataPtr->Flags.3SECOND_FLAG = true;
+            BMSDataPtr->Flags.THREE_SECOND_FLAG = true;
         }
 
         cellCount--;
@@ -948,7 +951,7 @@ void BMS_Balance()
 //                 }
 
 //                 if(BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] > 300){
-//                     BMS.CELL_3SECOND_FLAG = true;
+//                     BMS.CELL_THREE_SECOND_FLAG = true;
 //                 }
 
 //                 cellCount--;
@@ -1026,8 +1029,126 @@ void BMS_Balance()
 // }
 
 // //-------TEST INTERFACE FUNCTIONS----
-// void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)])
-// {
-//     memcpy(&BMSArray[0], &MultipleSlaveReading[0], BMSByteArraySize*(TOTALBOARDS)*sizeof(BYTE));
-// }
+void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)])
+{
+    memcpy(&BMSArray[0], &MultipleSlaveReading[0], BMSByteArraySize*(TOTALBOARDS)*sizeof(BYTE));
+}
+
+void getCurrentReadings(void)
+{
+    char buf[100];
+
+
+    BMSDataPtr->Data.minimumCellVoltage = 5;
+    uint8 j;
+    sint8 i;
+    uint8 cellCount = TOTALCELLS*TOTALBOARDS;
+    uint8 x = 9;
+    uint8 voltageLoopCounter = cellCount*2+1;
+    uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2;
+    for (i = TOTALBOARDS-1; i > -1; i--){
+        for (j = 0; j < voltageLoopCounter; j++) {
+            if (j == 0) {
+                UARTprintf("Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
+                continue;
+            }
+
+
+            uint32 tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+            double div = tempVal/65535.0; //FFFF
+            double fin = div * 5.0;
+
+            if(i == 0) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_1[x] = fin;
+                if(fin < BMSDataPtr->Data.minimumCellVoltage) {
+                    BMSDataPtr->Data.minimumCellVoltage = fin;
+                }
+            }
+            if(i == 1) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_2[x] = fin;
+            }
+            if(i == 2) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_3[x] = fin;
+            }
+            if(i == 3) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_4[x] = fin;
+            }
+
+            // if(fin < BMS.cellVoltageLow)
+            // {
+            //   BMS.cellVoltageLow = fin;
+            //}
+
+
+
+            UARTprintf("Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin);
+
+
+            if(fin > 4.2) {
+                UARTprintf("Cell %d Overvoltage\n\n\r", cellCount);
+
+
+                BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
+                BMS.TOTAL_CELL_ERROR_COUNTER++;
+            }
+            else if(fin < 3.2){
+                UARTprintf("Cell %d Undervoltage\n\n\r", cellCount);
+
+                BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
+                BMS.TOTAL_CELL_ERROR_COUNTER++;
+            }
+
+            if(BMS.CELL_OVERVOLTAGE_FLAG[cellCount] == true || BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] == true){
+                BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount]++;
+            }
+            else{
+                BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] = 0;
+            }
+
+            if(BMS.CELL_VOLTAGE_ERROR_COUNTER[cellCount] > 300){
+                BMSDataPtr->Flags.THREE_SECOND_FLAG = true;
+            }
+
+            cellCount--;
+            j++;
+            x--;
+        }
+        x = 9;
+    }
+
+    if(BMS.TOTAL_CELL_ERROR_COUNTER > 4){
+        BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = true;
+    }
+
+    UARTprintf("NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
+
+    BMS.TOTAL_CELL_ERROR_COUNTER = 0;
+
+    uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
+    for (i = TOTALBOARDS-1; i > -1; i--)
+    {
+        for (j = voltageLoopCounter; j < auxLoopCounter; j++)
+        {
+            int tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+            double div = tempVal/65535.0; //FFFF
+            double fin = div * 5.0;
+
+            double resistance = 10000*(fin/(4.56-fin));
+
+            UARTprintf("AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
+
+            j++;
+            auxCount--;
+        }
+
+        double digDieTemp = ((((MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i])/65535.0)*5) - 2.287) * 131.944;
+        UARTprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
+
+
+        double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
+        UARTprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
+
+    }
+
+}
 

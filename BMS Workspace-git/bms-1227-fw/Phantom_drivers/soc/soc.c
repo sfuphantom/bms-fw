@@ -24,7 +24,7 @@
 static const float MAX_CAPACITY = 7560;   // 2.1Ah = 7560 Coloumbs
 static const float  MAX_LEVEL = 100;
 static const float LOW_DISCHARGE_CURRENT_THRESH = 2; // A TODO: Verify this by testing battery and seeing what the idle current is
-static const float BLOWN_FUSE_RESISTANCE_THRESH = pow(1, 9); // Ohms
+static const float BLOWN_FUSE_RESISTANCE_THRESH = 1000000000; // Ohms
 
 float battLevel = 0; // TODO: Make static after unit-testing
 float battCapacity = 0; // Max chemical capacity for cell TODO: Make static after unit-testing

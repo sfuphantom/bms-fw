@@ -7,9 +7,10 @@
  */
 
 #include <stdio.h>
+#include "bms_data.h"
 #include "phantom_pl455.h"
 
-extern BMS_ARRAYS BMS_Voltages;
+extern bms_data* BMSDataPtr;
 extern BMS_FLAGS BMS;
 
 /* Testing BMS_Balance function */
@@ -18,16 +19,17 @@ void testBMSBalance(void)
 	// Set-up
 	double voltageArray[7] = {3, 4, 3.55, 4.3, 3.2, 4.1, 3.62};
 	int count = 0;
-	BMS.cellVoltageLow = 3.6;
-	for (int i = 0; i<10; i++)
+	int i;
+	BMSDataPtr->Data.minimumCellVoltage = 3.6;
+	for (i = 0; i<10; i++)
 	{
-		BMS_Voltages.BMS_Slave_1[i] = voltageArray[count%7];
+		BMSDataPtr->SlaveVoltage.BMS_Slave_1[i] = voltageArray[count%7];
 		count++;
-		BMS_Voltages.BMS_Slave_2[i] = voltageArray[count%7];
+		BMSDataPtr->SlaveVoltage.BMS_Slave_2[i] = voltageArray[count%7];
 		count++;
-		BMS_Voltages.BMS_Slave_3[i] = voltageArray[count%7];
+		BMSDataPtr->SlaveVoltage.BMS_Slave_3[i] = voltageArray[count%7];
 		count++;
-		BMS_Voltages.BMS_Slave_4[i] = voltageArray[count%7];
+		BMSDataPtr->SlaveVoltage.BMS_Slave_4[i] = voltageArray[count%7];
 		count++;
 	}
 

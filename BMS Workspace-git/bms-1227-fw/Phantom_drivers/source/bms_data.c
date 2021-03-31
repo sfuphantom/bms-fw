@@ -4,16 +4,17 @@
  * Date: February 8, 2021
  */
 
+#include <string.h>
 #include "bms_data.h"
 
-void initBMSData(bms_data* BMSDataPtr)
+void initBMSData()
 {
 	/***********************************************************
      *              FLAG INITIALIZATION
      ***********************************************************/
 	BMSDataPtr->Flags.BALANCE_EN = 0;
 	BMSDataPtr->Flags.FUSE_FAULT = 0;
-	BMSDataPtr->Flags.3SECOND_FLAG = 0;
+	BMSDataPtr->Flags.THREE_SECOND_FLAG = 0;
 	BMSDataPtr->Flags.BAD_SLAVE_CONNECTION_FLAG = 0;
 
 	/***********************************************************
@@ -27,8 +28,8 @@ void initBMSData(bms_data* BMSDataPtr)
 	/***********************************************************
      *              SLAVE VOLTAGE INITIALIZATION
      ***********************************************************/
-	BMSDataPtr->SlaveVoltage.BMS_Slave_1 = {0};
-	BMSDataPtr->SlaveVoltage.BMS_Slave_2 = {0};
-	BMSDataPtr->SlaveVoltage.BMS_Slave_3 = {0};
-	BMSDataPtr->SlaveVoltage.BMS_Slave_4 = {0};
+	memset(BMSDataPtr->SlaveVoltage.BMS_Slave_1, 0, CELLS_PER_BOARD*sizeof (double));
+	memset(BMSDataPtr->SlaveVoltage.BMS_Slave_2, 0, CELLS_PER_BOARD*sizeof (double));
+	memset(BMSDataPtr->SlaveVoltage.BMS_Slave_3, 0, CELLS_PER_BOARD*sizeof (double));
+	memset(BMSDataPtr->SlaveVoltage.BMS_Slave_4, 0, CELLS_PER_BOARD*sizeof (double));
 }

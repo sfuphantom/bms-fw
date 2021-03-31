@@ -54,6 +54,7 @@ void BMS_ReconnectSlave(uint8_t device);
 void BMS_Slaves_Heartbeat(void);
 void BMS_Balance();
 //void BMS_Balance_SIM();
-//void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)]);
+void getBMSSlaveArray(BYTE BMSArray[BMSByteArraySize*(TOTALBOARDS)]);
+void getCurrentReadings(void);
 
 #endif /* INCLUDE_PHANTOM_PL455_H_ */

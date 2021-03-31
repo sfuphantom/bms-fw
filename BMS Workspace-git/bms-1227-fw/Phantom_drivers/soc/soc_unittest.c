@@ -15,7 +15,7 @@
 const float eps = 0.005;
 const int eps_large = 10;
 
-extern SOCState_t SOCtate;
+extern SOCState_t SOCState;
 extern float battLevel; 
 extern float battCapacity;
 extern bms_data* BMSDataPtr;
