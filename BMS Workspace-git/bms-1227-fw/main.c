@@ -123,6 +123,10 @@ void vStateMachineTask(void *pvParameters){
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         //UARTprintf("battery level = %f\n\r", getBattLevel());
 
+/*********************** STATE MACHINE EVALUATION ***********************************/
+
+
+
     }while(1);
 }
 
@@ -159,7 +163,7 @@ void vSensorReadTask(void *pvParameters){
 
         //thermistorRead();
 
-        BMS_Read_All_NP();
+        BMS_Read_All(false, true);
 
         //UARTprintf("sensor read task \n\r");
     }while(1);

@@ -33,6 +33,9 @@ enum TASK_PRIORITIES{
  *********************************************************************************/
 void vStateMachineTask(void *);  // This task will evaluate the state machine and decide whether or not to change states
 void vSensorReadTask(void *);    // This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
+void vSOCTask(void *); 			 // This task will evaluate the state of charge of the vehicle battery
+void vBalanceTask(void *);		 // This task will perform passive cell balancing
+
 
 /*********************************************************************************
  *                          SOFTWARE TIMER INITIALIZATION
