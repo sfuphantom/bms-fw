@@ -34,6 +34,7 @@
 #include "sys_core.h"
 #include "reg_het.h"
 #include "testinterface.h"
+#include "pinmux.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,6 +52,7 @@
 #include "thermistor.h"
 #include "temperature_yash.h"
 #include "hwConfig.h"
+// #include "charger_main.h" TODO: Uncomment when charger code is integrated
 #include "soc.h"
 
 
@@ -82,7 +84,7 @@ int RTI_TIMEOUT = 0;
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
-State state = RUNNING;
+extern BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)
@@ -95,6 +97,13 @@ int main(void)
 
        InitializeTemperature();
        setupThermistor();
+
+        if (PINMUX_PIN_54_MIBSPI3NCS_5 == 1) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+            BMSState = BMS_CHARGING;
+        }
+        else {
+            BMSState = BMS_RUNNING;
+        }
 
        xphRtosInit();
 
@@ -124,7 +133,57 @@ void vStateMachineTask(void *pvParameters){
         //UARTprintf("battery level = %f\n\r", getBattLevel());
 
 /*********************** STATE MACHINE EVALUATION ***********************************/
+        
+        if (BMSState == BMS_CHARGING || BMS_RUNNING) { 
+            if (STATE_PRINT) {
+                if (BMS_CHARGING) {
+                    UARTSend(PC_UART, "********BMS CHARGING********");
+                }
+                else { // BMS_RUNNING
+                    UARTSend(PC_UART, "********BMS RUNNING********");
+                }
+                UARTSend(PC_UART, "\n\r");
+            }
 
+            // Check all fault flags
+            if (BMSDataPtr->Flags.FUSE_FAULT) {
+                if (STATE_PRINT) {
+                    UARTSend(PC_UART, "FUSE_FAULT detected. BMS entering FAULT state");
+                    UARTSend(PC_UART, "\n\r");
+                }
+                BMSState = BMS_FAULT;
+            }
+            if (BMSDataPtr->Flags.THREE_SECOND_FLAG) {
+                if (STATE_PRINT) {
+                    UARTSend(PC_UART, "THREE_SECOND_FLAG detected. BMS entering FAULT state");
+                    UARTSend(PC_UART, "\n\r");
+                }
+                BMSState = BMS_FAULT;
+            }
+            if (BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG)  {
+                if (STATE_PRINT) {
+                    UARTSend(PC_UART, "TOTAL_CELL_ERROR_FLAG detected. BMS entering FAULT state");
+                    UARTSend(PC_UART, "\n\r");
+                }
+                BMSState = BMS_FAULT;
+            }
+            if (BMSDataPtr->Flags.BAD_SLAVE_CONNECTION_FLAG) {
+                if (STATE_PRINT) {
+                    UARTSend(PC_UART, "BAD_SLAVE_CONNECTION_FLAG detected. BMS entering FAULT state");
+                    UARTSend(PC_UART, "\n\r");
+                }
+                BMSState = BMS_FAULT;
+            }
+        }
+    if (BMSState == BMS_FAULT) {
+        if (STATE_PRINT) {
+            UARTSend(PC_UART, "********BMS FAULT********");
+            UARTSend(PC_UART, "\n\r");
+        }
+
+        // TODO: Pull down GPIO that is connected to Shutdown Circuit
+        // TODO: Send message over CAN so all controllers know we are shutting down
+    }
 
 
     }while(1);
@@ -163,7 +222,7 @@ void vSensorReadTask(void *pvParameters){
 
         //thermistorRead();
 
-        BMS_Read_All(false, true);
+        BMS_Read_All(true);
 
         //UARTprintf("sensor read task \n\r");
     }while(1);
@@ -200,9 +259,38 @@ void vSOCTask(void *pvParameters){
 }
 
 /***********************************************************
+ * @function                - vChargerTask
+ *
+ * @brief                   - This task runs functionto charge cells during BMS_CHARGING
+ *
+ * @param[in]               - pvParameters
+ *
+ * @return                  - None
+ * @Note                    - None
+ ***********************************************************/
+void vChargerTask(void *pvParameters){
+
+    // any initialization
+    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
+    const TickType_t xFrequency = 1500; // task frequency in ms - frequency taken to be the same as frequency in sys_main.c
+
+    // Initialize the xLastWakeTime variable with the current time;
+    xLastWakeTime = xTaskGetTickCount();
+
+    do{
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        TickType_t xLastWakeTime = xTaskGetTickCount();
+
+        // function_to_charge(); TODO: Uncomment when charger code is integrated
+
+    }while(1);
+
+}
+
+/***********************************************************
  * @function                - vBalanceTask
  *
- * @brief                   - This task will passively balance the cells during CHARGING state
+ * @brief                   - This task will passively balance the cells during BMS_CHARGING state
  *
  * @param[in]               - pvParameters
  *

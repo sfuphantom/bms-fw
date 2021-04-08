@@ -522,10 +522,9 @@ void BMS_Slaves_Heartbeat(void)
  * values in BMS data structure
  * TODO: Finalize function description before pushing
  *
- * @param       printToUART     set true to enable printing values to UART
  * @param       update          set true to query the slaves for new values, set false to obtain previously queried-values
  */
-void BMS_Read_All(bool printToUART, bool update)
+void BMS_Read_All(bool update)
 {
     char buf[100];
     int nDev_ID;
@@ -558,7 +557,7 @@ void BMS_Read_All(bool printToUART, bool update)
     for (i = TOTALBOARDS-1; i > -1; i--) {
         for (j = 0; j < voltageLoopCounter; j = j + 2) {
             if (j == 0) {
-                if (printToUART) {
+                if (TASK_PRINT) {
                     snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
                     UARTSend(PC_UART, buf);
                 }
@@ -586,7 +585,7 @@ void BMS_Read_All(bool printToUART, bool update)
                 BMSDataPtr->Data.minimumCellVoltage = fin;
             }
 
-            if (printToUART) {
+            if (TASK_PRINT) {
                 snprintf(buf, 40, "Cell %d: Hex: %X %X Voltage: %fV \n\r", totalCellCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin);
                 UARTSend(PC_UART, buf);
                 UARTSend(PC_UART, "\n\r");
@@ -596,7 +595,7 @@ void BMS_Read_All(bool printToUART, bool update)
                 BMS.CELL_OVERVOLTAGE_FLAG[cellCount - 1] = true;
                 BMS.TOTAL_CELL_ERROR_COUNTER++;
 
-                if (printToUART) {
+                if (TASK_PRINT) {
                     snprintf(buf, 20, "Cell %d Overvoltage\n\r", totalCellCount);
                     UARTSend(PC_UART, buf);
                     UARTSend(PC_UART, "\n\r");
@@ -606,7 +605,7 @@ void BMS_Read_All(bool printToUART, bool update)
                 BMS.CELL_UNDERVOLTAGE_FLAG[cellCount - 1] = true;
                 BMS.TOTAL_CELL_ERROR_COUNTER++;
 
-                if (printToUART) {
+                if (TASK_PRINT) {
                     snprintf(buf, 21, "Cell %d Undervoltage\n\r", totalCellCount);
                     UARTSend(PC_UART, buf);
                     UARTSend(PC_UART, "\n\r");
@@ -641,7 +640,7 @@ void BMS_Read_All(bool printToUART, bool update)
 
             // TODO: Check for high temperature -> Indicate on BMS.TOTAL_CELL_ERROR_COUNTER
 
-            if (printToUART) {
+            if (TASK_PRINT) {
                 snprintf(buf, 70, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
                 UARTSend(PC_UART, buf);
                 UARTSend(PC_UART, "\n\r");
@@ -653,7 +652,7 @@ void BMS_Read_All(bool printToUART, bool update)
         double digDieTemp = ((((MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i])/65535.0)*5) - 2.287) * 131.944;
         double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
         
-        if (printToUART) {
+        if (TASK_PRINT) {
             snprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
             UARTSend(PC_UART, buf);
             UARTSend(PC_UART, "\n\r");
@@ -669,7 +668,7 @@ void BMS_Read_All(bool printToUART, bool update)
         BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = true;
     }
 
-    if (printToUART) {
+    if (TASK_PRINT) {
         snprintf(buf, 26, "NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
         UARTSend(PC_UART, buf);
         UARTSend(PC_UART, "\n\r");
@@ -685,9 +684,8 @@ void BMS_Read_All(bool printToUART, bool update)
  * TODO: Finalize function description before pushing
  *
  * @param       device          indicates which slave to read from
- * @param       printToUART     flag to enable or disable printing values to UART
  */
-void BMS_Read_Single(uint8_t device, bool printToUART)
+void BMS_Read_Single(uint8_t device)
 {
     int nSent = 0;
     char buf[100];
@@ -704,7 +702,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
 
     delayms(10); // for the tms to record all the data first
 
-    if (printToUART) {
+    if (TASK_PRINT) {
         snprintf(buf, 30, "Device number %d \n\r", device);
         UARTSend(PC_UART, buf);
     }
@@ -715,7 +713,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
     uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2;
     for (j = 0; j < voltageLoopCounter; j = j + 2) {
         if (j == 0) {
-            if (printToUART) {
+            if (TASK_PRINT) {
                 snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n", SingleSlaveReading[j], SingleSlaveReading[j]);
                 UARTSend(PC_UART, buf);
                 UARTSend(PC_UART, "\n\r");
@@ -727,7 +725,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
         double div = tempVal/65535.0; //FFFF
         double fin = div * 5.0;
 
-        if (printToUART) {
+        if (TASK_PRINT) {
             snprintf(buf, 40, "Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, SingleSlaveReading[j], SingleSlaveReading[j+1], fin);
             UARTSend(PC_UART, buf);
             UARTSend(PC_UART, "\n\r");
@@ -737,7 +735,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
             BMS.CELL_OVERVOLTAGE_FLAG[cellCount - 1] = true;
             BMS.TOTAL_CELL_ERROR_COUNTER++;
 
-            if (printToUART) {
+            if (TASK_PRINT) {
                 snprintf(buf, 20, "Cell %d Overvoltage\n\r", cellCount);
                 UARTSend(PC_UART, buf);
                 UARTSend(PC_UART, "\n\r");
@@ -747,7 +745,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
             BMS.CELL_UNDERVOLTAGE_FLAG[cellCount - 1] = true;
             BMS.TOTAL_CELL_ERROR_COUNTER++;
 
-            if (printToUART) {
+            if (TASK_PRINT) {
                 snprintf(buf, 21, "Cell %d Undervoltage\n\r", cellCount);
                 UARTSend(PC_UART, buf);
                 UARTSend(PC_UART, "\n\r");
@@ -772,7 +770,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
         BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = true;
     }
 
-    if (printToUART) {
+    if (TASK_PRINT) {
         snprintf(buf, 26, "NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
         UARTSend(PC_UART, buf);
         UARTSend(PC_UART, "\n\r");
@@ -788,7 +786,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
 
         double resistance = 10000*(fin/(4.56-fin));
 
-        if (printToUART) {
+        if (TASK_PRINT) {
             snprintf(buf, 46, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, SingleSlaveReading[j], SingleSlaveReading[j+1], fin, resistance);
             UARTSend(PC_UART, buf);
             UARTSend(PC_UART, "\n\r");
@@ -799,7 +797,7 @@ void BMS_Read_Single(uint8_t device, bool printToUART)
     double digDieTemp = ((((SingleSlaveReading[37]*16*16 + SingleSlaveReading[38])/65535.0)*5) - 2.287) * 131.944;
     double anaDieTemp = ((((SingleSlaveReading[39]*16*16 + SingleSlaveReading[40])/65535.0)*5) - 1.8078) * 147.514;
 
-    if (printToUART) {
+    if (TASK_PRINT) {
         snprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", SingleSlaveReading[37], SingleSlaveReading[38], digDieTemp);
         UARTSend(PC_UART, buf);
         UARTSend(PC_UART, "\n\r");
