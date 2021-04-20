@@ -98,7 +98,7 @@ int main(void)
        InitializeTemperature();
        setupThermistor();
 
-        if (PINMUX_PIN_54_MIBSPI3NCS_5 == 1) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+        if (CHARGER_ENABLE_PIN == 1) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
             BMSState = BMS_CHARGING;
         }
         else {
