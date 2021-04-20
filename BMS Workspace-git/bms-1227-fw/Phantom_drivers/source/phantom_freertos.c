@@ -15,7 +15,7 @@
 #include "sys_main.h"
 #include "bms_data.h"
 
-extern bms_data* BMSDataPtr;
+extern BMSState_t BMSState;
 
 void xphRtosInit(void)
 {
@@ -128,8 +128,15 @@ void xphTaskInit(void)
       while(1);
   }
 
-  if (BMSDataPtr->Flags.BALANCE_EN == 1)
+  if (BMSState == BMS_CHARGING)
   {
+      if (xTaskCreate(vChargerTask, (const char*)"ChargerTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
+      {
+          // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
+          // probably need a better error handler
+          sciSend(sciREG,23,(unsigned char*)"ChargerTask Creation Failed.\r\n");
+          while(1);
+      }
       if (xTaskCreate(vBalanceTask, (const char*)"BalanceTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
       {
           // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..

@@ -19,8 +19,6 @@
 #include "os_timer.h"
 #include "phantom_freertos.h"
 
-typedef enum {CHARGING, RUNNING, FAULT} State;
-
 #define CLI_ENABLE true
 
 enum TASK_PRIORITIES{
@@ -29,12 +27,19 @@ enum TASK_PRIORITIES{
 };
 
 /*********************************************************************************
+ *                          DEBUG PRINTING DEFINES
+ *********************************************************************************/
+#define TASK_PRINT  0
+#define STATE_PRINT 0
+
+/*********************************************************************************
  *                          TASK HEADER DECLARATIONS
  *********************************************************************************/
-void vStateMachineTask(void *);  // This task will evaluate the state machine and decide whether or not to change states
-void vSensorReadTask(void *);    // This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
-void vSOCTask(void *); 			 // This task will evaluate the state of charge of the vehicle battery
-void vBalanceTask(void *);		 // This task will perform passive cell balancing
+void vStateMachineTask(void *);  		// This task will evaluate the state machine and decide whether or not to change states
+void vSensorReadTask(void *);    		// This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
+void vSOCTask(void *); 			 		// This task will evaluate the state of charge of the vehicle battery
+void vChargerTask(void *pvParameters);	// This task will call function to charge cells
+void vBalanceTask(void *);		 		// This task will perform passive cell balancing
 
 
 /*********************************************************************************

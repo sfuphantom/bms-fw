@@ -20,8 +20,6 @@ typedef enum BMSState_t
 
 typedef struct bmsFlags
 {
-	uint8_t BALANCE_EN; // If 1, then cell balancing is enabled (only done during charging), if 0, then cell balancing is disabled
-						// TODO: Set this = 1 if state machine evaluates to CHARGING state
 	uint8_t FUSE_FAULT; // If 1, then fuse has blown, if 0, then fuses are intact
 	uint8_t THREE_SECOND_FLAG; // If 1, then a cell has been in fault for longer than 3 seconds, else 0
 							   // TODO: If 1, put BMS in FAULT state
@@ -37,7 +35,6 @@ typedef struct bmsData
 	float remainingRunTime; // Remaining run time estimation, expressing in minutes
 
 	double minimumCellVoltage; // Minimum voltage of all cells from most recent query
-	BMSState_t state; // The current state of the BMS
 } bmsData;
 
 typedef struct bmsSlaveVoltage
@@ -55,6 +52,7 @@ typedef struct bms_data
     bmsSlaveVoltage SlaveVoltage;
 } bms_data;
 
+BMSState_t BMSState;
 bms_data* BMSDataPtr;
 
 void initBMSData();

@@ -46,8 +46,8 @@ typedef struct BMS_FLAGS{
 } BMS_FLAGS;
 
 void BMS_init(void);
-void BMS_Read_Single(uint8_t device, bool printToUART);
-void BMS_Read_All(bool printToUART, bool update);
+void BMS_Read_Single(uint8_t device);
+void BMS_Read_All(bool update);
 //void BMS_Read_All_NP_SIM();
 void BMS_ProcessState(void);
 void BMS_ReconnectSlave(uint8_t device);
