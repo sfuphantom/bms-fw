@@ -53,7 +53,7 @@
 #include "temperature_yash.h"
 #include "hwConfig.h"
 // #include "charger_main.h" TODO: Uncomment when charger code is integrated
-#include "soc.h"
+// #include "soc.h"
 
 
 /* USER CODE END */
@@ -77,6 +77,8 @@
 void Thermistor_read(void);
 void printRandoms(int lower, int upper, int count);
 
+#define CHARGER_ENABLE_PIN  PINMUX_PIN_54_MIBSPI3NCS_5
+
 
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
@@ -85,6 +87,7 @@ int RTI_TIMEOUT = 0;
  *                          STATE ENUMERATION
  *********************************************************************************/
 extern BMSState_t BMSState;
+bms_data BMSDataPtr;
 /* USER CODE END */
 
 int main(void)
@@ -92,8 +95,8 @@ int main(void)
 /* USER CODE BEGIN (3) */
        phantomSystemInit();
 
-       BMS_init();      // Initialize BMS slaves
-       initBMSData();   // Initializes BMS data structure
+       //BMS_init();      // Initialize BMS slaves TODO: Remove this code
+       initBMSData(&BMSDataPtr);   // Initializes BMS data structure
 
        InitializeTemperature();
        setupThermistor();
@@ -134,9 +137,9 @@ void vStateMachineTask(void *pvParameters){
 
 /*********************** STATE MACHINE EVALUATION ***********************************/
         
-        if (BMSState == BMS_CHARGING || BMS_RUNNING) { 
+        if ((BMSState == BMS_RUNNING) || (BMSState == BMS_CHARGING)) { 
             if (STATE_PRINT) {
-                if (BMS_CHARGING) {
+                if (BMSState == BMS_CHARGING) {
                     UARTSend(PC_UART, "********BMS CHARGING********");
                 }
                 else { // BMS_RUNNING
@@ -146,28 +149,28 @@ void vStateMachineTask(void *pvParameters){
             }
 
             // Check all fault flags
-            if (BMSDataPtr->Flags.FUSE_FAULT) {
+            if (BMSDataPtr.Flags.FUSE_FAULT) {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "FUSE_FAULT detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
                 BMSState = BMS_FAULT;
             }
-            if (BMSDataPtr->Flags.THREE_SECOND_FLAG) {
+            if (BMSDataPtr.Flags.THREE_SECOND_FLAG) {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "THREE_SECOND_FLAG detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
                 BMSState = BMS_FAULT;
             }
-            if (BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG)  {
+            if (BMSDataPtr.Flags.TOTAL_CELL_ERROR_FLAG)  {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "TOTAL_CELL_ERROR_FLAG detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
                 BMSState = BMS_FAULT;
             }
-            if (BMSDataPtr->Flags.BAD_SLAVE_CONNECTION_FLAG) {
+            if (BMSDataPtr.Flags.BAD_SLAVE_CONNECTION_FLAG) {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "BAD_SLAVE_CONNECTION_FLAG detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
@@ -239,7 +242,7 @@ void vSensorReadTask(void *pvParameters){
  * @return                  - None
  * @Note                    - None
  ***********************************************************/
-void vSOCTask(void *pvParameters){
+/*void vSOCTask(void *pvParameters){
 
     // any initialization
     TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
@@ -256,7 +259,7 @@ void vSOCTask(void *pvParameters){
 
     }while(1);
 
-}
+}*/
 
 /***********************************************************
  * @function                - vChargerTask
@@ -338,7 +341,7 @@ void phantomSystemInit()
     gioInit();      //Initialize the GIO module;
     hetInit();
     sciInit();
-    socInit();
+    // socInit();
 
     while ((BMS_UART->FLR & 0x4) == 4);
 

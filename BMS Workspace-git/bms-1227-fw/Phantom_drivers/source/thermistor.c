@@ -6,6 +6,7 @@
  */
 
 #include "thermistor.h"
+#include "hwConfig.h"
 
 
 
@@ -163,13 +164,31 @@ void    printThermistorReadings(uint8 input)
 
     uint16 value, location = input*12, channel = 0;
     float voltage;
+    unsigned char command;
+    int numChars = 0;
+
 
     for(;   channel<12;   channel++, location++)
     {
         value   =   (uint16)rxData_Buffer[channel];
         voltage =   (((float)value)/4095)*REFERENCE_VOLTAGE;
 
-        UARTprintf("INPUT : CHANNEL : VOLTAGE : TEMP\t||\t%d : %d\t: %f : %d\n\r", input, channel+1, (float)voltage, thStruct.cellTemp[location]);
+        // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+        UARTSend(PC_UART, "INPUT : CHANNEL : VOLTAGE : TEMP  ||  ");
+        numChars = ltoa(input, (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " : ");
+        numChars = ltoa(channel+1, (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " : ");
+        numChars = ltoa((float)voltage, (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " : ");
+        numChars = ltoa(thStruct.cellTemp[location], (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, "\n\r");
+
+        //UARTprintf("INPUT : CHANNEL : VOLTAGE : TEMP\t||\t%d : %d\t: %f : %d\n\r", input, channel+1, (float)voltage, thStruct.cellTemp[location]);
         //sciSend(scilinREG, 90,(uint8 *)buff );
 
     }

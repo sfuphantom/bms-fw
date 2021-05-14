@@ -7,7 +7,7 @@
 #include <string.h>
 #include "bms_data.h"
 
-void initBMSData()
+void initBMSData(bms_data* BMSDataPtr)
 {
 	/***********************************************************
      *              FLAG INITIALIZATION

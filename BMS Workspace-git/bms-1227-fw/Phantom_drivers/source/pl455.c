@@ -515,7 +515,7 @@ int  WaitRespFrame(BYTE *pFrame, BYTE bLen, uint32 dwTimeOut)
         // Check for timeout.
         if(retryCount > 5000)
         {
-            UARTprintf("Communication with BMS Slave TIMED OUT\n\r");
+            UARTSend(PC_UART, "Communication with BMS Slave TIMED OUT\n\r");
             BMSinitFlag = false;
             return 0; // timed out
         }

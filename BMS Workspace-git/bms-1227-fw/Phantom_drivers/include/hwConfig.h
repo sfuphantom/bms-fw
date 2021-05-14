@@ -8,9 +8,9 @@
 #ifndef PHANTOM_DRIVERS_INCLUDE_HWCONFIG_H_
 #define PHANTOM_DRIVERS_INCLUDE_HWCONFIG_H_
 
-// Define config depending on MCU Board
-//#define LAUNCHPAD_CONFIG        true
-#define BMS_MASTER_CONFIG       true
+/************ Define config depending on MCU Board ************/
+#define LAUNCHPAD_CONFIG        true
+//#define BMS_MASTER_CONFIG       true
 
 // BMS Slave Hardware Pins
 #ifdef LAUNCHPAD_CONFIG

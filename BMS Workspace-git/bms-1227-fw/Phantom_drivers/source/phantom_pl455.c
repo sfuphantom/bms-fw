@@ -41,10 +41,27 @@ void BMS_init()
         int nDev_ID;
         uint32_t  wTemp = 0;
         unsigned char command;
+        int numChars = 0;
 
-        UARTprintf("log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
+        
+        // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+        numChars = ltoa(gioGetBit(hetPORT1, 9), (char *)&command);
+        UARTSend(PC_UART, "log: Wake Bit:");
+        sciSend(PC_UART, numChars, &command);
+        numChars = ltoa(gioGetBit(hetPORT1, 25), (char *)&command);
+        UARTSend(PC_UART, " Fault Bit:");
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, "\n\r");
+        //UARTprintf("log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
         WakePL455();
-        UARTprintf("log: WakeBit:%d FaultBit:%d\n\r", gioGetBit(hetPORT1, 9), gioGetBit(hetPORT1, 25));
+        // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+        numChars = ltoa(gioGetBit(hetPORT1, 9), (char *)&command);
+        UARTSend(PC_UART, "log: Wake Bit:");
+        sciSend(PC_UART, numChars, &command);
+        numChars = ltoa(gioGetBit(hetPORT1, 25), (char *)&command);
+        UARTSend(PC_UART, " Fault Bit:");
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, "\n\r");
 
 
 
@@ -1036,6 +1053,8 @@ void getCurrentReadings(void)
 {
     char buf[100];
 
+    unsigned char command;
+    int numChars = 0;
 
     BMSDataPtr->Data.minimumCellVoltage = 5;
     uint8 j;
@@ -1047,7 +1066,15 @@ void getCurrentReadings(void)
     for (i = TOTALBOARDS-1; i > -1; i--){
         for (j = 0; j < voltageLoopCounter; j++) {
             if (j == 0) {
-                UARTprintf("Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
+                // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+                UARTSend(PC_UART, "Header -> Decimal: ");
+                numChars = ltoa(MultipleSlaveReading[j+BMSByteArraySize*i], (char *)&command);
+                sciSend(PC_UART, numChars, &command);
+                UARTSend(PC_UART, ", Hex: ");
+                numChars = ltoa(MultipleSlaveReading[j+BMSByteArraySize*i], (char *)&command);
+                sciSend(PC_UART, numChars, &command);
+                UARTSend(PC_UART, "\n\n\r");
+                //UARTprintf("Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
                 continue;
             }
 
@@ -1079,18 +1106,41 @@ void getCurrentReadings(void)
 
 
 
-            UARTprintf("Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin);
+            // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+            UARTSend(PC_UART, "Cell ");
+            numChars = ltoa(cellCount, (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, ": Hex: ");
+            numChars = ltoa(MultipleSlaveReading[j+BMSByteArraySize*i], (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, " ");
+            numChars = ltoa(MultipleSlaveReading[j+1+BMSByteArraySize*i], (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, "Voltage: ");
+            numChars = ltoa(fin, (char *)&command);
+            UARTSend(PC_UART, "\n\r");
+            // UARTprintf("Cell %d: Hex: %X %X Voltage: %fV \n\r", cellCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin);
 
 
             if(fin > 4.2) {
-                UARTprintf("Cell %d Overvoltage\n\n\r", cellCount);
+                // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+                UARTSend(PC_UART, "Cell ");
+                numChars = ltoa(cellCount, (char *)&command);
+                sciSend(PC_UART, numChars, &command);
+                UARTSend(PC_UART, " Overvoltage\n\n\r");
+                //UARTprintf("Cell %d Overvoltage\n\n\r", cellCount);
 
 
                 BMS.CELL_OVERVOLTAGE_FLAG[cellCount] = true;
                 BMS.TOTAL_CELL_ERROR_COUNTER++;
             }
             else if(fin < 3.2){
-                UARTprintf("Cell %d Undervoltage\n\n\r", cellCount);
+                // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+                UARTSend(PC_UART, "Cell ");
+                numChars = ltoa(cellCount, (char *)&command);
+                sciSend(PC_UART, numChars, &command);
+                UARTSend(PC_UART, " Undervoltage\n\n\r");
+                //UARTprintf("Cell %d Undervoltage\n\n\r", cellCount);
 
                 BMS.CELL_UNDERVOLTAGE_FLAG[cellCount] = true;
                 BMS.TOTAL_CELL_ERROR_COUNTER++;
@@ -1117,8 +1167,12 @@ void getCurrentReadings(void)
     if(BMS.TOTAL_CELL_ERROR_COUNTER > 4){
         BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = true;
     }
-
-    UARTprintf("NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
+    // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+    UARTSend(PC_UART, "NUMBER OF CELL ERRORS: ");
+    numChars = ltoa(BMS.TOTAL_CELL_ERROR_COUNTER, (char *)&command);
+    sciSend(PC_UART, numChars, &command);
+    UARTSend(PC_UART, "\n\r");
+    //UARTprintf("NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
 
     BMS.TOTAL_CELL_ERROR_COUNTER = 0;
 
@@ -1133,18 +1187,56 @@ void getCurrentReadings(void)
 
             double resistance = 10000*(fin/(4.56-fin));
 
-            UARTprintf("AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
+            // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+            UARTSend(PC_UART, "AUX ");
+            numChars = ltoa(auxCount, (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, ": Hex: ");
+            numChars = ltoa(MultipleSlaveReading[j+BMSByteArraySize*i], (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            numChars = ltoa(MultipleSlaveReading[j+1+BMSByteArraySize*i], (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, " Voltage: ");
+            numChars = ltoa(fin, (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, "V Resistance: ");
+            numChars = ltoa(resistance, (char *)&command);
+            sciSend(PC_UART, numChars, &command);
+            UARTSend(PC_UART, " Ohms\n\n\r");
+            //UARTprintf("AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
 
             j++;
             auxCount--;
         }
 
         double digDieTemp = ((((MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i])/65535.0)*5) - 2.287) * 131.944;
-        UARTprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
+        
+        // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+        UARTSend(PC_UART, "Digital Die: Hex: ");
+        numChars = ltoa(MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        numChars = ltoa(MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " Temp: ");
+        numChars = ltoa(digDieTemp, (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " degrees C\n\r");
+        //UARTprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
 
 
         double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
-        UARTprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
+        
+        // TODO: Debug UARTprintf so we don't have to take 7 lines to print this message lol
+        UARTSend(PC_UART, "Analog Die: Hex: ");
+        numChars = ltoa(MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        numChars = ltoa(MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " Temp: ");
+        numChars = ltoa(anaDieTemp, (char *)&command);
+        sciSend(PC_UART, numChars, &command);
+        UARTSend(PC_UART, " degrees C\n\r");
+        //UARTprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
 
     }
 

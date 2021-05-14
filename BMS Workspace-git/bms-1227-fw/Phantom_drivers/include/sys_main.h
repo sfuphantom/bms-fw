@@ -30,7 +30,7 @@ enum TASK_PRIORITIES{
  *                          DEBUG PRINTING DEFINES
  *********************************************************************************/
 #define TASK_PRINT  0
-#define STATE_PRINT 0
+#define STATE_PRINT 1
 
 /*********************************************************************************
  *                          TASK HEADER DECLARATIONS

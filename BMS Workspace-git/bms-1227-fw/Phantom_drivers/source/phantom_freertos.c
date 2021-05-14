@@ -113,20 +113,20 @@ void xphTaskInit(void)
       sciSend(sciREG,23,(unsigned char*)"StateMachineTask Creation Failed.\r\n");
       while(1);
   }
-  if (xTaskCreate(vSensorReadTask, (const char*)"SensorReadTask",  240, NULL,  (SENSOR_READ_TASK_PRIORITY), NULL) != pdTRUE)
+  /*if (xTaskCreate(vSensorReadTask, (const char*)"SensorReadTask",  240, NULL,  (SENSOR_READ_TASK_PRIORITY), NULL) != pdTRUE)
   {
       // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
       // probably need a better error handler
       sciSend(sciREG,23,(unsigned char*)"SensorReadTask Creation Failed.\r\n");
       while(1);
-  }
-  if (xTaskCreate(vSOCTask, (const char*)"SOCTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
+  }*/
+/*  if (xTaskCreate(vSOCTask, (const char*)"SOCTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
   {
       // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
       // probably need a better error handler
       sciSend(sciREG,23,(unsigned char*)"SOCTask Creation Failed.\r\n");
       while(1);
-  }
+  }*/
 
   if (BMSState == BMS_CHARGING)
   {

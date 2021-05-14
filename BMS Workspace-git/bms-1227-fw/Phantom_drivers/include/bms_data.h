@@ -53,8 +53,7 @@ typedef struct bms_data
 } bms_data;
 
 BMSState_t BMSState;
-bms_data* BMSDataPtr;
 
-void initBMSData();
+void initBMSData(bms_data* BMSDataPtr);
 
 #endif // BMS_DATA_H
