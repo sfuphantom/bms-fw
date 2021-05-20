@@ -27,7 +27,7 @@
 #include "Phantom_sci.h"
 #include "phantom_can.h"
 #include "phantom_pl455.h"
-#include "soc.h"
+//#include "soc.h"
 #include "bms_data.h"
 #include "can.h"
 #include "esm.h"
@@ -79,6 +79,19 @@ void printRandoms(int lower, int upper, int count);
 
 #define CHARGER_ENABLE_PIN  PINMUX_PIN_54_MIBSPI3NCS_5
 
+// ANDREI'S GARBAGE - ORGANIZE THESE BETTER (START) /////////////////////////////////////////////////////////
+#define WATCHDOG_TASK_PRIORITY         0 //PUT TASKS SOMEWHERE ELSE
+#define TASK_PRINT                     1
+void ANDREItaskCreate(void);
+
+void vWatchdogTask(void *);             // This task will perform watchdog petting
+void xBlinkTask1(void *pvParameters);
+void xBlinkTask2(void *pvParameters);
+
+/***************  WATCHDOG GPIO  *********************/
+#define WATCHDOG_PORT         hetPORT1
+#define WATCHDOG_PIN          2
+// ANDREI'S GARBAGE - ORGANIZE THESE BETTER (END) //////////////////////////////////////////////////////////
 
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
@@ -95,7 +108,7 @@ int main(void)
 /* USER CODE BEGIN (3) */
        phantomSystemInit();
 
-       //BMS_init();      // Initialize BMS slaves TODO: Remove this code
+       BMS_init();      // Initialize BMS slaves TODO: Remove this code
        initBMSData(&BMSDataPtr);   // Initializes BMS data structure
 
        InitializeTemperature();
@@ -107,6 +120,8 @@ int main(void)
         else {
             BMSState = BMS_RUNNING;
         }
+
+       ANDREItaskCreate(); //ANDREI's task initialization stuff to test shit (Comment out)
 
        xphRtosInit();
 
@@ -319,6 +334,104 @@ void vBalanceTask(void *pvParameters){
 
 }
 
+/***********************************************************
+ * @function                - vWatchdogTask
+ *
+ * @brief                   - This task will passively balance the cells during BMS_CHARGING state
+ *
+ * @param[in]               - pvParameters
+ *
+ * @return                  - None
+ * @Note                    - None
+ ***********************************************************/
+void vWatchdogTask(void *pvParameters){
+
+    // any initialization
+    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
+    const TickType_t xFrequency = 1000; // task frequency in ms
+    // watchdog timeout is 1.6 seconds
+
+    // Initialize the xLastWakeTime variable with the current time;
+    xLastWakeTime = xTaskGetTickCount();
+
+    while(true)
+    {
+        // Wait for the next cycle
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+
+        //UARTSend(PC_UART, "Pet\r\n");
+
+        if (TASK_PRINT) {UARTSend(PC_UART, "------------->WATCHDOG TASK\r\n");}
+        //UARTSend(PC_UART, xTaskGetTickCount());
+
+        gioToggleBit(WATCHDOG_PORT, WATCHDOG_PIN);
+    }
+
+}
+
+void ANDREItaskCreate(void)
+{
+    //Watchdog ANDREI
+    if (xTaskCreate(vWatchdogTask, (const char*)"WatchdogTask",  240, NULL,  WATCHDOG_TASK_PRIORITY, NULL) != pdTRUE)
+    {
+        // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
+        // probably need a better error handler
+        sciSend(PC_UART,23,(unsigned char*)"WatchdogTask Creation Failed.\r\n");
+        while(1);
+    }
+
+    if ( xTaskCreate(xBlinkTask1, (const char*)"Blink 1 Task", 240, NULL, 0, NULL) != pdTRUE )
+    {
+        sciSend(PC_UART,23,(unsigned char*)"Blink 1 Task Creation Failed.\r\n");
+        while(1);
+    }
+
+    if ( xTaskCreate(xBlinkTask2, (const char*)"Blink 2 Task", 240, NULL, 0, NULL) != pdTRUE )
+    {
+        sciSend(PC_UART,23,(unsigned char*)"Blink 2 Task Creation Failed.\r\n");
+        while(1);
+    }
+}
+
+/* USER CODE BEGIN (4) */
+
+// ANDREIS FREERTOS TEST SHIT ===========================================================================================
+void xBlinkTask1(void *pvParameters){
+
+    TickType_t xLastWakeTime1;
+    const TickType_t xFreq1 = 333*2;
+    xLastWakeTime1 = xTaskGetTickCount();
+
+    while(1){
+
+        vTaskDelayUntil(&xLastWakeTime1, xFreq1);
+
+        UARTSend(scilinREG, "b1\n\r");
+        gioSetBit(gioPORTB, 1, !gioGetBit(gioPORTB,1));
+        //vTaskDelay(333);
+    }
+}
+
+void xBlinkTask2(void *pvParameters){
+
+    TickType_t xLastWakeTime2;
+    const TickType_t xFreq2 = 499*2;
+    xLastWakeTime2 = xTaskGetTickCount();
+
+    while(1){
+
+        vTaskDelayUntil(&xLastWakeTime2, xFreq2);
+
+        UARTSend(scilinREG, "b2\n\r");
+        gioSetBit(gioPORTB, 2, !gioGetBit(gioPORTB,2));
+        //vTaskDelay(500);
+    }
+}
+
+
+
+// NON TASKS----------------------------------------------------------------------------------------------
+
 // Called periodically every 1ms
 void socTimer(TimerHandle_t xTimers)
 {
@@ -330,6 +443,8 @@ void Timer_2s(TimerHandle_t xTimers)
 {
 
 }
+
+/* USER CODE END */
 
 /* USER CODE BEGIN (4) */
 void phantomSystemInit()
