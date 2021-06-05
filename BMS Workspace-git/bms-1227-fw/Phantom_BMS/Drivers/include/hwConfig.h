@@ -33,6 +33,16 @@
 #define THERMISTOR_MUX_PIN_B            6
 #define THERMISTOR_MUX_PIN_C            7
 
+//PUT TASKS SOMEWHERE ELSE
+#define WATCHDOG_TASK_PRIORITY         0 
+#define TASK_PRINT                     1
+
+/*********************************************************************************
+ *                          DEBUG PRINTING DEFINES
+ *********************************************************************************/
+#define TASK_PRINT  0
+#define STATE_PRINT 1
+
 #endif
 
 #ifdef BMS_MASTER_CONFIG

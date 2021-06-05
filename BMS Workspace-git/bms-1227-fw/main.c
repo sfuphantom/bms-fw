@@ -52,6 +52,12 @@
 #include "thermistor.h"
 #include "temperature_yash.h"
 #include "hwConfig.h"
+
+#include "task_balance.h"
+#include "task_sensor_read.h"
+#include "task_statemachine.h"
+#include "task_watchdog.h"
+
 // #include "charger_main.h" TODO: Uncomment when charger code is integrated
 // #include "soc.h"
 
@@ -78,20 +84,6 @@ void Thermistor_read(void);
 void printRandoms(int lower, int upper, int count);
 
 #define CHARGER_ENABLE_PIN  PINMUX_PIN_54_MIBSPI3NCS_5
-
-// ANDREI'S GARBAGE - ORGANIZE THESE BETTER (START) /////////////////////////////////////////////////////////
-#define WATCHDOG_TASK_PRIORITY         0 //PUT TASKS SOMEWHERE ELSE
-#define TASK_PRINT                     1
-void ANDREItaskCreate(void);
-
-void vWatchdogTask(void *);             // This task will perform watchdog petting
-void xBlinkTask1(void *pvParameters);
-void xBlinkTask2(void *pvParameters);
-
-/***************  WATCHDOG GPIO  *********************/
-#define WATCHDOG_PORT         hetPORT1
-#define WATCHDOG_PIN          2
-// ANDREI'S GARBAGE - ORGANIZE THESE BETTER (END) //////////////////////////////////////////////////////////
 
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
@@ -124,7 +116,6 @@ int main(void)
        ANDREItaskCreate(); //ANDREI's task initialization stuff to test shit (Comment out)
 
        xphRtosInit();
-
        vTaskStartScheduler();
 
       // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
@@ -132,242 +123,7 @@ int main(void)
 }
 
 
-/* USER CODE BEGIN (4) */
-/*********************************************************************************
- *                          FreeRTOS Tasks
- *********************************************************************************/
-void vStateMachineTask(void *pvParameters){
-    uint32 lrval;
-    char stbuf[64];
-    int nchars;
 
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 4000; // task frequency in ms
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-    do{
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        //UARTprintf("battery level = %f\n\r", getBattLevel());
-
-/*********************** STATE MACHINE EVALUATION ***********************************/
-        
-        if ((BMSState == BMS_RUNNING) || (BMSState == BMS_CHARGING)) { 
-            if (STATE_PRINT) {
-                if (BMSState == BMS_CHARGING) {
-                    UARTSend(PC_UART, "********BMS CHARGING********");
-                }
-                else { // BMS_RUNNING
-                    UARTSend(PC_UART, "********BMS RUNNING********");
-                }
-                UARTSend(PC_UART, "\n\r");
-            }
-
-            // Check all fault flags
-            if (BMSDataPtr.Flags.FUSE_FAULT) {
-                if (STATE_PRINT) {
-                    UARTSend(PC_UART, "FUSE_FAULT detected. BMS entering FAULT state");
-                    UARTSend(PC_UART, "\n\r");
-                }
-                BMSState = BMS_FAULT;
-            }
-            if (BMSDataPtr.Flags.THREE_SECOND_FLAG) {
-                if (STATE_PRINT) {
-                    UARTSend(PC_UART, "THREE_SECOND_FLAG detected. BMS entering FAULT state");
-                    UARTSend(PC_UART, "\n\r");
-                }
-                BMSState = BMS_FAULT;
-            }
-            if (BMSDataPtr.Flags.TOTAL_CELL_ERROR_FLAG)  {
-                if (STATE_PRINT) {
-                    UARTSend(PC_UART, "TOTAL_CELL_ERROR_FLAG detected. BMS entering FAULT state");
-                    UARTSend(PC_UART, "\n\r");
-                }
-                BMSState = BMS_FAULT;
-            }
-            if (BMSDataPtr.Flags.BAD_SLAVE_CONNECTION_FLAG) {
-                if (STATE_PRINT) {
-                    UARTSend(PC_UART, "BAD_SLAVE_CONNECTION_FLAG detected. BMS entering FAULT state");
-                    UARTSend(PC_UART, "\n\r");
-                }
-                BMSState = BMS_FAULT;
-            }
-        }
-    if (BMSState == BMS_FAULT) {
-        if (STATE_PRINT) {
-            UARTSend(PC_UART, "********BMS FAULT********");
-            UARTSend(PC_UART, "\n\r");
-        }
-
-        // TODO: Pull down GPIO that is connected to Shutdown Circuit
-        // TODO: Send message over CAN so all controllers know we are shutting down
-    }
-
-
-    }while(1);
-}
-
-
-/***********************************************************
- * @function                - vSensorReadTask
- *
- * @brief                   - This task will read all the sensors in the vehicle (except for the APPS which requires more critical response)
- *
- * @param[in]               - pvParameters
- *
- * @return                  - None
- * @Note                    - None
- ***********************************************************/
-void vSensorReadTask(void *pvParameters){
-
-    // any initialization
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 2000; // task frequency in ms
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-
-    do{
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        TickType_t xLastWakeTime = xTaskGetTickCount();
-
-        if(!getBMSinitFlag())
-        {
-           BMS_init();
-        }
-
-        //BMS_Balance_SIM();
-
-        //thermistorRead();
-
-        BMS_Read_All(true);
-
-        //UARTprintf("sensor read task \n\r");
-    }while(1);
-
-}
-
-/***********************************************************
- * @function                - vSOCTask
- *
- * @brief                   - This task will update the state of charge and remaining run time estimations, and check for blown fuses)
- *
- * @param[in]               - pvParameters
- *
- * @return                  - None
- * @Note                    - None
- ***********************************************************/
-/*void vSOCTask(void *pvParameters){
-
-    // any initialization
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 1000; // task frequency in ms
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-
-    do{
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        TickType_t xLastWakeTime = xTaskGetTickCount();
-
-        socProcess();
-
-    }while(1);
-
-}*/
-
-/***********************************************************
- * @function                - vChargerTask
- *
- * @brief                   - This task runs functionto charge cells during BMS_CHARGING
- *
- * @param[in]               - pvParameters
- *
- * @return                  - None
- * @Note                    - None
- ***********************************************************/
-void vChargerTask(void *pvParameters){
-
-    // any initialization
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 1500; // task frequency in ms - frequency taken to be the same as frequency in sys_main.c
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-
-    do{
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        TickType_t xLastWakeTime = xTaskGetTickCount();
-
-        // function_to_charge(); TODO: Uncomment when charger code is integrated
-
-    }while(1);
-
-}
-
-/***********************************************************
- * @function                - vBalanceTask
- *
- * @brief                   - This task will passively balance the cells during BMS_CHARGING state
- *
- * @param[in]               - pvParameters
- *
- * @return                  - None
- * @Note                    - None
- ***********************************************************/
-void vBalanceTask(void *pvParameters){
-
-    // any initialization
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 1000; // task frequency in ms
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-
-    do{
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        TickType_t xLastWakeTime = xTaskGetTickCount();
-
-        BMS_Balance();
-
-    }while(1);
-
-}
-
-/***********************************************************
- * @function                - vWatchdogTask
- *
- * @brief                   - This task will passively balance the cells during BMS_CHARGING state
- *
- * @param[in]               - pvParameters
- *
- * @return                  - None
- * @Note                    - None
- ***********************************************************/
-void vWatchdogTask(void *pvParameters){
-
-    // any initialization
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 1000; // task frequency in ms
-    // watchdog timeout is 1.6 seconds
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-
-    while(true)
-    {
-        // Wait for the next cycle
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-
-        //UARTSend(PC_UART, "Pet\r\n");
-
-        if (TASK_PRINT) {UARTSend(PC_UART, "------------->WATCHDOG TASK\r\n");}
-        //UARTSend(PC_UART, xTaskGetTickCount());
-
-        gioToggleBit(WATCHDOG_PORT, WATCHDOG_PIN);
-    }
-
-}
 
 void ANDREItaskCreate(void)
 {
@@ -427,8 +183,6 @@ void xBlinkTask2(void *pvParameters){
         //vTaskDelay(500);
     }
 }
-
-
 
 // NON TASKS----------------------------------------------------------------------------------------------
 
