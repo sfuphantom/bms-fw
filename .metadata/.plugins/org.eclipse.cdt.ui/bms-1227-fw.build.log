@@ -1,7 +1,7 @@
 
 **** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
 
-"C:\\ti\\ccs1010\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
  
 gmake[1]: 'bms-1227-fw.out' is up to date.
 
