@@ -293,7 +293,7 @@ void canInit(void)
 
     canREG1->IF2MSK  = 0xC0000000U | (uint32)((uint32)((uint32)0x000007FFU & (uint32)0x1FFFFFFFU) << (uint32)0U);
     canREG1->IF2ARB  = (uint32)0x80000000U | (uint32)0x40000000U | (uint32)0x20000000U | (uint32)((uint32)((uint32)0xCU & (uint32)0x1FFFFFFFU) << (uint32)0U);
-    canREG1->IF2MCTL = 0x00001000U | (uint32)0x00000800U | (uint32)0x00000000U | (uint32)0x00000000U | (uint32)8U;
+    canREG1->IF2MCTL = 0x00001000U | (uint32)0x00000000U | (uint32)0x00000000U | (uint32)0x00000000U | (uint32)8U;
     canREG1->IF2CMD  = (uint8) 0xF8U;
     canREG1->IF2NO   = 12U;
 

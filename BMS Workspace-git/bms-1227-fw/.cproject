@@ -233,7 +233,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="sys_link.cmd|halcogen_bms_launchpad|halcogen_bms_master/source/sys_link.cmd|TMS570LS122xFlashLnk.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="halcogen_bms_master/source/sys_main.c|sys_link.cmd|halcogen_bms_launchpad|halcogen_bms_master/source/sys_link.cmd|TMS570LS122xFlashLnk.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

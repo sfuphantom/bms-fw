@@ -51,6 +51,8 @@
 #include "hwConfig.h"
 #include "soc.h"
 
+//#include "charger.h"
+
 
 /* USER CODE END */
 
@@ -87,24 +89,27 @@ int main(void)
 {
 /* USER CODE BEGIN (3) */
 
-
        phantomSystemInit();
 
        BMS_init();
-
        // CAN Testing
 //       CANSend();
 //       sendVoltageArray();
-
-
-       UARTprintf("start");
-       // CAN Charger Testing
-
+//       UARTprintf("start");
+//       // CAN Charger Testing
+//       //int* ptr = testFunction();
+//       //UARTprintf("%d %d", ptr[0], ptr[1]);
+//       function_to_charge();
+//       return 0;
+       UARTprintf("hello world", PC_UART);
 
        while(1){
-           testMessage1();
-           delayms(1500);
+           //CANSend();
+//           sendChargerMsg1(113,20); // maxVoltage, maxCurrent
+           delayms(1000);
        }
+
+
 
 
 //       sendVoltageArray();

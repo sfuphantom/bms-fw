@@ -741,7 +741,7 @@ typedef struct can_config_reg
 /* CAN Interface Functions */
 
 void   canInit(void);
-uint32 canTransmit(canBASE_t *node, uint32 messageBox, const uint8 * data);
+//uint32 canTransmit(canBASE_t *node, uint32 messageBox, const uint8 * data);
 uint32 canGetData(canBASE_t *node, uint32 messageBox, uint8 * const data);
 uint32 canSendRemoteFrame(canBASE_t *node, uint32 messageBox);
 uint32 canFillMessageObjectData(canBASE_t *node, uint32 messageBox, const uint8 * data);
