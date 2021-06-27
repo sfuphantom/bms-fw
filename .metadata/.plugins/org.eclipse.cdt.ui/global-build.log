@@ -7695,3 +7695,508 @@ gmake[1]: 'bms-1227-fw.out' is up to date.
 gmake[1]: 'bms-1227-fw.out' is up to date.
 
 **** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 27: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+"../Phantom_drivers/source/phantom_can.c", line 78: error #131: expected a "{"
+"../Phantom_drivers/source/phantom_can.c", line 91: error #131: expected a "{"
+2 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 27: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 9: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 29: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+"../Phantom_drivers/source/phantom_can.c", line 44: error #20: identifier "rx_ptr1" is undefined
+"../Phantom_drivers/source/phantom_can.c", line 45: error #20: identifier "rx_data1" is undefined
+3 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+Building file: "../Phantom_drivers/source/append_to_vcu.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/append_to_vcu.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/append_to_vcu.c"
+Finished building: "../Phantom_drivers/source/append_to_vcu.c"
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 122: warning #129-D: loop is not reachable
+"../main.c", line 124: warning #112-D: statement is unreachable
+"../main.c", line 142: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 143: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 144: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 9: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 29: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+"../Phantom_drivers/source/phantom_can.c", line 44: error #20: identifier "rx_ptr1" is undefined
+"../Phantom_drivers/source/phantom_can.c", line 45: error #20: identifier "rx_data1" is undefined
+3 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 122: warning #129-D: loop is not reachable
+"../main.c", line 124: warning #112-D: statement is unreachable
+"../main.c", line 142: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 143: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 144: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 9: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 31: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+1 error detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 10: warning #78-D: this declaration has no storage class or type specifier
+"../Phantom_drivers/source/phantom_can.c", line 10: error #148: declaration is incompatible with "struct Queue *queueData" (declared at line 9)
+"../Phantom_drivers/source/phantom_can.c", line 10: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+2 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 9: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 31: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+1 error detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+Building file: "../Phantom_drivers/source/append_to_vcu.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/append_to_vcu.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/append_to_vcu.c"
+Finished building: "../Phantom_drivers/source/append_to_vcu.c"
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 122: warning #129-D: loop is not reachable
+"../main.c", line 124: warning #112-D: statement is unreachable
+"../main.c", line 142: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 143: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 144: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/append_to_vcu.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/append_to_vcu.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/append_to_vcu.c"
+Finished building: "../Phantom_drivers/source/append_to_vcu.c"
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 31: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 122: warning #129-D: loop is not reachable
+"../main.c", line 124: warning #112-D: statement is unreachable
+"../main.c", line 142: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 143: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 144: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 10: warning #78-D: this declaration has no storage class or type specifier
+"../Phantom_drivers/source/phantom_can.c", line 10: error #148: declaration is incompatible with "struct Queue *queueData" (declared at line 9)
+"../Phantom_drivers/source/phantom_can.c", line 10: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+2 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 10: warning #78-D: this declaration has no storage class or type specifier
+"../Phantom_drivers/source/phantom_can.c", line 10: error #148: declaration is incompatible with "struct Queue *queueData" (declared at line 9)
+"../Phantom_drivers/source/phantom_can.c", line 10: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+2 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 10: warning #78-D: this declaration has no storage class or type specifier
+"../Phantom_drivers/source/phantom_can.c", line 10: error #148: declaration is incompatible with "struct Queue *queueData" (declared at line 9)
+"../Phantom_drivers/source/phantom_can.c", line 10: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+2 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 10: warning #78-D: this declaration has no storage class or type specifier
+"../Phantom_drivers/source/phantom_can.c", line 10: error #148: declaration is incompatible with "struct Queue *queueData" (declared at line 9)
+"../Phantom_drivers/source/phantom_can.c", line 10: error #60: function call is not allowed in a constant expression
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+2 errors detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 32: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 32: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+"../Phantom_drivers/source/phantom_can.c", line 109: warning #225-D: function "UARTprintf" declared implicitly
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+ 
+>> Compilation failure
+Phantom_drivers/source/subdir_rules.mk:9: recipe for target 'Phantom_drivers/source/phantom_can.obj' failed
+"../Phantom_drivers/source/phantom_can.c", line 5: fatal error #13: expected a file name
+1 catastrophic error detected in the compilation of "../Phantom_drivers/source/phantom_can.c".
+Compilation terminated.
+gmake: *** [Phantom_drivers/source/phantom_can.obj] Error 1
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 33: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../Phantom_drivers/source/phantom_can.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="Phantom_drivers/source/phantom_can.d_raw" --obj_directory="Phantom_drivers/source"  "../Phantom_drivers/source/phantom_can.c"
+"../Phantom_drivers/source/phantom_can.c", line 34: warning #169-D: argument of type "uint16 *" is incompatible with parameter of type "const uint8 *"
+Finished building: "../Phantom_drivers/source/phantom_can.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+gmake[1]: 'bms-1227-fw.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 122: warning #129-D: loop is not reachable
+"../main.c", line 124: warning #112-D: statement is unreachable
+"../main.c", line 142: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 143: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 144: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 116: warning #112-D: statement is unreachable
+"../main.c", line 125: warning #112-D: statement is unreachable
+"../main.c", line 143: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 144: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 145: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration BMS_Master_Configuration for project bms-1227-fw ****
+
+"C:\\ti\\ccs930\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../main.c"
+Invoking: ARM Compiler
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/halcogen_bms_master/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw/Phantom_drivers/include" --include_path="C:/Users/Elena.EHOME/git/bms-fw/BMS Workspace-git/bms-1227-fw" --include_path="C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 124: warning #129-D: loop is not reachable
+"../main.c", line 126: warning #112-D: statement is unreachable
+"../main.c", line 144: warning #179-D: variable "lrval" was declared but never referenced
+"../main.c", line 145: warning #179-D: variable "stbuf" was declared but never referenced
+"../main.c", line 146: warning #179-D: variable "nchars" was declared but never referenced
+Finished building: "../main.c"
+ 
+Building target: "bms-1227-fw.out"
+Invoking: ARM Linker
+"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/bin/armcl" -mv7R4 --code_state=32 --float_support=VFPv3D16 -g --diag_warning=225 --diag_wrap=off --display_error_number --enum_type=packed --abi=eabi -z -m"bms-1227-fw.map" --heap_size=0x800 --stack_size=0x800 -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/lib" -i"C:/ti/ccs930/ccs/tools/compiler/ti-cgt-arm_18.12.4.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="bms-1227-fw_linkInfo.xml" --rom_model --be32 -o "bms-1227-fw.out" "./main.obj" "./Phantom_drivers/source/Phantom_sci.obj" "./Phantom_drivers/source/a_tp_sci.obj" "./Phantom_drivers/source/append_to_vcu.obj" "./Phantom_drivers/source/charger.obj" "./Phantom_drivers/source/phantom_can.obj" "./Phantom_drivers/source/phantom_can_OLD.obj" "./Phantom_drivers/source/phantom_freertos.obj" "./Phantom_drivers/source/phantom_pl455.obj" "./Phantom_drivers/source/pl455.obj" "./Phantom_drivers/source/soc.obj" "./Phantom_drivers/source/temperature_yash.obj" "./Phantom_drivers/source/testinterface.obj" "./Phantom_drivers/source/thermistor.obj" "./halcogen_bms_master/source/can.obj" "./halcogen_bms_master/source/dabort.obj" "./halcogen_bms_master/source/errata_SSWF021_45.obj" "./halcogen_bms_master/source/esm.obj" "./halcogen_bms_master/source/gio.obj" "./halcogen_bms_master/source/het.obj" "./halcogen_bms_master/source/mibspi.obj" "./halcogen_bms_master/source/notification.obj" "./halcogen_bms_master/source/os_croutine.obj" "./halcogen_bms_master/source/os_event_groups.obj" "./halcogen_bms_master/source/os_heap.obj" "./halcogen_bms_master/source/os_list.obj" "./halcogen_bms_master/source/os_mpu_wrappers.obj" "./halcogen_bms_master/source/os_port.obj" "./halcogen_bms_master/source/os_portasm.obj" "./halcogen_bms_master/source/os_queue.obj" "./halcogen_bms_master/source/os_tasks.obj" "./halcogen_bms_master/source/os_timer.obj" "./halcogen_bms_master/source/pinmux.obj" "./halcogen_bms_master/source/rti.obj" "./halcogen_bms_master/source/sci.obj" "./halcogen_bms_master/source/sys_core.obj" "./halcogen_bms_master/source/sys_dma.obj" "./halcogen_bms_master/source/sys_intvecs.obj" "./halcogen_bms_master/source/sys_mpu.obj" "./halcogen_bms_master/source/sys_pcr.obj" "./halcogen_bms_master/source/sys_phantom.obj" "./halcogen_bms_master/source/sys_pmm.obj" "./halcogen_bms_master/source/sys_pmu.obj" "./halcogen_bms_master/source/sys_selftest.obj" "./halcogen_bms_master/source/sys_startup.obj" "./halcogen_bms_master/source/sys_vim.obj" "./halcogen_bms_master/source/system.obj" "../halcogen_bms_master/source/sys_linker_freeRTOS.cmd"  -lrtsv7R4_T_be_v3D16_eabi.lib 
+<Linking>
+warning #10247-D: creating output section ".sysmem" without a SECTIONS specification
+Finished building target: "bms-1227-fw.out"
+ 
+
+**** Build Finished ****

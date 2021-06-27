@@ -1,3 +1,4 @@
+buildConsoleWrapLines=false
 buildConsoleWrapLines_COPY=true
 eclipse.preferences.version=1
 formatter_profile=_CCS
