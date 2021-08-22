@@ -72,6 +72,7 @@ static const float alpha1_Discharge45 = -6.241*0.00001;
 static const float alpha2_Discharge45 = -0.221;
 
 void socInit(void);
+void socProcess(void);
 void updateBattCapacity();
 void updateSOC(TickType_t xWakeTime, float current);
 float getSOC(void);

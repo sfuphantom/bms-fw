@@ -15,6 +15,12 @@
 #include "sys_main.h"
 #include "bms_data.h"
 
+#include "task_sensorRead.h"
+#include "task_stateMachine.h"
+#include "task_charger.h"
+#include "task_soc.h"
+#include "task_balance.h"
+
 extern BMSState_t BMSState;
 
 void xphRtosInit(void)
