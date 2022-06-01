@@ -22,12 +22,12 @@ void vBalanceTask(void *pvParameters){
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
-    do{
+    do {
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         TickType_t xLastWakeTime = xTaskGetTickCount();
 
         BMS_Balance();
 
-    }while(1);
+    } while(1);
 
 }

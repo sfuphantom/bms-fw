@@ -20,13 +20,13 @@ void vChargerTask(void *pvParameters){
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
-    do{
+    do {
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         TickType_t xLastWakeTime = xTaskGetTickCount();
 
         // function_to_charge(); TODO: Uncomment when charger code is integrated
 
-    }while(1);
+    } while(1);
 
 }
 

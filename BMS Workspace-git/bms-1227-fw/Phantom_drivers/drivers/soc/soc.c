@@ -11,7 +11,6 @@
 #include "soc.h"
 #include "bms_data.h"
 #include "phantom_pl455.h"
-#include "thermistor.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -92,9 +91,9 @@ void socProcess(void)
  */
 void socInit(void)
 {
-    BMSDataPtr->Data.SOC = getSOCFromVoltage(getInstantaneousVoltage(), getInstantaneousTemp(), 100);
+    BMSDataPtr->Data.SOC = 55.00;
     battLevel = BMSDataPtr->Data.SOC*battCapacity/100;
-    battCapacity = MAX_CAPACITY;
+    battCapacity = MAX_CAPACITY; // Is the order of this correct?
     xLastWakeTime = xTaskGetTickCount();
     lastCurrentValue = getInstantaneousCurrent();
 }

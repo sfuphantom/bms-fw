@@ -16,7 +16,7 @@ typedef enum BMSState_t
     BMS_RUNNING,
     BMS_CHARGING,
     BMS_FAULT
-}BMSState_t;
+} BMSState_t;
 
 typedef struct bmsFlags
 {
@@ -54,6 +54,7 @@ typedef struct bms_data
 
 BMSState_t BMSState;
 bms_data* BMSDataPtr;
+static bms_data AllocatedBMSData;
 
 void initBMSData();
 
