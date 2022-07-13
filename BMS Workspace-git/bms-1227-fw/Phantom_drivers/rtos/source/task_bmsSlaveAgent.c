@@ -35,7 +35,13 @@ void bmsSlaveAgentInit(QueueArr_t other){
 
 void agentReadSlaves(bmsSlaveAgentMsg_t* messagePtr) {
 
-    // TODO: Read from Ryan's rewritten pl455 driver and add messages as needed
+    // Put data in a message to be added to queue for processing by our corresponding Actor.
+
+    // This is a TODO for after the PL455 rewrite merges, but this should take the place of task_sensorRead.c/h and maaaybe task_balance.c/h?
+    // We also need to handle getting temperature data here.
+
+
+
 }
 
 void vBMSSlaveAgentTask(void *queueParams){

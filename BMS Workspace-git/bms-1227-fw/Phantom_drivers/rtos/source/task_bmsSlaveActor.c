@@ -31,9 +31,16 @@ static QueueArr_t* q_ptr = &queue; // Creates static pointer access. TODO check 
 void actOnBMSSlaveData(bmsSlaveActorMsg_t* messageToActUpon) {
     // Take something out of the queue and process it.
 
-    // TODO Fill this in with what we assume the PL455 rewrite will give us!
+    // This is a TODO for after PL455 rewrite code merges, but should take the place of the tasks in task_soc.c/h, task_stateMachine.c/h, as
+    // well as something for temperature.
+    // Our goal is to comply here with FSAE 2022 Rules:
+    // - EV.8.3.1, EV.8.3.4, EV.8.3.5
+
+    // I think those are all the rules around the "AMS" (BMS) that relate to ACTING on the data read from the BMS slaves.
+    // Someone should double-check for sanity's sake however.
 }
 
+// Actor loop is to receive data from the corresponding Agent, and then ACT on it.
 void vBMSSlaveActorTask(void *queueParams){
 
     // Set up task params:
