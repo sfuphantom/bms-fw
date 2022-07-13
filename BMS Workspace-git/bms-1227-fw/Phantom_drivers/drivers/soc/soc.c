@@ -91,7 +91,7 @@ void socProcess(void)
  */
 void socInit(void)
 {
-    BMSDataPtr->Data.SOC = 55.00;
+    BMSDataPtr->Data.SOC = 55.00; // TODO: Was getSOCFromVoltage(getInstantaneousVoltage(), getInstantaneousTemp(), 100); which hung startup. Change SOC-gathering functions based on new PL455 rewrite when merged!
     battLevel = BMSDataPtr->Data.SOC*battCapacity/100;
     battCapacity = MAX_CAPACITY; // Is the order of this correct?
     xLastWakeTime = xTaskGetTickCount();
