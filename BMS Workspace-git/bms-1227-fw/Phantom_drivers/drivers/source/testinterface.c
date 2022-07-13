@@ -15,7 +15,6 @@
 #include "pl455.h"
 #include <stdio.h>
 #include "stdlib.h"
-#include "thermistor.h"
 #include "hwConfig.h"
 
 
@@ -125,7 +124,8 @@ void getAllTemperatures(void)
     uint8_t input;
     for(input=0;input<8;input++)
     {
-        printThermistorReadings(input);
+        // TODO: this needs to be updated to post-thermistor temperature functions.
+        // printThermistorReadings(input);
         UARTprintf("\n\r");
     }
 

@@ -31,15 +31,21 @@ void bmsSlaveAgentInit(QueueArr_t other){
 
     /* Deep copy elements */
     q_ptr->tx = other.tx;
+    q_ptr->rx = other.rx;
 }
 
-void agentReadSlaves(bmsSlaveAgentMsg_t* messagePtr) {
+void agentReadSlaves(bmsSlaveMsg_t* messagePtr) {
 
     // Put data in a message to be added to queue for processing by our corresponding Actor.
 
     // This is a TODO for after the PL455 rewrite merges, but this should take the place of task_sensorRead.c/h and maaaybe task_balance.c/h?
     // We also need to handle getting temperature data here.
 
+    // Our goal is to comply here with FSAE 2022 Rules:
+    // - EV.8.3.1, EV.8.3.3, EV.8.4.1, EV.8.5.1, EV.8.5.5, EV.8.5.6
+
+    // I think those are all the rules around the "AMS" (BMS) that relate to READING/making available the data from the BMS slaves.
+    // Someone should double-check for sanity's sake however, and of course this is a joint effort with the corresponding actor.
 
 
 }
@@ -53,8 +59,8 @@ void vBMSSlaveAgentTask(void *queueParams){
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
-    static bmsSlaveAgentMsg_t data = {0};
-    static bmsSlaveAgentMsg_t* data_ptr = &data;
+    static bmsSlaveMsg_t data = {0};
+    static bmsSlaveMsg_t* data_ptr = &data;
 
     // Enter infinite loop of creating objects for the queue
     do {

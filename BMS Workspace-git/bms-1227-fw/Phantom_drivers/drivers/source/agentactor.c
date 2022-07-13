@@ -15,36 +15,24 @@
 #include "sys_main.h"
 #include "bms_data.h"
 
-#include "task_testActor.h"
-#include "task_testAgent.h"
 #include "task_bmsSlaveAgent.h"
 #include "task_bmsSlaveActor.h"
 #include "agentactor.h"
+#include "queue_common.h"
 
-// Register agent and actor tasks:
-//bool startTestAgentActor() {
-//    // If you really wanted to do this properly, put the task creation in phantom_freertos.c
-//
-//    if (xTaskCreate(vTestActorTask, (const char*)"TestActorTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE) {
-//          // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
-//          // probably need a better error handler
-//          sciSend(sciREG,23,(unsigned char*)"TestActorTask Creation Failed.\r\n");
-//          return false;
-//    }
-//
-//    if (xTaskCreate(vTestAgentTask, (const char*)"TestAgentTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE) {
-//              // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
-//              // probably need a better error handler
-//              sciSend(sciREG,23,(unsigned char*)"TestAgentTask Creation Failed.\r\n");
-//              return false;
-//    }
-//
-//    return true;
-//}
 
 // Register agent and actor tasks:
 bool startSensorAgentsActors() {
-    // If you really wanted to do this properly, put the task creation in phantom_freertos.c
+    // This type of function could potentially be merged into phantom_freertos.c - but if we are to add more agents/actors in the future I think
+    // having a separate file is not a bad idea.
+
+    struct QueueArr_t sharedQueue;
+    sharedQueue.tx = xQueueCreate(PHANTOM_NUM_MESSAGES_IN_SHARED_BMS_QUEUE, sizeof(bmsSlaveMsg_t));
+    sharedQueue.rx = xQueueCreate(PHANTOM_NUM_MESSAGES_IN_SHARED_BMS_QUEUE, sizeof(bmsSlaveMsg_t));
+
+    bmsSlaveAgentInit(sharedQueue);
+    bmsSlaveActorInit(sharedQueue);
+
 
     if (xTaskCreate(vBMSSlaveAgentTask, (const char*)"BMSSlaveAgentTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE) {
           // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..

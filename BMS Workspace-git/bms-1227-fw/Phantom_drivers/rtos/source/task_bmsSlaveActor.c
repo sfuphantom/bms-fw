@@ -28,13 +28,21 @@
 QueueArr_t queue; // Assigns storage
 static QueueArr_t* q_ptr = &queue; // Creates static pointer access. TODO check if we need this as static!
 
-void actOnBMSSlaveData(bmsSlaveActorMsg_t* messageToActUpon) {
+void bmsSlaveActorInit(QueueArr_t other){
+
+    /* Deep copy elements */
+    q_ptr->tx = other.tx;
+    q_ptr->rx = other.rx;
+}
+
+
+void actOnBMSSlaveData(bmsSlaveMsg_t* messageToActUpon) {
     // Take something out of the queue and process it.
 
     // This is a TODO for after PL455 rewrite code merges, but should take the place of the tasks in task_soc.c/h, task_stateMachine.c/h, as
     // well as something for temperature.
     // Our goal is to comply here with FSAE 2022 Rules:
-    // - EV.8.3.1, EV.8.3.4, EV.8.3.5
+    // - EV.8.3.1, EV.8.3.4, EV.8.3.5, EV.8.4.2, EV.8.5.2
 
     // I think those are all the rules around the "AMS" (BMS) that relate to ACTING on the data read from the BMS slaves.
     // Someone should double-check for sanity's sake however.
@@ -51,12 +59,13 @@ void vBMSSlaveActorTask(void *queueParams){
     xLastWakeTime = xTaskGetTickCount();
 
     // Setup storage for message we will receive into:
-    static bmsSlaveActorMsg_t actor_data = {
+    static bmsSlaveMsg_t actor_data = {
             .data = {0},
             .tx_data = 0,
-            .bms_state = 0,
+            .agent_state = 0,
+            .actor_state = 0,
         };
-    static bmsSlaveActorMsg_t* internalMessagePtr = &actor_data;
+    static bmsSlaveMsg_t* internalMessagePtr = &actor_data;
     /* Initialize intermediate variables */
     static BaseType_t rx_success = pdFALSE;
 

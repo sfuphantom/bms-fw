@@ -21,6 +21,18 @@ typedef struct AgentMessage {
     uint8_t msg; // data from agent
 } AgentMessage_t;
 
+// Data structure for messages for this agent:
+typedef struct bmsSlaveMsg_t {
+    /* Input Data */
+    AgentMessage_t data;
+    uint8_t agent_state;
+    uint8_t actor_state;
+
+    /* Output Data */
+    uint8_t tx_data;
+
+} bmsSlaveMsg_t;
+
 typedef struct QueueArr_t {
     QueueHandle_t tx;
     QueueHandle_t rx;

@@ -80,14 +80,13 @@ int main(void)
        initBMSData();   // Initializes BMS data structure and ensures pointers are set properly
        phantomSystemInit();
 
-       // Testing Agent/Actor here:
+       // Register the BMS agent and actor tasks:
        if (startSensorAgentsActors()) {
-           UARTprintf("\n\rSuccessfully started BMS slave agents/actors\n\n\r");
+           UARTprintf("\n\rSuccessfully registered BMS slave agents/actors with FreeRTOS\n\n\r");
        }
 
 
-       // BMS_init();      // Initialize BMS slaves. Currently hangs on launchpad if no BMS slaves are present.
-
+       // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
        // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
 

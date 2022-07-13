@@ -8,11 +8,9 @@
 #ifndef PHANTOM_DRIVERS_DRIVERS_INCLUDE_AGENTACTOR_H_
 #define PHANTOM_DRIVERS_DRIVERS_INCLUDE_AGENTACTOR_H_
 
-#include "task_testActor.h"
-#include "task_testAgent.h"
+#define PHANTOM_NUM_MESSAGES_IN_SHARED_BMS_QUEUE 10
 
 // Register agent and actor tasks:
-// bool startTestAgentActor();
 
 bool startSensorAgentsActors();
 
