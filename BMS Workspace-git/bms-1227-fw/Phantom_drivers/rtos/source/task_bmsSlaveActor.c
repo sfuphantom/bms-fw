@@ -51,13 +51,6 @@ void actOnBMSSlaveData(bmsSlaveMsg_t* messageToActUpon) {
 // Actor loop is to receive data from the corresponding Agent, and then ACT on it.
 void vBMSSlaveActorTask(void *queueParams){
 
-    // Set up task params:
-    TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
-    const TickType_t xFrequency = 1000; // task frequency in ms
-
-    // Initialize the xLastWakeTime variable with the current time;
-    xLastWakeTime = xTaskGetTickCount();
-
     // Setup storage for message we will receive into:
     static bmsSlaveMsg_t actor_data = {
             .data = {0},
@@ -71,8 +64,6 @@ void vBMSSlaveActorTask(void *queueParams){
 
     // Enter infinite loop of processing objects
     do {
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        TickType_t xLastWakeTime = xTaskGetTickCount();
 
         // Receive into rx queue:
         rx_success = xQueueReceive(
@@ -88,7 +79,7 @@ void vBMSSlaveActorTask(void *queueParams){
             continue;
         }
 
-        // Hit the business logic function with the data we recieved:
+        // Hit the business logic function with the data we received:
         actOnBMSSlaveData(internalMessagePtr);
 
         // Transmit into the tx queue (not necessary for all tasks!)
