@@ -5,10 +5,17 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 #include "bms_data.h"
 
 void initBMSData()
 {
+
+    // Set pointer to statically allocated structure (allocated in bms_data.h)
+    if (!BMSDataPtr) {
+        BMSDataPtr = &AllocatedBMSData;
+    }
+
 	/***********************************************************
      *              FLAG INITIALIZATION
      ***********************************************************/

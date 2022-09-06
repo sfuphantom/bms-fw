@@ -27,9 +27,9 @@
 #include "sys_main.h"
 #include "soc.h"
 #include "phantom_pl455.h"
-#include "thermistor.h"
 #include "pinmux.h"
 #include "testinterface.h"
+#include "agentactor.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -61,7 +61,6 @@
 */
 
 /* USER CODE BEGIN (2) */
-void Thermistor_read(void);
 void printRandoms(int lower, int upper, int count);
 
 
@@ -77,13 +76,19 @@ extern BMSState_t BMSState;
 int main(void)
 {
 /* USER CODE BEGIN (3) */
+
+       initBMSData();   // Initializes BMS data structure and ensures pointers are set properly
        phantomSystemInit();
 
-       BMS_init();      // Initialize BMS slaves
-       initBMSData();   // Initializes BMS data structure
+       // Register the BMS agent and actor tasks:
+       if (startSensorAgentsActors()) {
+           UARTprintf("\n\rSuccessfully registered BMS slave agents/actors with FreeRTOS\n\n\r");
+       }
 
-       InitializeTemperature();
-       setupThermistor();
+
+       // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
+
+       // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
 
         if (CHARGER_ENABLE_PIN == 1) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
             BMSState = BMS_CHARGING;
@@ -106,13 +111,14 @@ int main(void)
 // Called periodically every 1ms
 void socTimer(TimerHandle_t xTimers)
 {
-    //socUpdate();
+    // socUpdate(); // TODO investigate whether this timer (used in phantom_freertos.c:38) is still required for something.
+    UARTprintf("\n\rBREAKPOINT TEST LINE\n\n\r");
 }
 
 /* Timer callback when it expires for the ready to drive sound */
 void Timer_2s(TimerHandle_t xTimers)
 {
-
+    // TODO: investigate whether this timer (used in phantom_freertos.c:56) is still required for something.
 }
 
 /* USER CODE BEGIN (4) */
@@ -120,9 +126,9 @@ void phantomSystemInit()
 {
     unsigned char command;
 
-    _enable_IRQ();  //Enables global interrupts
-    mibspiInit();   //Initialize the mibspi3 module; mibspi3 = mibspiREG3
-    gioInit();      //Initialize the GIO module;
+    _enable_IRQ();  // Enables global interrupts
+    mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
+    gioInit();      // Initialize the GIO module;
     hetInit();
     sciInit();
     socInit();

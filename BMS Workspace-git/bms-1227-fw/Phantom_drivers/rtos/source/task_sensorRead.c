@@ -42,6 +42,6 @@ void vSensorReadTask(void *pvParameters)
         BMS_Read_All(true);
 
         //UARTprintf("sensor read task \n\r");
-    }while(1);
+    } while(1);
 
 }
