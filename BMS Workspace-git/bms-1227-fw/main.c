@@ -90,7 +90,7 @@ int main(void)
 
        // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
 
-        if (CHARGER_ENABLE_PIN == 1) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+        if (true) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
             BMSState = BMS_CHARGING;
         }
         else {
