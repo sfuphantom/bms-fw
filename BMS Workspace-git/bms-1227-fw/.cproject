@@ -235,7 +235,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="Phantom_drivers/drivers/soc/soc_unittest.c|halcogen_bms_master/mock|Phantom_drivers/mock|Phantom_drivers/phantom_pl455_unittest.c|sys_link.cmd|halcogen_bms_launchpad|halcogen_bms_master/source/sys_link.cmd|TMS570LS122xFlashLnk.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="halcogen_bms_master/source/sys_main.c|Phantom_drivers/drivers/soc/soc_unittest.c|halcogen_bms_master/mock|Phantom_drivers/mock|Phantom_drivers/phantom_pl455_unittest.c|sys_link.cmd|halcogen_bms_launchpad|halcogen_bms_master/source/sys_link.cmd|TMS570LS122xFlashLnk.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
