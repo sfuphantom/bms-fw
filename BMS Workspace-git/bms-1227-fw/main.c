@@ -18,6 +18,7 @@
  */
 
 
+#include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
 #include "rti.h"
@@ -41,11 +42,6 @@
 
 #include "hwConfig.h"
 
-
-
-/* USER CODE END */
-
-/* Include Files */
 
 #include "sys_common.h"
 
@@ -75,34 +71,37 @@ extern BMSState_t BMSState;
 
 int main(void)
 {
-/* USER CODE BEGIN (3) */
+    /* USER CODE BEGIN (3) */
 
-       initBMSData();   // Initializes BMS data structure and ensures pointers are set properly
-       phantomSystemInit();
+    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+    phantomSystemInit();
 
-       // Register the BMS agent and actor tasks:
-       if (startSensorAgentsActors()) {
-           UARTprintf("\n\rSuccessfully registered BMS slave agents/actors with FreeRTOS\n\n\r");
-       }
-
-
-       // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
-
-       // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
-
-        if (true) { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
-            BMSState = BMS_CHARGING;
+    // Register the BMS agent and actor tasks:
+    if(initSlavePipeline())
+    {
+        while(true){
+            // TODO: spam printing debug messages
         }
-        else {
-            BMSState = BMS_RUNNING;
-        }
+    }
+    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
-       xphRtosInit();
+    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
 
-       vTaskStartScheduler();
+    if (true)
+    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+        BMSState = BMS_CHARGING;
+    }
+    else
+    {
+        BMSState = BMS_RUNNING;
+    }
 
-      // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-      while(1);
+    xphRtosInit();
+
+    vTaskStartScheduler();
+
+    // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
+    while (1);
 }
 
 
