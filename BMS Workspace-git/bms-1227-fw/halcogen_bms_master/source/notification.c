@@ -54,6 +54,7 @@
 #include "gio.h"
 #include "mibspi.h"
 #include "sci.h"
+#include "spi.h"
 #include "het.h"
 #include "sys_dma.h"
 
@@ -184,6 +185,26 @@ void rtiNotification(uint32 notification)
 {
 
 }
+/* USER CODE END */
+#pragma WEAK(spiNotification)
+void spiNotification(spiBASE_t *spi, uint32 flags)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (31) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (32) */
+/* USER CODE END */
+#pragma WEAK(spiEndNotification)
+void spiEndNotification(spiBASE_t *spi)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (33) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (34) */
 /* USER CODE END */
 
 #pragma WEAK(pwmNotification)

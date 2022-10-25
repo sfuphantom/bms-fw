@@ -42,6 +42,7 @@
 
 #include "hwConfig.h"
 
+#include "IMD.h"
 
 #include "sys_common.h"
 
@@ -73,32 +74,33 @@ int main(void)
 {
     /* USER CODE BEGIN (3) */
 
-    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-    phantomSystemInit();
+//    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+//    phantomSystemInit();
+//
+//    // Register the BMS agent and actor tasks:
+//    if(initSlavePipeline())
+//    {
+//        while(true){
+//            // TODO: spam printing debug messages
+//        }
+//    }
+//    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
+//
+//    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
+//
+//    if (true)
+//    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+//        BMSState = BMS_CHARGING;
+//    }
+//    else
+//    {
+//        BMSState = BMS_RUNNING;
+//    }
+//
+//    xphRtosInit();
 
-    // Register the BMS agent and actor tasks:
-    if(initSlavePipeline())
-    {
-        while(true){
-            // TODO: spam printing debug messages
-        }
-    }
-    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
-
-    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
-
-    if (true)
-    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
-        BMSState = BMS_CHARGING;
-    }
-    else
-    {
-        BMSState = BMS_RUNNING;
-    }
-
-    xphRtosInit();
-
-    vTaskStartScheduler();
+//    vTaskStartScheduler();
+    initalizeIMD();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while (1);
