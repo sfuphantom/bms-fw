@@ -75,8 +75,8 @@ int main(void)
 {
     /* USER CODE BEGIN (3) */
 
-    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-    phantomSystemInit();
+//    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+//    phantomSystemInit();
 
     initializeCommandLine();
 
@@ -101,7 +101,7 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
-    xphRtosInit();
+//    xphRtosInit();
 
     vTaskStartScheduler();
 
