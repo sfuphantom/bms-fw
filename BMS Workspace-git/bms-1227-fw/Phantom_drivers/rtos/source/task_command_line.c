@@ -16,7 +16,9 @@
 static xTaskHandle commandLineTaskHandle;
 static void CommandLineTask(void* params){
     while(1){
-        UARTprintf("t\r\n");
+        UARTprintf("Hello World!\r\n");
+        vTaskDelay(1000);
+
     }
 }
 
