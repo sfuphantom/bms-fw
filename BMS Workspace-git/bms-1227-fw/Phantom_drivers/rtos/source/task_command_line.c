@@ -13,7 +13,7 @@
 #include "Phantom_sci.h"
 #include "hwConfig.h"
 
-static void HelloWorldTask(void* params){
+static void CommandLineTask(void* params){
     while(1){
         UARTprintf("t\r\n");
     }
@@ -26,7 +26,7 @@ void initializeCommandLine()
         UARTInit(PC_UART, 9600);
 
 
-    xTaskCreate(HelloWorldTask, "HelloWorldTask", configMINIMAL_STACK_SIZE, ( void * ) 1, tskIDLE_PRIORITY, &HWT);
+    xTaskCreate(CommandLineTask, "CommandLineTask", configMINIMAL_STACK_SIZE, ( void * ) 1, tskIDLE_PRIORITY, &commandLineTaskHandle);
 }
 
 
