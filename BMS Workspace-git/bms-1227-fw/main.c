@@ -45,6 +45,8 @@
 
 #include "sys_common.h"
 
+#include "task_command_line.h"
+
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
 
@@ -76,13 +78,16 @@ int main(void)
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
 
-    // Register the BMS agent and actor tasks:
-    if(initSlavePipeline())
-    {
-        while(true){
-            // TODO: spam printing debug messages
-        }
-    }
+    initializeCommandLine();
+
+
+//    // Register the BMS agent and actor tasks:
+//    if(initSlavePipeline())
+//    {
+//        while(true){
+//            // TODO: spam printing debug messages
+//        }
+//    }
     // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
     // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
