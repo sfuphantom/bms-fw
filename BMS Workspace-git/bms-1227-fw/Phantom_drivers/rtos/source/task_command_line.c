@@ -13,6 +13,7 @@
 #include "Phantom_sci.h"
 #include "hwConfig.h"
 
+static xTaskHandle commandLineTaskHandle;
 static void CommandLineTask(void* params){
     while(1){
         UARTprintf("t\r\n");
@@ -22,7 +23,6 @@ static void CommandLineTask(void* params){
 
 void initializeCommandLine()
 {
-    xTaskHandle HWT;
         UARTInit(PC_UART, 9600);
 
 
