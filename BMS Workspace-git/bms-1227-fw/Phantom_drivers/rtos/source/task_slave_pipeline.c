@@ -79,7 +79,7 @@ void initActor()
             (const char*)"BMSSlaveActorTask",
             240,
             NULL,
-            1,
+            2,
             &me.consumer
         );
 
@@ -95,7 +95,7 @@ uint8_t receiveQ(bmsSlaveMsg_t* data_ptr)
     BaseType_t ret = xQueueReceive(
         me.queue,
         data_ptr,
-        ( TickType_t ) pdMS_TO_TICKS(500)  // block for 500ms
+        ( TickType_t ) pdMS_TO_TICKS(10000)  // block for 10000
     );
 
     return ret == pdTRUE;
