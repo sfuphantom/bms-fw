@@ -97,7 +97,7 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
-    xphRtosInit();
+//    xphRtosInit();
 
     vTaskStartScheduler();
 
@@ -139,10 +139,14 @@ void phantomSystemInit()
     canInit();
     canEnableErrorNotification(canREG1);
 
+    UARTInit(PC_UART, 9600);
+
     sciEnableNotification(PC_UART, SCI_RX_INT);
 
     sciReceive(PC_UART, 1, (unsigned char *)&command);
     displayPrompt();
+
+
 
     UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
 }
