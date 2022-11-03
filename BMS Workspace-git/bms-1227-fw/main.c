@@ -77,10 +77,11 @@ int main(void)
     phantomSystemInit();
 
     // Register the BMS agent and actor tasks:
-    if(initSlavePipeline())
+    if(!initSlavePipeline())
     {
         while(true){
             // TODO: spam printing debug messages
+            UARTprintf("Unable to initialize slave pipeline!\r\n");
         }
     }
     // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
