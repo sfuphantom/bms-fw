@@ -7,6 +7,8 @@
 
 #include "task_slave_pipeline.h"
 
+#include "Phantom_sci.h"
+
 
 static void initAgent();
 static void initActor();
@@ -33,6 +35,9 @@ static uint8_t created()
 
 uint8_t initSlavePipeline()
 {
+
+    UARTprintf("Initializing slave pipeline!\r\n");
+
     me.queue = xQueueCreate(PHANTOM_NUM_MESSAGES_IN_SHARED_BMS_QUEUE, sizeof(bmsSlaveMsg_t));
 
     initActor();
@@ -74,7 +79,7 @@ void initActor()
             (const char*)"BMSSlaveActorTask",
             240,
             NULL,
-            1,
+            2,
             &me.consumer
         );
 
@@ -90,7 +95,7 @@ uint8_t receiveQ(bmsSlaveMsg_t* data_ptr)
     BaseType_t ret = xQueueReceive(
         me.queue,
         data_ptr,
-        ( TickType_t ) pdMS_TO_TICKS(500)  // block for 500ms
+        ( TickType_t ) pdMS_TO_TICKS(10000)  // block for 10000
     );
 
     return ret == pdTRUE;
@@ -130,6 +135,8 @@ void vBMSSlaveActorTask(void* args)
             // TODO: Add error handling for no messages from BMS slave agent (probably shutdown at this point, or if messages are lost for a long enough period)
             continue;
         }
+
+        UARTprintf("Received some data!\r\n");
 
         // Post data or event to some external task using their API queue
         // SomeAPIPost()

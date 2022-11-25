@@ -78,16 +78,18 @@ int main(void)
 //    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
 //    phantomSystemInit();
 
+
     initializeCommandLine();
 
+    // Register the BMS agent and actor tasks:
+    if(!initSlavePipeline())
+    {
+        while(true){
+            // TODO: spam printing debug messages
+            UARTprintf("Unable to initialize slave pipeline!\r\n");
+        }
+    }
 
-//    // Register the BMS agent and actor tasks:
-//    if(initSlavePipeline())
-//    {
-//        while(true){
-//            // TODO: spam printing debug messages
-//        }
-//    }
     // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
     // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
@@ -143,10 +145,14 @@ void phantomSystemInit()
     canInit();
     canEnableErrorNotification(canREG1);
 
+    UARTInit(PC_UART, 9600);
+
     sciEnableNotification(PC_UART, SCI_RX_INT);
 
     sciReceive(PC_UART, 1, (unsigned char *)&command);
     displayPrompt();
+
+
 
     UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
 }
