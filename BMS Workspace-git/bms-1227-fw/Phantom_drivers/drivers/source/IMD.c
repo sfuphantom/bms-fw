@@ -35,7 +35,7 @@ void initalizeIMD(){
     _enable_IRQ();
 
     edgeEnableNotification(hetREG1, edge0);
-    gioEnableNotification(gioPORTA,5);
+//    gioEnableNotification(gioPORTA,5);
 //    rtiStartCounter(rtiCOUNTER_BLOCK1); // cant read register without this (RTI doesnt start?)
 }
 

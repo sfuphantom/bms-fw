@@ -103,7 +103,14 @@ int main(void)
     initalizeIMD();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    while (1);
+    //while (1);
+    int x = 0;
+    while (1) {
+        updateIMDData();
+        serialSendData();
+        getIMDData();
+        x++;
+    }
 }
 
 

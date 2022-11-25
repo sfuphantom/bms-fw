@@ -181,10 +181,12 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
 }
 
 /* USER CODE BEGIN (30) */
+
 void rtiNotification(uint32 notification)
 {
 
 }
+
 /* USER CODE END */
 #pragma WEAK(spiNotification)
 void spiNotification(spiBASE_t *spi, uint32 flags)
@@ -222,6 +224,8 @@ void edgeNotification(hetBASE_t * hetREG,uint32 edge)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (37) */
+    hetREG->FLG     = (uint32)0x20000U << edge;
+    hetREG->INTENAS = (uint32)0x20000U << edge;
 /* USER CODE END */
 }
 
