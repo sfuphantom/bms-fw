@@ -859,18 +859,19 @@ void rtiGetConfigValue(rti_config_reg_t *config_reg, config_value_type_t type)
 /* SourceId : RTI_SourceId_022 */
 /* DesignId : RTI_DesignId_022 */
 /* Requirements : HL_SR95 */
-/*void vPortPreemptiveTick(void)
-{
- USER CODE BEGIN (74)
- USER CODE END
 
-    rtiREG1->INTFLAG = 1U;
-    rtiNotification(rtiNOTIFICATION_COMPARE0);
-
- USER CODE BEGIN (75)
- USER CODE END
-}*/
-
+//Function needs to be commented out since it throws double declaration with assembly code in os_portasm.asm
+//void vPortPreemptiveTick(void)
+//{
+///* USER CODE BEGIN (74) */
+///* USER CODE END */
+//
+//    rtiREG1->INTFLAG = 1U;
+//    rtiNotification(rtiNOTIFICATION_COMPARE0);
+//
+///* USER CODE BEGIN (75) */
+///* USER CODE END */
+//}
 
 /* USER CODE BEGIN (76) */
 /* USER CODE END */

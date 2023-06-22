@@ -74,10 +74,10 @@ int main(void)
 {
     /* USER CODE BEGIN (3) */
 
-//    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-//    phantomSystemInit();
-//
-//    // Register the BMS agent and actor tasks:
+    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+    phantomSystemInit();
+
+    // Register the BMS agent and actor tasks:
 //    if(initSlavePipeline())
 //    {
 //        while(true){
@@ -104,12 +104,12 @@ int main(void)
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     //while (1);
-    int x = 0;
+//    int x = 0;
     while (1) {
         updateIMDData();
         serialSendData();
         getIMDData();
-        x++;
+//        x++;
     }
 }
 

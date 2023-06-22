@@ -184,7 +184,7 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
 
 void rtiNotification(uint32 notification)
 {
-
+    //Comment out this function for IMD since it gives "rtiNotification" already defined error. Use the pragma WEAK one
 }
 
 /* USER CODE END */

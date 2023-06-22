@@ -448,7 +448,7 @@ void vPortEndScheduler(void)
 		xTaskIncrementTick();
 	}
 
- #else
+#else
 
 	/*
 	 **************************************************************************
@@ -457,9 +457,10 @@ void vPortEndScheduler(void)
 	 * is set to 1 in portmacro.h
 	 **************************************************************************
 	 */
-	void vPortPreemptiveTick( void );
+	 void vPortPreemptiveTick( void );
 
 #endif
+
 /*-----------------------------------------------------------*/
 
 /*-----------------------------------------------------------*/

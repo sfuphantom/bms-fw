@@ -26,17 +26,18 @@ IsolationStateEnum isolationState;
 * Purpose: Initializes all functions required to make reading the IMD work
 */
 void initalizeIMD(){
-    hetInit();
-    gioInit();
-//    rtiInit();
-    sciInit();
-//    rtiResetCounter(rtiCOUNTER_BLOCK1);
+//    hetInit();    //Initialized in phantomSystemInit()
+//    gioInit();    //Initialized in phantomSystemInit()
+//    rtiInit();    //Previously commented
+//    sciInit();    //Previously commented; Initialized in phantomSystemInit()
+//    rtiResetCounter(rtiCOUNTER_BLOCK1);   //Previously commented
 
-    _enable_IRQ();
+//    _enable_IRQ();    //Previously commented; Initialized in phantomSystemInit()
 
     edgeEnableNotification(hetREG1, edge0);
-//    gioEnableNotification(gioPORTA,5);
-//    rtiStartCounter(rtiCOUNTER_BLOCK1); // cant read register without this (RTI doesnt start?)
+    gioEnableNotification(gioPORTA,5);
+    gioEnableNotification(gioPORTA,6);
+//    rtiStartCounter(rtiCOUNTER_BLOCK1); // cant read register without this (RTI doesnt start?)    //Previously commented
 }
 
 /*
@@ -151,13 +152,15 @@ void edgeNotification(hetBASE_t * hetREG,uint32 edge)
         uint32 pinStatus = gioGetBit(hetPORT1, 20);
 
         //if it is a rising edge, record the time (time1 = rising edge timestamp)
-        if(pinStatus == 1) time1 = rtiREG1->CNT[1].FRCx;
+        if(pinStatus == 1) time1 = rtiREG1->CNT[1].FRCx;    //TODO: change to freeRTOS register
+        //if(pinStatus == 1) time1 = portRTI_CNT0_FRC0_REG;
 
         // else it is a falling edge
         else
         {
             // time2 = falling edge timestamp
-            time2 = rtiREG1->CNT[1].FRCx;
+            time2 = rtiREG1->CNT[1].FRCx;   //TODO: change to freeRTOS register
+            //time2 = portRTI_CNT0_FRC0_REG;
 
             // if there is no overflow for time 1 (rising edge)
             //last_time1 is the last rising edge, time_1 is latest rising edge
