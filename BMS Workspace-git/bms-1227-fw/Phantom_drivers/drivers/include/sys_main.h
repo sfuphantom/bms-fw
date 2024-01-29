@@ -48,11 +48,10 @@ enum TASK_PRIORITIES{
 #define NUMBER_OF_TIMERS   2
 
 /* array to hold handles to the created timers*/
-TimerHandle_t xTimers[NUMBER_OF_TIMERS];
+extern TimerHandle_t xTimers[NUMBER_OF_TIMERS];
 
 void socTimer(TimerHandle_t xTimers);
 void Timer_2s(TimerHandle_t xTimers);
-
 void phantomSystemInit();
 
 

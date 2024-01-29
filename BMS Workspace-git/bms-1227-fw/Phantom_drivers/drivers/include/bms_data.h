@@ -53,7 +53,7 @@ typedef struct bms_data
 } bms_data;
 
 BMSState_t BMSState;
-bms_data* BMSDataPtr;
+extern bms_data* BMSDataPtr;
 static bms_data AllocatedBMSData;
 
 void initBMSData();

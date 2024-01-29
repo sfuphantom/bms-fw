@@ -25,7 +25,7 @@
 #include "Phantom_sci.h"
 #include "can.h"
 #include "reg_het.h"
-#include "sys_main.h"
+//#include "sys_main.h"
 #include "soc.h"
 #include "phantom_pl455.h"
 #include "pinmux.h"
@@ -39,7 +39,6 @@
 #include "os_semphr.h"
 #include "os_timer.h"
 #include "phantom_freertos.h"
-
 #include "hwConfig.h"
 
 
@@ -66,7 +65,7 @@ int RTI_TIMEOUT = 0;
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
-extern BMSState_t BMSState;
+//extern BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)
@@ -109,17 +108,17 @@ int main(void)
 /* USER CODE BEGIN (4) */
 
 // Called periodically every 1ms
-void socTimer(TimerHandle_t xTimers)
-{
-    // socUpdate(); // TODO investigate whether this timer (used in phantom_freertos.c:38) is still required for something.
-    UARTprintf("\n\rBREAKPOINT TEST LINE\n\n\r");
-}
-
-/* Timer callback when it expires for the ready to drive sound */
-void Timer_2s(TimerHandle_t xTimers)
-{
-    // TODO: investigate whether this timer (used in phantom_freertos.c:56) is still required for something.
-}
+//void socTimer(TimerHandle_t xTimers)
+//{
+//    // socUpdate(); // TODO investigate whether this timer (used in phantom_freertos.c:38) is still required for something.
+//    UARTprintf("\n\rBREAKPOINT TEST LINE\n\n\r");
+//}
+//
+///* Timer callback when it expires for the ready to drive sound */
+//void Timer_2s(TimerHandle_t xTimers)
+//{
+//    // TODO: investigate whether this timer (used in phantom_freertos.c:56) is still required for something.
+//}
 
 /* USER CODE BEGIN (4) */
 void phantomSystemInit()
