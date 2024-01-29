@@ -47,7 +47,7 @@
 
 /* Include Files */
 
-//#include "sys_common.h"
+#include "sys_common.h"
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
@@ -63,12 +63,12 @@
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-// commented out main() to avoid symbol redefinition error
 
+//Commented out main() to avoid symbol redefinition error in linker
 //int main(void)
 //{
 ///* USER CODE BEGIN (3) */
-///* USER CODE END */
+/////* USER CODE END */
 //
 //    return 0;
 //}
