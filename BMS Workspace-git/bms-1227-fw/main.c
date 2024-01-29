@@ -25,7 +25,7 @@
 #include "Phantom_sci.h"
 #include "can.h"
 #include "reg_het.h"
-//#include "sys_main.h"
+#include "sys_main.h"
 #include "soc.h"
 #include "phantom_pl455.h"
 #include "pinmux.h"
@@ -41,8 +41,14 @@
 #include "phantom_freertos.h"
 #include "hwConfig.h"
 
-
 #include "sys_common.h"
+
+// Includes for HV current driver test
+#include "system.h"
+#include "mibspi.h"
+#include "sys_vim.h"
+#include "hv_driver.h"
+#include "sys_core.h"
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
@@ -65,7 +71,7 @@ int RTI_TIMEOUT = 0;
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
-//extern BMSState_t BMSState;
+extern BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)

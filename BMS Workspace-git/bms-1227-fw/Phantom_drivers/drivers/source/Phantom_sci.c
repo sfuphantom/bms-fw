@@ -16,20 +16,21 @@ void UARTInit(sciBASE_t *sci, uint32 baud)
     sciSetBaudrate(sci, baud);
 }
 
-void UARTprintf(const char *_format, ...)
-{
-   char str[128];
-   int8_t length = -1;
-
-   va_list argList;
-   va_start( argList, _format );
-
-   length = vsnprintf(str, sizeof(str), _format, argList);
-
-   va_end( argList );
-
-   if (length > 0)
-   {
-      sciSend(PC_UART, (unsigned)length, (unsigned char*)str);
-   }
-}
+// hv_driver has its own UARTprintf with a different definition - using that one for hv current driver test
+//void UARTprintf(const char *_format, ...)
+//{
+//   char str[128];
+//   int8_t length = -1;
+//
+//   va_list argList;
+//   va_start( argList, _format );
+//
+//   length = vsnprintf(str, sizeof(str), _format, argList);
+//
+//   va_end( argList );
+//
+//   if (length > 0)
+//   {
+//      sciSend(PC_UART, (unsigned)length, (unsigned char*)str);
+//   }
+//}
