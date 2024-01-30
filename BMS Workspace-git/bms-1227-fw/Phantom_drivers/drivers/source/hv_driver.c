@@ -46,7 +46,7 @@ static uint16 TX_ADS7044_Slave[1] = {0};
 static uint16 RX_BMS_Master[1]   = {0};
 static uint16 RX_ADS7044_Slave[1] = {0};
 
-bool TX_AVAILABLE = false;  // flags to only transfer mibspi data from slave when current transfer has finished
+bool TX_AVAILABLE = true;  // flags to only transfer mibspi data from slave when current transfer has finished
 bool tx_master = false;     // flags to only transfer mibspi data from master when current transfer has finished
 float adc_output = 0.0;
 int i = 0;

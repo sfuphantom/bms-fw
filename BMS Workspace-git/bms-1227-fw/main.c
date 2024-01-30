@@ -104,7 +104,21 @@ int main(void)
 
 //    xphRtosInit();
 
-    vTaskStartScheduler();
+    /* HV current reading driver test code begin */
+
+    _enable_IRQ();
+    gioInit();
+    mibspiInit();
+
+    adcSlaveDataSetup();
+    adcVoltageTest();
+    masterDataTranser();    // Transfer slave data to master
+    /* HV current reading driver test code end */
+
+
+    //vTaskStartScheduler();
+
+
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while (1);
