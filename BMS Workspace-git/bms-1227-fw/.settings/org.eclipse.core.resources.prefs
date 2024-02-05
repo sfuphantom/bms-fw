@@ -53,6 +53,8 @@ encoding//Launchpad_Configuration/Phantom_drivers/drivers/source/subdir_rules.mk
 encoding//Launchpad_Configuration/Phantom_drivers/drivers/source/subdir_vars.mk=UTF-8
 encoding//Launchpad_Configuration/Phantom_drivers/rtos/source/subdir_rules.mk=UTF-8
 encoding//Launchpad_Configuration/Phantom_drivers/rtos/source/subdir_vars.mk=UTF-8
+encoding//Launchpad_Configuration/Phantom_drivers/hercules-phantom-lib/rtos-common/subdir_rules.mk=UTF-8
+encoding//Launchpad_Configuration/Phantom_drivers/hercules-phantom-lib/rtos-common/subdir_vars.mk=UTF-8
 encoding//Launchpad_Configuration/Phantom_drivers/source/subdir_rules.mk=UTF-8
 encoding//Launchpad_Configuration/Phantom_drivers/source/subdir_vars.mk=UTF-8
 encoding//Launchpad_Configuration/halcogen_bms_launchpad/source/subdir_rules.mk=UTF-8

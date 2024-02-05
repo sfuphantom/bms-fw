@@ -1,0 +1,4 @@
+[submodule "BMS Workspace-git/bms-1227-fw/Phantom_drivers/hercules-phantom-lib"]
+	path = "BMS Workspace-git"/bms-1227-fw/Phantom_drivers/hercules-phantom-lib
+	url = https://github.com/sfuphantom/hercules-phantom-lib.git
+	
