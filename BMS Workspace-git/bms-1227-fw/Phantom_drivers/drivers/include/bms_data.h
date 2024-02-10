@@ -27,6 +27,8 @@ typedef struct bmsFlags
 								   // TODO: If 1, put BMS in FAULT state
 	uint8_t BAD_SLAVE_CONNECTION_FLAG; // If 1, then BMS master is unable to read/write to/from at least one BMS slave
 									   // TODO: If 1, put BMS in FAULT state
+
+	//TODO: add overcurrent flag (for however long that needs to be check rules)
 } bmsFlags;
 
 typedef struct bmsData
@@ -52,7 +54,7 @@ typedef struct bms_data
     bmsSlaveVoltage SlaveVoltage;
 } bms_data;
 
-BMSState_t BMSState;
+extern BMSState_t BMSState;
 extern bms_data* BMSDataPtr;
 static bms_data AllocatedBMSData;
 

@@ -63,12 +63,11 @@
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-
-//Commented out main() to avoid symbol redefinition error in linker
+//This main conflicts with the conflicts with the real main in main.c
 //int main(void)
 //{
 ///* USER CODE BEGIN (3) */
-/////* USER CODE END */
+///////* USER CODE END */
 //
 //    return 0;
 //}

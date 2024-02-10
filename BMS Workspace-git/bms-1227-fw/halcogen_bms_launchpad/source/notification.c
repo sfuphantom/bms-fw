@@ -58,11 +58,11 @@
 #include "het.h"
 #include "i2c.h"
 #include "sys_dma.h"
-#include "hwConfig.h"
 
 /* USER CODE BEGIN (0) */
 #include "sys_main.h"
 #include "testinterface.h"
+#include "hwConfig.h"
 
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;

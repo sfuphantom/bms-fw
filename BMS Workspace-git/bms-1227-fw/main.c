@@ -40,15 +40,10 @@
 #include "os_timer.h"
 #include "phantom_freertos.h"
 #include "hwConfig.h"
-
 #include "sys_common.h"
 
-// Includes for HV current driver test
-#include "system.h"
-#include "mibspi.h"
-#include "sys_vim.h"
-#include "hv_driver.h"
-#include "sys_core.h"
+// Includes for HV Voltage reading driver test
+#include <Current_transducer.h>
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
@@ -71,11 +66,11 @@ int RTI_TIMEOUT = 0;
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
-extern BMSState_t BMSState;
+BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)
-{
+ {
     /* USER CODE BEGIN (3) */
 
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
@@ -105,14 +100,11 @@ int main(void)
 //    xphRtosInit();
 
     /* HV current reading driver test code begin */
-
-    _enable_IRQ();
-    gioInit();
-    mibspiInit();
-
-    adcSlaveDataSetup();
-    adcVoltageTest();
-    masterDataTranser();    // Transfer slave data to master
+    while (1){
+    	ADC_voltage = getHVsensorVoltage();
+    	accumulator_current = getHVsensorCurrent();
+    	HVcurrent_Range_Check();
+    }
     /* HV current reading driver test code end */
 
 
@@ -121,7 +113,7 @@ int main(void)
 
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    while (1);
+
 }
 
 
