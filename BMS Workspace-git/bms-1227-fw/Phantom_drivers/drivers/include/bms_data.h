@@ -27,8 +27,9 @@ typedef struct bmsFlags
 								   // TODO: If 1, put BMS in FAULT state
 	uint8_t BAD_SLAVE_CONNECTION_FLAG; // If 1, then BMS master is unable to read/write to/from at least one BMS slave
 									   // TODO: If 1, put BMS in FAULT state
-
-	//TODO: add overcurrent flag (for however long that needs to be check rules)
+	uint8_t OVER_CURRENT_FLAG; //if 1, then the current transducer has read over 400A instantaneous current
+							   //TODO: If 1, put BMS in FAULT state
+							   //TODO: set to 1 when current transducer reads over 400A using _Bool HVcurrent_Range_Check() in Current_transducer.h
 } bmsFlags;
 
 typedef struct bmsData

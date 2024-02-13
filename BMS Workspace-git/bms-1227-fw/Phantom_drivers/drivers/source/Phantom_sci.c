@@ -16,7 +16,6 @@ void UARTInit(sciBASE_t *sci, uint32 baud)
     sciSetBaudrate(sci, baud);
 }
 
-// hv_driver has its own UARTprintf with a different definition - using that one for hv current driver test
 void UARTprintf(const char *_format, ...)
 {
    char str[128];
