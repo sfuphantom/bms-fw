@@ -15,8 +15,6 @@
 #include "sci.h"
 #include "stdlib.h" // contains ltoa
 #include "sys_common.h"
-#include "FreeRTOSConfig.h"
-//#include "os_port.c"    //Added by Karina Kramer - June 7, 2023
 
 // ENUMS FOR IMD MESSAGE MAPPING
 

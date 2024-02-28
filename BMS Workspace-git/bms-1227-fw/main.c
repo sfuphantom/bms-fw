@@ -18,6 +18,7 @@
  */
 
 
+#include <task_imd.h>
 #include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
@@ -26,11 +27,13 @@
 #include "can.h"
 #include "reg_het.h"
 #include "sys_main.h"
+#include "sys_core.h"
 #include "soc.h"
 #include "phantom_pl455.h"
 #include "pinmux.h"
 #include "testinterface.h"
 #include "agentactor.h"
+#include "mibspi.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -42,8 +45,7 @@
 
 #include "hwConfig.h"
 
-#include "IMD.h"
-
+//#include "IMD.h"
 #include "sys_common.h"
 
 /* USER CODE BEGIN (1) */
@@ -76,6 +78,7 @@ int main(void)
 
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
+    initalizeIMD();     //TODO: list all initializations here before entering state machine
 
     // Register the BMS agent and actor tasks:
 //    if(initSlavePipeline())
@@ -99,8 +102,9 @@ int main(void)
 //
 //    xphRtosInit();
 
+
 //    vTaskStartScheduler();
-    initalizeIMD();
+
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     //while (1);
