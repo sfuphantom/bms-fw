@@ -41,6 +41,7 @@
 #include "phantom_freertos.h"
 #include "hwConfig.h"
 #include "sys_common.h"
+#include "task_sensorRead.h"
 
 // Includes for HV Voltage reading driver test
 #include <Current_transducer.h>
@@ -70,7 +71,7 @@ BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)
- {
+  {
     /* USER CODE BEGIN (3) */
 
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
@@ -97,40 +98,35 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
-//    xphRtosInit();
+    // initializes all FreeRTOS tasks and timers
+    xphRtosInit();
 
-    /* HV current reading driver test code begin */
-    while (1){
-    	ADC_voltage = getHVsensorVoltage();
-    	accumulator_current = getHVsensorCurrent();
-    	HVcurrent_Range_Check();
-    }
-    /* HV current reading driver test code end */
-
-
-    //vTaskStartScheduler();
-
-
+    // start FreeRTOS task scheduling
+    vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
+    while(1);
+
+
 
 }
+
 
 
 /* USER CODE BEGIN (4) */
 
 // Called periodically every 1ms
-//void socTimer(TimerHandle_t xTimers)
-//{
-//    // socUpdate(); // TODO investigate whether this timer (used in phantom_freertos.c:38) is still required for something.
-//    UARTprintf("\n\rBREAKPOINT TEST LINE\n\n\r");
-//}
-//
-///* Timer callback when it expires for the ready to drive sound */
-//void Timer_2s(TimerHandle_t xTimers)
-//{
-//    // TODO: investigate whether this timer (used in phantom_freertos.c:56) is still required for something.
-//}
+void socTimer(TimerHandle_t xTimers)
+{
+    // socUpdate(); // TODO investigate whether this timer (used in phantom_freertos.c:38) is still required for something.
+    UARTprintf("\n\rBREAKPOINT TEST LINE\n\n\r");
+}
+
+/* Timer callback when it expires for the ready to drive sound */
+void Timer_2s(TimerHandle_t xTimers)
+{
+    // TODO: investigate whether this timer (used in phantom_freertos.c:56) is still required for something.
+}
 
 /* USER CODE BEGIN (4) */
 void phantomSystemInit()

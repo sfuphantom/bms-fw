@@ -48,28 +48,28 @@ void vStateMachineTask(void *pvParameters){
                     UARTSend(PC_UART, "FUSE_FAULT detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
-                BMSState = BMS_FAULT;
+                //BMSState = BMS_FAULT;
             }
             if (BMSDataPtr->Flags.THREE_SECOND_FLAG) {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "THREE_SECOND_FLAG detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
-                BMSState = BMS_FAULT;
+                //BMSState = BMS_FAULT;
             }
             if (BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG)  {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "TOTAL_CELL_ERROR_FLAG detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
-                BMSState = BMS_FAULT;
+                //BMSState = BMS_FAULT;
             }
             if (BMSDataPtr->Flags.BAD_SLAVE_CONNECTION_FLAG) {
                 if (STATE_PRINT) {
                     UARTSend(PC_UART, "BAD_SLAVE_CONNECTION_FLAG detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
-                BMSState = BMS_FAULT;
+                //BMSState = BMS_FAULT;
             }
             if (BMSDataPtr->Flags.OVER_CURRENT_FLAG) {
 				if (STATE_PRINT) {

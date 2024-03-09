@@ -23,7 +23,7 @@
 
 enum TASK_PRIORITIES{
     STATE_MACHINE_TASK_PRIORITY = 1,
-    SENSOR_READ_TASK_PRIORITY
+    SENSOR_READ_TASK_PRIORITY = 1 // TODO: need to confirm that this is a sensible priority for sensor read
 };
 
 /*********************************************************************************
@@ -48,7 +48,7 @@ enum TASK_PRIORITIES{
 #define NUMBER_OF_TIMERS   2
 
 /* array to hold handles to the created timers*/
-extern TimerHandle_t xTimers[NUMBER_OF_TIMERS];
+TimerHandle_t xTimers[NUMBER_OF_TIMERS];
 
 void socTimer(TimerHandle_t xTimers);
 void Timer_2s(TimerHandle_t xTimers);

@@ -29,7 +29,6 @@ typedef struct bmsFlags
 									   // TODO: If 1, put BMS in FAULT state
 	uint8_t OVER_CURRENT_FLAG; //if 1, then the current transducer has read over 400A instantaneous current
 							   //TODO: If 1, put BMS in FAULT state
-							   //TODO: set to 1 when current transducer reads over 400A using _Bool HVcurrent_Range_Check() in Current_transducer.h
 } bmsFlags;
 
 typedef struct bmsData
