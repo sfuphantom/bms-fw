@@ -23,7 +23,7 @@
 
 enum TASK_PRIORITIES{
     STATE_MACHINE_TASK_PRIORITY = 1,
-    SENSOR_READ_TASK_PRIORITY = 1 // TODO: need to confirm that this is a sensible priority for sensor read
+    SENSOR_READ_TASK_PRIORITY = 999 // TODO: need to confirm that this is a sensible priority for sensor read
 };
 
 /*********************************************************************************
