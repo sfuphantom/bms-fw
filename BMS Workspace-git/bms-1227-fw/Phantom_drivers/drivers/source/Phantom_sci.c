@@ -1,5 +1,6 @@
 
 #include "sci.h"
+#include "Phantom_sci.h"
 #include "string.h"
 #include "stdio.h"
 #include "hwConfig.h"
@@ -16,20 +17,21 @@ void UARTInit(sciBASE_t *sci, uint32 baud)
     sciSetBaudrate(sci, baud);
 }
 
-void UARTprintf(const char *_format, ...)
-{
-   char str[128];
-   int8_t length = -1;
-
-   va_list argList;
-   va_start( argList, _format );
-
-   length = vsnprintf(str, sizeof(str), _format, argList);
-
-   va_end( argList );
-
-   if (length > 0)
-   {
-      sciSend(PC_UART, (unsigned)length, (unsigned char*)str);
-   }
-}
+// hv_driver.c/h has a competing definition of UARTprintf
+//void UARTprintf(const char *_format, ...)
+//{
+//   char str[128];
+//   int8_t length = -1;
+//
+//   va_list argList;
+//   va_start( argList, _format );
+//
+//   length = vsnprintf(str, sizeof(str), _format, argList);
+//
+//   va_end( argList );
+//
+//   if (length > 0)
+//   {
+//      sciSend(PC_UART, (unsigned)length, (unsigned char*)str);
+//   }
+//}

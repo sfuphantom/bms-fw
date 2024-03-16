@@ -31,6 +31,7 @@
 #include "pinmux.h"
 #include "testinterface.h"
 #include "agentactor.h"
+#include "hv_driver.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -72,7 +73,7 @@ extern BMSState_t BMSState;
 int main(void)
 {
     /* USER CODE BEGIN (3) */
-
+    UARTprintf("Beginning main.c");
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
 
@@ -97,8 +98,24 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
+    UARTprintf("Beginning voltage test");
+    uint16_t ADCVal = -2000;
+    int i = 0;
+    while(1)
+    {
+        adcSlaveDataSetup();
+        adcVoltageTest(ADCVal);
+        masterDataTransfer();
+        ADCVal++;
+
+        // crude delay
+        while(i < 10^6) i++;
+        i = 0;
+    }
+
 //    xphRtosInit();
 
+    UARTprintf("Beginning starting task scheduler");
     vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
