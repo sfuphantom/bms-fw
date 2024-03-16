@@ -78,6 +78,13 @@ void vStateMachineTask(void *pvParameters){
 				}
 				BMSState = BMS_FAULT;
 			}
+            if (BMSDataPtr->Flags.UNDER_CURRENT_FLAG) {
+                if (STATE_PRINT) {
+                    UARTSend(PC_UART, "UNDER_CURRENT_FLAG detected. BMS entering FAULT state");
+                    UARTSend(PC_UART, "\n\r");
+                }
+                BMSState = BMS_FAULT;
+            }
         }
     if (BMSState == BMS_FAULT) {
         if (STATE_PRINT) {

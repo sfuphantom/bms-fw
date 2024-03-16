@@ -18,6 +18,7 @@
  */
 
 
+#include <current_transducer.h>
 #include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
@@ -44,7 +45,6 @@
 #include "task_sensorRead.h"
 
 // Includes for HV Voltage reading driver test
-#include <Current_transducer.h>
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
