@@ -35,7 +35,7 @@ static void HVCurrentRead()
     // set UNDER_CURRENT_FLAG to 1 when current is BELOW the minimum -200A
     // this will put BMS to FAULT state in vStateMachineTask, which will trigger shutdown
     // returns 0 on normal operating current
-    BMSDataPtr->Flags.OVER_CURRENT_FLAG = underHVCurrentFaultCheck();
+    BMSDataPtr->Flags.UNDER_CURRENT_FLAG = underHVCurrentFaultCheck();
 }
 
 
