@@ -19,11 +19,11 @@
 
 
 #include <current_transducer.h>
+#include <phantom_sci.h>
 #include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
 #include "rti.h"
-#include "Phantom_sci.h"
 #include "can.h"
 #include "reg_het.h"
 #include "sys_main.h"

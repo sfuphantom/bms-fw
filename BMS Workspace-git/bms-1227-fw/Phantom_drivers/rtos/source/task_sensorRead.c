@@ -7,12 +7,11 @@
 
 
 #include <current_transducer.h>
+#include <phantom_sci.h>
 #include "task_sensorRead.h"
 #include "phantom_pl455.h"
 #include "soc.h"
 #include "bms_data.h"
-#include "Phantom_sci.h"
-
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "os_task.h"

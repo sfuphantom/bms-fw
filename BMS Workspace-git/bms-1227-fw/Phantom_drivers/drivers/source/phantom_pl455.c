@@ -4,6 +4,7 @@
  *  Created on: Apr 18, 2020
  *      Author: Mahmoud Ahmed
  */
+#include <phantom_sci.h>
 #include "sys_main.h"
 #include "pl455.h"
 #include "phantom_pl455.h"
@@ -11,7 +12,6 @@
 #include "sci.h"
 #include "can.h"
 #include "reg_het.h"
-#include "Phantom_sci.h"
 #include "testinterface.h"
 #include <stdio.h>
 #include <stdlib.h>

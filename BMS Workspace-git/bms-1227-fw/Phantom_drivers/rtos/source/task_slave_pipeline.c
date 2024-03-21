@@ -5,9 +5,9 @@
  *      Author: rafgu
  */
 
+#include <phantom_sci.h>
 #include "task_slave_pipeline.h"
 
-#include "Phantom_sci.h"
 
 
 static void initAgent();
