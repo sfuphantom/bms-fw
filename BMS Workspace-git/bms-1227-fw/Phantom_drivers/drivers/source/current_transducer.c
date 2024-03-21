@@ -17,7 +17,7 @@ double getHVsensorVoltage()
 
     adcInit();   // Initialize the ADC module
 
-    // Move the data from the ADC module 1, group 1 to somewhere it can be accessed by adcGetData then stored in a variable (value)
+    // Move the data from the ADC module 1, group 1 to somewhere it can be accessed by adcGetData then stored in a variable (adcOutputValue)
     adcStartConversion(adcREG1, 1U);
 
     while(!adcIsConversionComplete(adcREG1, 1U)); //Wait for ADC conversion
