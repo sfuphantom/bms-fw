@@ -32,6 +32,7 @@
 #include "testinterface.h"
 #include "agentactor.h"
 #include "hv_driver.h"
+#include "mibspi.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -40,7 +41,6 @@
 #include "os_semphr.h"
 #include "os_timer.h"
 #include "phantom_freertos.h"
-
 #include "hwConfig.h"
 
 
@@ -78,13 +78,13 @@ int main(void)
     phantomSystemInit();
 
     // Register the BMS agent and actor tasks:
-    if(!initSlavePipeline())
-    {
-        while(true){
-            // TODO: spam printing debug messages
-            UARTprintf("Unable to initialize slave pipeline!\r\n");
-        }
-    }
+//    if(!initSlavePipeline())
+//    {
+//        while(true){
+//            // TODO: spam printing debug messages
+//            UARTprintf("Unable to initialize slave pipeline!\r\n");
+//        }
+//    }
     // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
     // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
@@ -99,19 +99,17 @@ int main(void)
     }
 
     UARTprintf("Beginning voltage test");
-    uint16_t ADCVal = -2000;
-    int i = 0;
-    while(1)
-    {
-        adcSlaveDataSetup();
-        adcVoltageTest(ADCVal);
-        masterDataTransfer();
-        ADCVal++;
 
-        // crude delay
-        while(i < 10^6) i++;
-        i = 0;
-    }
+
+
+//    adcSlaveDataSetup();
+//    adcVoltageTest(ADCVal);
+//    masterDataTransfer();
+
+    testMIBSPI(2021);
+
+
+    while(1);
 
 //    xphRtosInit();
 

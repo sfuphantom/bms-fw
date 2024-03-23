@@ -151,13 +151,13 @@ void mibspiNotification(mibspiBASE_t *mibspi, uint32 flags)
 
 /* USER CODE BEGIN (26) */
 /* USER CODE END */
-#pragma WEAK(mibspiGroupNotification)
-void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
-{
-/*  enter user code between the USER CODE BEGIN and USER CODE END. */
-/* USER CODE BEGIN (27) */
-/* USER CODE END */
-}
+//#pragma WEAK(mibspiGroupNotification)
+//void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
+//{
+///*  enter user code between the USER CODE BEGIN and USER CODE END. */
+///* USER CODE BEGIN (27) */
+///* USER CODE END */
+//}
 /* USER CODE BEGIN (28) */
 /* USER CODE END */
 

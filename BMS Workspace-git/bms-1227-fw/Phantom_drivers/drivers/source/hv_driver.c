@@ -30,10 +30,10 @@
 /* Transfer Group 0 */
 /* Initial data to be sent the very first time on power up to the ADC
  */
-static uint16 TX_Data_Master[1] = {0xAAAA};
+static uint16 TX_Data_Master[10] = {11, 22, 33, 44, 55, 66, 77, 88, 99, 67};
 static uint16 TX_Data_Slave[1]  = {0};
 static uint16 RX_Data_Master[1] = {0};
-static uint16 RX_Data_Slave[1]  = {0};
+static uint16 RX_Data_Slave[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 /* Transfer Group 1 */
 /* Continuous data to send to the ADC
@@ -43,16 +43,59 @@ static uint16 TX_BMS_Master[1]   = {0xF77F}; // how many bits do we need to send
                                        // 1111 0111 0111 1111
                                        // 0011 1101 1101 1111     (chopped off last 2 bits)
 static uint16 TX_ADS7044_Slave[1] = {0};
-static uint16 RX_BMS_Master[1]   = {0};
+static uint16 RX_BMS_Master[1]   = {2021};
 static uint16 RX_ADS7044_Slave[1] = {0};
 
                             // Must initialize both tx_master and TX_AVAILABLE to true for voltage reading to work properly
-bool TX_AVAILABLE = true;   // flags to only transfer mibspi data from slave when current transfer has finished
-bool tx_master = true;     // flags to only transfer mibspi data from master when current transfer has finished
+bool TX_AVAILABLE = false;   // flags to only transfer mibspi data from slave when current transfer has finished
+bool tx_master = false;     // flags to only transfer mibspi data from master when current transfer has finished
 float adc_output = 0.0;
 int i = 0;
 int sign = 1;
 static uint8 binaryNum[12];
+
+// the mibspiREG3 and mibspiREG1 are macros and can't have watch expressions set up for them
+// make variables to track what's going on in those registers
+static volatile mibspiBASE_t* mibspi1;
+static volatile mibspiBASE_t* mibspi3;
+
+// create global variables for the buffer memory of each SPI module such that watch expressions can be set up
+static volatile mibspiRAM_t* ram1;
+static volatile mibspiRAM_t* ram3;
+
+
+void testMIBSPI(uint16 testData){
+    // MIBSPI1 and MIBSPI3 are considered as a slave and a master, respectively
+    // data to be sent from the master (HV board with voltmeter) to slave (BMS master)
+    // this has to be an array because SPI functions expect a uint16 pointer
+    uint32 rxData = 0;
+
+    // get rid of declared but never referenced warning that causes these not to be assigned in memory
+    // by assigning the values here rather than at declaration
+    mibspi3 = mibspiREG3;
+    mibspi1 = mibspiREG1;
+    ram3 = mibspiRAM3;
+    ram1 = mibspiRAM1;
+
+    //TX_Data_Master[0] = testData;
+
+    // transmit block using mibspi3 group 0
+    mibspiEnableGroupNotification(mibspiREG3, TransferGroup0, 0);
+    mibspiSetData(mibspiREG3, TransferGroup0, TX_Data_Master);
+    //mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+
+    mibspiEnableGroupNotification(mibspiREG3, TransferGroup0, 0);
+    mibspiTransfer(mibspiREG3, TransferGroup0);
+    //mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+
+
+    // receive block using mibspi1 group 0
+    //mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 1);
+    //mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
+    rxData = mibspiGetData(mibspiREG1, TransferGroup0, RX_Data_Slave);
+
+    while(1);
+}
 
 void masterDataTransfer(){
     //  /* Master Data */
@@ -60,21 +103,26 @@ void masterDataTransfer(){
         mibspiSetData(mibspiREG1, TransferGroup0, TX_Data_Master);
         mibspiEnableGroupNotification(mibspiREG1, TransferGroup0, 0);
         mibspiTransfer(mibspiREG1, TransferGroup0);
+        mibspiGroupNotification(mibspiREG1, TransferGroup0);
+
 
     while(1){
+        //TX_AVAILABLE = mibspiIsTransferComplete(mibspiREG1, TransferGroup1);
+        TX_AVAILABLE = true;
         if (TX_AVAILABLE == true) /* Needed to enable slave data send */
                     {
                         TX_AVAILABLE = false;
-                        //adcVoltageTest(); /* Slave function: used for testing the measured voltage simulated by the ADC */
+                        adcVoltageTest(2021); /* Slave function: used for testing the measured voltage simulated by the ADC */
 
                         /* Master Data Sending */
+                        tx_master = true;
                         if (tx_master == true)
                         {
+
                             /* Here you are sending data from master to the slave, TX_Master is the array being sent*/
                             mibspiSetData(mibspiREG1, TransferGroup1, TX_BMS_Master);
                             mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 0);
                             mibspiTransfer(mibspiREG1, TransferGroup1);
-
                             tx_master = false;
                         }
 
@@ -84,55 +132,61 @@ void masterDataTransfer(){
 }
 
 void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
+{
+
+    if (mibspi == mibspiREG1 && group == TransferGroup0)
+     {
+         mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
+         mibspiGetData(mibspi, group, RX_Data_Master);
+         tx_master = true;
+     }
+
+    if (mibspi == mibspiREG1 && group == TransferGroup1)
     {
+        mibspiDisableGroupNotification(mibspiREG1, TransferGroup1);
+        mibspiGetData(mibspi, group, RX_BMS_Master);
+        tx_master = true;
+    }
 
-        if (mibspi == mibspiREG1 && group == TransferGroup0)
-         {
-             mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
-             mibspiGetData(mibspi, group, RX_Data_Master);
-             tx_master = true;
-         }
-
-        if (mibspi == mibspiREG1 && group == TransferGroup1)
+    /**********************************
+     *  TESTING FOR SLAVE FUNCTIONALITY
+     ***********************************/
+        if (mibspi == mibspiREG3 && group == TransferGroup1)
         {
-            mibspiDisableGroupNotification(mibspiREG1, TransferGroup1);
-            mibspiGetData(mibspi, group, RX_BMS_Master);
-            tx_master = true;
+            mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
+            mibspiGetData(mibspi, group, RX_ADS7044_Slave);
+            TX_AVAILABLE = true;
         }
 
-        /**********************************
-         *  TESTING FOR SLAVE FUNCTIONALITY
-         ***********************************/
-            if (mibspi == mibspiREG3 && group == TransferGroup1)
-            {
-                mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
-                mibspiGetData(mibspi, group, RX_ADS7044_Slave);
-                TX_AVAILABLE = true;
-            }
-
-            if (mibspi == mibspiREG3 && group == TransferGroup0)
-            {
-                mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
-                TX_AVAILABLE = true;
-            }
-    }
+        if (mibspi == mibspiREG3 && group == TransferGroup0)
+        {
+            mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+            TX_AVAILABLE = true;
+        }
+}
 
 void adcVoltageTest(uint16_t ADCValue)
-    {
-        TX_ADS7044_Slave[0] = ADCValue; //0x077F; // voltage data to be sent/tested
+{
+    TX_ADS7044_Slave[0] = -1644; //0x077F; // voltage data to be sent/tested
 
-        mibspiSetData(mibspiREG3, TransferGroup1, TX_ADS7044_Slave);
-        mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
-        mibspiTransfer(mibspiREG3, TransferGroup1);
-
-    }
+    mibspiSetData(mibspiREG3, TransferGroup1, TX_ADS7044_Slave);
+    mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
+    mibspiTransfer(mibspiREG3, TransferGroup1);
+    mibspiGroupNotification(mibspiREG3, TransferGroup1);
+}
 
 void adcSlaveDataSetup()
-    {
-        mibspiSetData(mibspiREG3, TransferGroup0, TX_Data_Slave);
-        mibspiEnableGroupNotification(mibspiREG3, TransferGroup0, 0);
-        mibspiTransfer(mibspiREG3, TransferGroup0);
-    }
+{
+    // set the SPI buffer registers of the specified module and group to the given data (TX_Data_Slave)
+    mibspiSetData(mibspiREG3, TransferGroup0, TX_Data_Slave);
+
+    // enable the specified transfer group from the specified mibspi block
+    mibspiEnableGroupNotification(mibspiREG3, TransferGroup0, 0);
+
+    // start SPI transfer
+    mibspiTransfer(mibspiREG3, TransferGroup0);
+    mibspiGroupNotification(mibspiREG3, TransferGroup0);
+}
 
 // Function to extract k bits from p position
 // and returns the extracted value as integer */
