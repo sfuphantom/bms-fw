@@ -27,6 +27,13 @@ typedef struct bmsFlags
 								   // TODO: If 1, put BMS in FAULT state
 	uint8_t BAD_SLAVE_CONNECTION_FLAG; // If 1, then BMS master is unable to read/write to/from at least one BMS slave
 									   // TODO: If 1, put BMS in FAULT state
+	// If 1, the PWM signal sent from the IMD that is monitoring the
+	// isolation state between HV and LV is between 90-95%.
+	// If 0, it is within one of the other normal operating ranges.
+	uint8_t HV_LV_ISOLATION_FAILURE;
+
+	uint8_t IMD_OPERATION_FAILURE;
+
 } bmsFlags;
 
 typedef struct bmsData
@@ -37,6 +44,7 @@ typedef struct bmsData
 	double minimumCellVoltage; // Minimum voltage of all cells from most recent query
 } bmsData;
 
+//TODO: As of Mar 23, 2024, we will have 8 slaves instead of 4.
 typedef struct bmsSlaveVoltage
 {
 	double BMS_Slave_1[CELLS_PER_BOARD]; // Voltages of all cells monitored by BMS slave 1 

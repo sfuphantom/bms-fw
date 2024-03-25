@@ -6,8 +6,8 @@
  *
  *  FreeRTOS version of IMD.h created by Sumreen Rattan on May 21, 2020
  */
-#ifndef SOURCE_IMD_H_
-#define SOURCE_IMD_H_
+#ifndef TASK_IMD_H_
+#define TASK_IMD_H_
 
 /* Include Files */
 #include "het.h"
@@ -21,7 +21,7 @@
 #include "FreeRTOS.h"
 //#include "timers.h"
 #include "os_task.h"
-#include "IMD.h"
+//#include "IMD.h"
 
 /* Function: vMonitorIMD()
  *

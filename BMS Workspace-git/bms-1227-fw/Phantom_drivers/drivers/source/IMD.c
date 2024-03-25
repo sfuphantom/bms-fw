@@ -129,6 +129,7 @@ IMDData_t getIMDData(){
 * Returns: IMD Resistance in Ohms
 */
 
+//TODO: Check if this is set to 500 Ohms or higher according to EV.7.6.3 in the 2024 V1 rulebook
 float getIMDResistance(){
     // Equation from data sheet correlating duty cycle with resistance
    float IMD_resistance = 90.0*1200.0/(duty_cycle*100.0 - 5.0)-1200.0;
