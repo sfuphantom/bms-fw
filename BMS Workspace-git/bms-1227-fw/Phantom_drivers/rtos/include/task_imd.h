@@ -30,6 +30,6 @@
  * range. Refer to "IMD Testing Update" for more info.
  *
  */
-void vMonitorIMD();
+void vIMDTask(void *pvParameters);
 
 #endif /* SOURCE_IMD_H_ */

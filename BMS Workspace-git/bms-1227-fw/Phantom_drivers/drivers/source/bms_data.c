@@ -23,6 +23,8 @@ void initBMSData()
 	BMSDataPtr->Flags.THREE_SECOND_FLAG = 0;
 	BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = 0;
 	BMSDataPtr->Flags.BAD_SLAVE_CONNECTION_FLAG = 0;
+	BMSDataPtr->Flags.HV_LV_ISOLATION_FAILURE = 0;
+	BMSDataPtr->Flags.IMD_OPERATION_FAILURE = 0;
 
 	/***********************************************************
      *              DATA INITIALIZATION

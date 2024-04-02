@@ -26,7 +26,7 @@ IsolationStateEnum isolationState;
 * Purpose: Initializes all functions required to make reading the IMD work
 */
 void initalizeIMD(){
-//    hetInit();    //Initialized in phantomSystemInit()
+    hetInit();    //Initialized in phantomSystemInit()
 //    gioInit();    //Initialized in phantomSystemInit()
 //    rtiInit();    //Previously commented
 //    sciInit();    //Previously commented; Initialized in phantomSystemInit()

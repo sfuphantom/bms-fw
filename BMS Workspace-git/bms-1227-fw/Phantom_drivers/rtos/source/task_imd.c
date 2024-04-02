@@ -11,7 +11,7 @@
 //#define SERIAL_SEND
 
 //NOTE: pseudocode for now to get the thoughts down
-void vMonitorIMD() {
+void vIMDTask(void *pvParameters) {
     // any initialization
     TickType_t xLastWakeTime;          // will hold the timestamp at which the task was last unblocked
     const TickType_t xFrequency = 2000; // task frequency in ms
@@ -27,15 +27,14 @@ void vMonitorIMD() {
         serialSendData();   //Where to put this?
         IMDData_t imd_data = getIMDData();
 
-        //TODO: check if any combo of IMDState and IsolationState combos make up a fault.
         // For the IMDState, there are multiple fault conditions so check for normal conditions rather
         // than each fault.
         if (!(imd_data.IMDState == Normal_Condition || imd_data.IMDState == Speed_Start_Measurement_Good)) {
-            BMSDataPtr->Flags.HV_LV_ISOLATION_FAILURE = 1;
+            BMSDataPtr->Flags.IMD_OPERATION_FAILURE = 1;
         }
 
         if (imd_data.IsolationState == Isolation_Failure) {
-            BMSDataPtr->Flags.IMD_OPERATION_FAILURE = 1;
+            BMSDataPtr->Flags.HV_LV_ISOLATION_FAILURE = 1;
         }
 
         //Once shutdown sends a signal back saying the fault has been handled and shutdown circuit is restarted,

@@ -20,6 +20,7 @@
 #include "task_charger.h"
 #include "task_soc.h"
 #include "task_balance.h"
+#include "task_imd.h"
 
 extern BMSState_t BMSState;
 
@@ -151,6 +152,14 @@ void xphTaskInit(void)
           while(1);
       }
   }
+
+  if (xTaskCreate(vIMDTask, (const char*)"IMDTask",  240, NULL,  (STATE_MACHINE_TASK_PRIORITY), NULL) != pdTRUE)
+    {
+        // if xTaskCreate returns something != pdTRUE, then the task failed, wait in this infinite loop..
+        // probably need a better error handler
+        sciSend(sciREG,23,(unsigned char*)"IMDTask Creation Failed.\r\n");
+        while(1);
+    }
 }
 
 

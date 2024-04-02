@@ -73,7 +73,7 @@ void vStateMachineTask(void *pvParameters){
             }
             if (BMSDataPtr->Flags.HV_LV_ISOLATION_FAILURE) {
                 if (STATE_PRINT) {
-                    UARTSend(PC_UART, "IMD_ISOLATION_FAILURE detected. BMS entering FAULT state");
+                    UARTSend(PC_UART, "HV_LV_ISOLATION_FAILURE detected. BMS entering FAULT state");
                     UARTSend(PC_UART, "\n\r");
                 }
                 BMSState = BMS_FAULT;
