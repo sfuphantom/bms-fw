@@ -20,7 +20,7 @@
 /*============================================================================*/
 #define TransferGroup0 0
 #define TransferGroup1 1
-# define MAX_DATA_BITS  (12u)               //Voltage data being sent is in 12 bits
+#define MAX_DATA_BITS  (12u)               //Voltage data being sent is in 12 bits
 
 // Definitions for the interpolation function for mapping HV battery voltage
 # define SLOPE          (0.01173261f)
@@ -30,10 +30,11 @@
 /* Transfer Group 0 */
 /* Initial data to be sent the very first time on power up to the ADC
  */
-static uint16 TX_Data_Master[10] = {11, 22, 33, 44, 55, 66, 77, 88, 99, 67};
+static uint16 TX_Data_Master[5] = {11, 22, 33, 44, 55};
 static uint16 TX_Data_Slave[1]  = {0};
 static uint16 RX_Data_Master[1] = {0};
-static uint16 RX_Data_Slave[10]  = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+//static uint16 RX_Data_Large[20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
 
 /* Transfer Group 1 */
 /* Continuous data to send to the ADC
@@ -63,12 +64,21 @@ static volatile mibspiBASE_t* mibspi3;
 static volatile mibspiRAM_t* ram1;
 static volatile mibspiRAM_t* ram3;
 
+uint16 RX_Data_Slave[5] = {0, 0, 0, 0, 0};
+uint16* rx1 = RX_Data_Slave + 3*sizeof(uint16);
 
 void testMIBSPI(uint16 testData){
     // MIBSPI1 and MIBSPI3 are considered as a slave and a master, respectively
     // data to be sent from the master (HV board with voltmeter) to slave (BMS master)
     // this has to be an array because SPI functions expect a uint16 pointer
     uint32 rxData = 0;
+
+    //
+
+//    uint16* rx2; + 6*sizeof(uint16);
+//    uint16* rx3; + 7*sizeof(uint16);
+//    uint16* rx4; + 8*sizeof(uint16);
+//    uint16* rx5; + 9*sizeof(uint16);
 
     // get rid of declared but never referenced warning that causes these not to be assigned in memory
     // by assigning the values here rather than at declaration
@@ -92,7 +102,8 @@ void testMIBSPI(uint16 testData){
     // receive block using mibspi1 group 0
     //mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 1);
     //mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
-    rxData = mibspiGetData(mibspiREG1, TransferGroup0, RX_Data_Slave);
+    rxData = mibspiGetData(mibspiREG1, 0, RX_Data_Slave);
+    //rxData = mibspiGetData(mibspiREG1, TransferGroup0, RX_Data_Slave);
 
     while(1);
 }

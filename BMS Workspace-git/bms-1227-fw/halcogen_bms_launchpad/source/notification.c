@@ -56,11 +56,11 @@
 #include "sci.h"
 #include "het.h"
 #include "sys_dma.h"
-#include "hwConfig.h"
 
 /* USER CODE BEGIN (0) */
 #include "sys_main.h"
 #include "testinterface.h"
+#include "hwConfig.h"
 
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;
@@ -151,13 +151,13 @@ void mibspiNotification(mibspiBASE_t *mibspi, uint32 flags)
 
 /* USER CODE BEGIN (26) */
 /* USER CODE END */
-//#pragma WEAK(mibspiGroupNotification)
-//void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
-//{
-///*  enter user code between the USER CODE BEGIN and USER CODE END. */
-///* USER CODE BEGIN (27) */
+#pragma WEAK(mibspiGroupNotification)
+void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (27) */
 ///* USER CODE END */
-//}
+}
 /* USER CODE BEGIN (28) */
 /* USER CODE END */
 
