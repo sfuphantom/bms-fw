@@ -27,6 +27,11 @@ typedef struct bmsFlags
 								   // TODO: If 1, put BMS in FAULT state
 	uint8_t BAD_SLAVE_CONNECTION_FLAG; // If 1, then BMS master is unable to read/write to/from at least one BMS slave
 									   // TODO: If 1, put BMS in FAULT state
+	uint8_t OVER_CURRENT_FLAG; //if 1, then the current transducer has read over 200A instantaneous current
+							   //TODO: If 1, put BMS in FAULT state
+	uint8_t UNDER_CURRENT_FLAG;//if 1, then the current transducer has read under -200A instantaneous current
+                               //TODO: If 1, put BMS in FAULT state
+
 } bmsFlags;
 
 typedef struct bmsData
@@ -52,8 +57,8 @@ typedef struct bms_data
     bmsSlaveVoltage SlaveVoltage;
 } bms_data;
 
-BMSState_t BMSState;
-bms_data* BMSDataPtr;
+extern BMSState_t BMSState;
+extern bms_data* BMSDataPtr;
 static bms_data AllocatedBMSData;
 
 void initBMSData();

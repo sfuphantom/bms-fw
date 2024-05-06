@@ -1,3 +1,5 @@
 .metadata/
 .vscode/settings.json
 RemoteSystemsTempFiles/.project
+.jxbrowser.userdata
+**/BMS Workspace-git/.jxbrowser-data/

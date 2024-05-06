@@ -14,14 +14,13 @@
 ******************************************************************************/
 
 
+#include <phantom_sci.h>
 #include "string.h"
 #include "sci.h"
 //#include "a_tp_sci.h"
 #include "rti.h"
 #include "reg_rti.h"
 #include "reg_het.h"
-#include "Phantom_sci.h"
-
 #include "pl455.h"
 #include "datatypes.h"
 

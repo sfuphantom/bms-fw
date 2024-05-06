@@ -5,9 +5,9 @@
  *      Author: Mahmoud Ahmed
  */
 
+#include <phantom_sci.h>
 #include "testinterface.h"
 #include "sci.h"
-#include "Phantom_sci.h"
 #include "phantom_pl455.h"
 #include "string.h"
 #include "stdbool.h"

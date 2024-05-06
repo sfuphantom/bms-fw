@@ -18,11 +18,12 @@
  */
 
 
+#include <current_transducer.h>
+#include <phantom_sci.h>
 #include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
 #include "rti.h"
-#include "Phantom_sci.h"
 #include "can.h"
 #include "reg_het.h"
 #include "sys_main.h"
@@ -39,11 +40,11 @@
 #include "os_semphr.h"
 #include "os_timer.h"
 #include "phantom_freertos.h"
-
 #include "hwConfig.h"
-
-
 #include "sys_common.h"
+#include "task_sensorRead.h"
+
+// Includes for HV Voltage reading driver test
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
@@ -66,11 +67,11 @@ int RTI_TIMEOUT = 0;
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
-extern BMSState_t BMSState;
+BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)
-{
+  {
     /* USER CODE BEGIN (3) */
 
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
@@ -97,13 +98,19 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
-//    xphRtosInit();
+    // initializes all FreeRTOS tasks and timers
+    xphRtosInit();
 
+    // start FreeRTOS task scheduling
     vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    while (1);
+    while(1);
+
+
+
 }
+
 
 
 /* USER CODE BEGIN (4) */

@@ -8,8 +8,8 @@
 #ifndef INCLUDE_TESTINTERFACE_H_
 #define INCLUDE_TESTINTERFACE_H_
 
+#include <phantom_sci.h>
 #include "sci.h"
-#include "Phantom_sci.h"
 
 #define BUFFER_SIZE     100
 
