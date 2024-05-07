@@ -60,7 +60,6 @@
 /* USER CODE BEGIN (2) */
 void printRandoms(int lower, int upper, int count);
 
-
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
 
@@ -72,33 +71,40 @@ extern BMSState_t BMSState;
 
 int main(void)
 {
-    /* USER CODE BEGIN (3) */
-    UARTprintf("Beginning main.c");
-    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-    phantomSystemInit();
-
-    // Register the BMS agent and actor tasks:
-//    if(!initSlavePipeline())
-//    {
-//        while(true){
-//            // TODO: spam printing debug messages
-//            UARTprintf("Unable to initialize slave pipeline!\r\n");
-//        }
+//    /* USER CODE BEGIN (3) */
+//    UARTprintf("Beginning main.c");
+//    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+//    phantomSystemInit();
+//
+//    // Register the BMS agent and actor tasks:
+////    if(!initSlavePipeline())
+////    {
+////        while(true){
+////            // TODO: spam printing debug messages
+////            UARTprintf("Unable to initialize slave pipeline!\r\n");
+////        }
+////    }
+//    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
+//
+//    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
+//
+//    if (true)
+//    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+//        BMSState = BMS_CHARGING;
 //    }
-    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
+//    else
+//    {
+//        BMSState = BMS_RUNNING;
+//    }
+//
+//    UARTprintf("Beginning voltage test");
 
-    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
-
-    if (true)
-    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
-        BMSState = BMS_CHARGING;
-    }
-    else
-    {
-        BMSState = BMS_RUNNING;
-    }
-
-    UARTprintf("Beginning voltage test");
+    _enable_IRQ();  // Enables global interrupts
+    mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
+    gioInit();      // Initialize the GIO module;
+    hetInit();
+    sciInit();
+    socInit();
 
     masterDataTranser();
 
@@ -163,4 +169,5 @@ void phantomSystemInit()
 
 
 /* USER CODE BEGIN (4) */
+
 /* USER CODE END */
