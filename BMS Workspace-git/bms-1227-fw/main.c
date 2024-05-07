@@ -100,13 +100,7 @@ int main(void)
 
     UARTprintf("Beginning voltage test");
 
-
-
-//    adcSlaveDataSetup();
-//    adcVoltageTest(ADCVal);
-//    masterDataTransfer();
-
-    testMIBSPI(2021);
+    masterDataTranser();
 
 
     while(1);
