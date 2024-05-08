@@ -106,7 +106,11 @@ int main(void)
     sciInit();
     socInit();
 
-    masterDataTranser();
+    while(1){
+
+        adcVoltageTest();
+        getBatteryVoltageHV();
+    }
 
 
     while(1);

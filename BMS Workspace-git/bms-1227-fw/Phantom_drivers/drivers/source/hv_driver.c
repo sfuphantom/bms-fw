@@ -48,7 +48,7 @@ static uint16 RX_ADS7044_Slave[1] = {0};
 
 bool TX_AVAILABLE = true;  // flags to only transfer mibspi data from slave when current transfer has finished
 bool tx_master = false;     // flags to only transfer mibspi data from master when current transfer has finished
-float adc_output = 0.0;
+float Battery_Voltage_HV = 0.0;
 int i = 0;
 int sign = 1;
 static uint8 binaryNum[12];
@@ -56,68 +56,66 @@ static uint8 binaryNum[12];
 // MIBSPI1 and MIBSPI3 are considered as a slave and a master, respectively
 // so MIBSPI1 is the BMS Master and MIBSPI3 is the HV Board
 
+float getBatteryVoltageHV(){
+
+    mibspiSetData(mibspiREG1, TransferGroup1, TX_BMS_Master);
+    mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 0);
+    mibspiTransfer(mibspiREG1, TransferGroup1);
+
+    Battery_Voltage_HV =  getADCdata(RX_BMS_Master[0]);
+    return Battery_Voltage_HV;
+}
+
 void masterDataTranser(){
-    //  /* Master Data */
-        /* Here you are sending data from master to the slave, TX_Data_Master is the array being sent */
-        mibspiSetData(mibspiREG1, TransferGroup0, TX_Data_Master);
-        mibspiEnableGroupNotification(mibspiREG1, TransferGroup0, 0);
-        mibspiTransfer(mibspiREG1, TransferGroup0);
 
-    while(1){
-        if (true) /* Needed to enable slave data send */
-                    {
-                        //TX_AVAILABLE = false;
-                        adcVoltageTest(); /* Slave function: used for testing the measured voltage simulated by the ADC */
 
-                        /* Master Data Sending */
-                        if (true)
-                        {
-                            /* Here you are sending data from master to the slave, TX_Master is the array being sent*/
-                            mibspiSetData(mibspiREG1, TransferGroup1, TX_BMS_Master);
-                            mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 0);
-                            mibspiTransfer(mibspiREG1, TransferGroup1);
+  //TX_AVAILABLE = false;
+     /* Slave function: used for testing the measured voltage simulated by the ADC */
 
-                            tx_master = false;
-                        }
 
-                        adc_output =  getADCdata(RX_BMS_Master[0]);
-                    }
-        }
+    /* Here you are sending data from master to the slave, TX_Master is the array being sent*/
+
+
+    tx_master = false;
+
+
+
+
 }
 
 void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
 {
-        UARTprintf("\nmibspiGroupNotification Callback hit\n");
-        if (mibspi == mibspiREG1 && group == TransferGroup0)
-         {
-             mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
-             mibspiGetData(mibspi, group, RX_Data_Master);
-             tx_master = true;
-         }
+    UARTprintf("\nmibspiGroupNotification Callback hit\n");
+    if (mibspi == mibspiREG1 && group == TransferGroup0)
+     {
+         mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
+         mibspiGetData(mibspi, group, RX_Data_Master);
+         tx_master = true;
+     }
 
-        if (mibspi == mibspiREG1 && group == TransferGroup1)
+    if (mibspi == mibspiREG1 && group == TransferGroup1)
+    {
+        mibspiDisableGroupNotification(mibspiREG1, TransferGroup1);
+        mibspiGetData(mibspi, group, RX_BMS_Master);
+        tx_master = true;
+    }
+
+    /**********************************
+     *  TESTING FOR SLAVE FUNCTIONALITY
+     ***********************************/
+        if (mibspi == mibspiREG3 && group == TransferGroup1)
         {
-            mibspiDisableGroupNotification(mibspiREG1, TransferGroup1);
-            mibspiGetData(mibspi, group, RX_BMS_Master);
-            tx_master = true;
+            mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
+            mibspiGetData(mibspi, group, RX_ADS7044_Slave);
+            TX_AVAILABLE = true;
         }
 
-        /**********************************
-         *  TESTING FOR SLAVE FUNCTIONALITY
-         ***********************************/
-            if (mibspi == mibspiREG3 && group == TransferGroup1)
-            {
-                mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
-                mibspiGetData(mibspi, group, RX_ADS7044_Slave);
-                TX_AVAILABLE = true;
-            }
-
-            if (mibspi == mibspiREG3 && group == TransferGroup0)
-            {
-                mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
-                TX_AVAILABLE = true;
-            }
-    }
+        if (mibspi == mibspiREG3 && group == TransferGroup0)
+        {
+            mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+            TX_AVAILABLE = true;
+        }
+}
 
 void adcVoltageTest()
     {

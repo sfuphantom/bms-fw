@@ -22,6 +22,7 @@ void adcSlaveDataSetup();
 void masterDataTranser();
 float getADCdata(uint16 input);
 void unitTesting();
+float getBatteryVoltageHV();
 
 
 #endif /* HV_DRIVER_H_ */
