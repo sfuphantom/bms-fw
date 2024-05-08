@@ -108,12 +108,10 @@ int main(void)
 
     while(1){
 
-        adcVoltageTest();
+        simulateVoltageHVADC(2021);
         getBatteryVoltageHV();
     }
 
-
-    while(1);
 
 //    xphRtosInit();
 

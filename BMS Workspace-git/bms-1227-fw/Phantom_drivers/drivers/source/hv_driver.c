@@ -46,8 +46,6 @@ static uint16 TX_ADS7044_Slave[1] = {0};
 static uint16 RX_BMS_Master[1]   = {0};
 static uint16 RX_ADS7044_Slave[1] = {0};
 
-bool TX_AVAILABLE = true;  // flags to only transfer mibspi data from slave when current transfer has finished
-bool tx_master = false;     // flags to only transfer mibspi data from master when current transfer has finished
 float Battery_Voltage_HV = 0.0;
 int i = 0;
 int sign = 1;
@@ -66,73 +64,43 @@ float getBatteryVoltageHV(){
     return Battery_Voltage_HV;
 }
 
-void masterDataTranser(){
-
-
-  //TX_AVAILABLE = false;
-     /* Slave function: used for testing the measured voltage simulated by the ADC */
-
-
-    /* Here you are sending data from master to the slave, TX_Master is the array being sent*/
-
-
-    tx_master = false;
-
-
-
-
-}
-
 void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
 {
-    UARTprintf("\nmibspiGroupNotification Callback hit\n");
-    if (mibspi == mibspiREG1 && group == TransferGroup0)
-     {
-         mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
-         mibspiGetData(mibspi, group, RX_Data_Master);
-         tx_master = true;
-     }
 
     if (mibspi == mibspiREG1 && group == TransferGroup1)
     {
         mibspiDisableGroupNotification(mibspiREG1, TransferGroup1);
         mibspiGetData(mibspi, group, RX_BMS_Master);
-        tx_master = true;
     }
 
-    /**********************************
-     *  TESTING FOR SLAVE FUNCTIONALITY
-     ***********************************/
-        if (mibspi == mibspiREG3 && group == TransferGroup1)
-        {
-            mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
-            mibspiGetData(mibspi, group, RX_ADS7044_Slave);
-            TX_AVAILABLE = true;
-        }
+    if (mibspi == mibspiREG3 && group == TransferGroup1)
+    {
+        mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
+        mibspiGetData(mibspi, group, RX_ADS7044_Slave);
+    }
 
-        if (mibspi == mibspiREG3 && group == TransferGroup0)
-        {
-            mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
-            TX_AVAILABLE = true;
-        }
+
+    // transfer group 0 is currently not in use for mibspi1 or mibspi3
+    if (mibspi == mibspiREG3 && group == TransferGroup0)
+    {
+        mibspiDisableGroupNotification(mibspiREG3, TransferGroup0);
+    }
+
+    if (mibspi == mibspiREG1 && group == TransferGroup0)
+     {
+         mibspiDisableGroupNotification(mibspiREG1, TransferGroup0);
+     }
 }
 
-void adcVoltageTest()
-    {
-        TX_ADS7044_Slave[0] = 2021; //0x077F; // voltage data to be sent/tested
+void simulateVoltageHVADC(uint16 testValue)
+{
+    TX_ADS7044_Slave[0] = testValue; //0x077F; // voltage data to be sent/tested
 
-        mibspiSetData(mibspiREG3, TransferGroup1, TX_ADS7044_Slave);
-        mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
-        mibspiTransfer(mibspiREG3, TransferGroup1);
+    mibspiSetData(mibspiREG3, TransferGroup1, TX_ADS7044_Slave);
+    mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);
+    mibspiTransfer(mibspiREG3, TransferGroup1);
 
-    }
-
-void adcSlaveDataSetup()
-    {
-        mibspiSetData(mibspiREG3, TransferGroup0, TX_Data_Slave);
-        mibspiEnableGroupNotification(mibspiREG3, TransferGroup0, 0);
-        mibspiTransfer(mibspiREG3, TransferGroup0);
-    }
+}
 
 // Function to extract k bits from p position
 // and returns the extracted value as integer */
