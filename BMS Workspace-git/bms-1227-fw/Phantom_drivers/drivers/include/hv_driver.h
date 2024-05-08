@@ -19,7 +19,6 @@ static float Interpolate_input (int adc_input);
 void UARTprintf(const char *_format, ...);
 void simulateVoltageHVADC(uint16 testValue);
 float getADCdata(uint16 input);
-void unitTesting();
 float getBatteryVoltageHV();
 
 
