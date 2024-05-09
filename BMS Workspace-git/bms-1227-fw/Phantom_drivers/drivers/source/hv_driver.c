@@ -2,6 +2,8 @@
  *  @brief      Battery Voltage Reading ADC Driver
  *  @date       08-May-2024
  *  @version    2.0
+ *
+ *  ADS7044 is the name of the Analog to Digital converter on the High Voltage board
  */
 
     /* Includes */
@@ -19,30 +21,21 @@
 #define TransferGroup1 1            // mibspi transfer group 1 used by mibspi1 to get voltage data, and mibspi3 to simulate sending voltage data
 #define MAX_DATA_BITS  (12u)        // voltage data being sent is in 12 bits
 
-// Definitions for the interpolation function for mapping HV battery voltage
+// Definitions for the linear interpolation function for mapping HV battery voltage
 // TODO: Tune and test these values such that they are correct with 96S li-ion battery
-# define SLOPE          (0.01173261f)
-# define Y_INTERCEPT    (144.285f)
-# define START_INDEX    (1u)
+#define SLOPE          (0.01173261f)
+#define Y_INTERCEPT    (144.285f)
+#define START_INDEX    (1u) // what index to start at when extracting 12 data bits from SPI transfer from ADS7044
 
     /* Global Variables */
-static uint16 TX_Data_Master[1] = {0xAAAA};
-static uint16 TX_Data_Slave[1]  = {0};
-static uint16 RX_Data_Master[1] = {0};
-static uint16 RX_Data_Slave[1]  = {0};
-
-static uint16 TX_BMS_Master[1]   = {0xF77F}; // how many bits do we need to send? 14 bits only are sent out
-                                       // Example
-                                       // 1111 0111 0111 1111
-                                       // 0011 1101 1101 1111     (chopped off last 2 bits)
-static uint16 TX_ADS7044_Slave[1] = {0};
+static uint16 TX_BMS_Master[1]   = {0};     // we only need RX_BMS_Master since we don't send anything to the ADS7044; the BMS master does not need to transmit data
 static uint16 RX_BMS_Master[1]   = {0};
+
+static uint16 TX_ADS7044_Slave[1] = {0};    // we only need TX_ADS7044_Slave since we don't send receive anything using the ADS7044; it doesn't even have a MOSI pin
 static uint16 RX_ADS7044_Slave[1] = {0};
 
-float Battery_Voltage_HV = 0.0;
-int i = 0;
-int sign = 1;
-static uint8 binaryNum[12];
+float Battery_Voltage_HV = 0.0; // global variable for HV main battery voltage. updates every time sensor read task runs
+static uint8 binaryNum[12];     // binaryNum is used in the conversion from ADC number to voltage value
 
 
 /** @fn float getBatteryVoltageHV()
@@ -54,11 +47,11 @@ static uint8 binaryNum[12];
 */
 float getBatteryVoltageHV(){
 
-    mibspiSetData(mibspiREG1, TransferGroup1, TX_BMS_Master);
-    mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 0);
+    mibspiSetData(mibspiREG1, TransferGroup1, TX_BMS_Master);       // not important what is sent to ADS7044 since it cannot recieve data, only send
+    mibspiEnableGroupNotification(mibspiREG1, TransferGroup1, 0);   // enable transfer group finished interrupt for mibspi module 1, transfer group 1
     mibspiTransfer(mibspiREG1, TransferGroup1);
 
-    Battery_Voltage_HV =  getADCdata(RX_BMS_Master[0]);
+    Battery_Voltage_HV =  getADCdata(RX_BMS_Master[0]);     // convert ADC data to voltage value
     return Battery_Voltage_HV;
 }
 
@@ -75,13 +68,14 @@ float getBatteryVoltageHV(){
 // TODO: put this in its own file when it's being used by multiple things (e.g. slaves and voltage)
 void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
 {
-
+    // BMS master receive from ADS7044 case
     if (mibspi == mibspiREG1 && group == TransferGroup1)
     {
-        mibspiDisableGroupNotification(mibspiREG1, TransferGroup1);
-        mibspiGetData(mibspi, group, RX_BMS_Master);
+        mibspiDisableGroupNotification(mibspiREG1, TransferGroup1); // disable transfer group finished interrupt
+        mibspiGetData(mibspi, group, RX_BMS_Master);                // take data from mibspi1 rx buffer and put it in RX_BMS_Master
     }
 
+    // transmit to ADS7044 case, not relevant since it cannot recieve data
     if (mibspi == mibspiREG3 && group == TransferGroup1)
     {
         mibspiDisableGroupNotification(mibspiREG3, TransferGroup1);
@@ -111,7 +105,7 @@ void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
 */
 void simulateVoltageHVADC(uint16 testValue)
 {
-    TX_ADS7044_Slave[0] = testValue; //0x077F; // voltage data to be sent/tested
+    TX_ADS7044_Slave[0] = testValue; // voltage data to be sent/tested
 
     mibspiSetData(mibspiREG3, TransferGroup1, TX_ADS7044_Slave);
     mibspiEnableGroupNotification(mibspiREG3, TransferGroup1, 0);

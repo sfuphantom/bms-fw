@@ -71,49 +71,41 @@ extern BMSState_t BMSState;
 
 int main(void)
 {
-//    /* USER CODE BEGIN (3) */
-//    UARTprintf("Beginning main.c");
-//    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-//    phantomSystemInit();
-//
-//    // Register the BMS agent and actor tasks:
-////    if(!initSlavePipeline())
-////    {
-////        while(true){
-////            // TODO: spam printing debug messages
-////            UARTprintf("Unable to initialize slave pipeline!\r\n");
-////        }
-////    }
-//    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
-//
-//    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
-//
-//    if (true)
-//    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
-//        BMSState = BMS_CHARGING;
-//    }
-//    else
+    /* USER CODE BEGIN (3) */
+    UARTprintf("Beginning main.c");
+    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+    phantomSystemInit();
+
+    // Register the BMS agent and actor tasks:
+//    if(!initSlavePipeline())
 //    {
-//        BMSState = BMS_RUNNING;
+//        while(true){
+//            // TODO: spam printing debug messages
+//            UARTprintf("Unable to initialize slave pipeline!\r\n");
+//        }
 //    }
-//
-//    UARTprintf("Beginning voltage test");
+    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
-    _enable_IRQ();  // Enables global interrupts
-    mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
-    gioInit();      // Initialize the GIO module;
-    hetInit();
-    sciInit();
-    socInit();
+    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
 
-    while(1){
-
-        simulateVoltageHVADC(2021);
-        getBatteryVoltageHV();
+    if (true)
+    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+        BMSState = BMS_CHARGING;
+    }
+    else
+    {
+        BMSState = BMS_RUNNING;
     }
 
 
-//    xphRtosInit();
+//    while(1){
+//
+//        simulateVoltageHVADC(2021);
+//        getBatteryVoltageHV();
+//    }
+
+
+    xphRtosInit(); // initialize FreeRTOS tasks, timers, and queues
 
     UARTprintf("Beginning starting task scheduler");
     vTaskStartScheduler();

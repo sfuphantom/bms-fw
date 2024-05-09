@@ -23,7 +23,7 @@
 
 enum TASK_PRIORITIES{
     STATE_MACHINE_TASK_PRIORITY = 1,
-    SENSOR_READ_TASK_PRIORITY
+    SENSOR_READ_TASK_PRIORITY = 100,
 };
 
 /*********************************************************************************

@@ -1,17 +1,15 @@
-/*
- * hv_driver.h
- *
- *  Created on: Oct. 20, 2021
- *      Author: Ryan H
+/*  @file       hv_driver.h
+ *  @brief      Battery Voltage Reading ADC Driver
+ *  @date       08-May-2024
+ *  @version    2.0
  */
 
 #ifndef HV_DRIVER_H_
 #define HV_DRIVER_H_
 
-#include "hal_stdtypes.h"
-/*============================================================================*/
-/* Function Prototypes           */
-/*============================================================================*/
+#include "hal_stdtypes.h" // necessary for uint16 definition
+
+    /* Function Prototypes */
 static uint16 bitExtracted(uint16 number, uint8 k, uint8 p);
 static void decToBinary(int n);;
 static int binTwosComplementToSignedDecimal(uint8 binary[],uint8 significantBits);
