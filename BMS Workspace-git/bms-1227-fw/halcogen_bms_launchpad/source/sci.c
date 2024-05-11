@@ -393,9 +393,9 @@ void sciSend(sciBASE_t *sci, uint32 length, uint8 * data)
         while (length > 0U)
         {
 	        /*SAFETYMCUSW 28 D MR:NA <APPROVED> "Potentially infinite loop found - Hardware Status check for execution sequence" */
-            while ((sci->FLR & (uint32)SCI_TX_INT) == 0U)
-            { 
-            } /* Wait */
+//            while ((sci->FLR & (uint32)SCI_TX_INT) == 0U)
+//            {
+//            } /* Wait */
 			/*SAFETYMCUSW 45 D MR:21.1 <APPROVED> "Valid non NULL input parameters are only allowed in this driver" */
 			txdata = *data;
             sci->TD = (uint32)(txdata);

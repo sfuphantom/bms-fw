@@ -17,13 +17,11 @@
  *
  */
 
-
-#include <current_transducer.h>
-#include <phantom_sci.h>
 #include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
 #include "rti.h"
+#include "Phantom_sci.h"
 #include "can.h"
 #include "reg_het.h"
 #include "sys_main.h"
@@ -32,6 +30,8 @@
 #include "pinmux.h"
 #include "testinterface.h"
 #include "agentactor.h"
+#include "hv_driver.h"
+#include "mibspi.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -41,8 +41,9 @@
 #include "os_timer.h"
 #include "phantom_freertos.h"
 #include "hwConfig.h"
+
+
 #include "sys_common.h"
-#include "task_sensorRead.h"
 
 // Includes for HV Voltage reading driver test
 
@@ -99,16 +100,23 @@ int main(void)
     }
 
     // initializes all FreeRTOS tasks and timers
-    xphRtosInit();
+    //xphRtosInit();
 
     // start FreeRTOS task scheduling
-    vTaskStartScheduler();
+    //vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    while(1);
-
-
-
+    _enable_IRQ();  // Enables global interrupts
+    mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
+    gioInit();      // Initialize the GIO module;
+    hetInit();
+    sciInit();
+    socInit();
+    while(1)
+    {
+        simulateVoltageHVADC(2021);
+        getBatteryVoltageHV();
+    }
 }
 
 

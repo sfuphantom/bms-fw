@@ -512,7 +512,7 @@ uint32 i ;
                     | (uint32)((uint32)1U << 10U)  /* SIMO[0] */
                     | (uint32)((uint32)1U << 11U)  /* SOMI[0] */
                     | (uint32)((uint32)1U << 17U)  /* SIMO[1] */
-                    | (uint32)((uint32)0U << 25U); /* SOMI[1] */
+                    | (uint32)((uint32)1U << 25U); /* SOMI[1] */
 
     /** - MIBSPI1 Port pullup / pulldown enable*/
     mibspiREG1->PC7 = (uint32)((uint32)0U << 0U)  /* SCS[0] */
@@ -535,7 +535,7 @@ uint32 i ;
                     | (uint32)((uint32)0U << 3U)  /* SCS[3] */
                     | (uint32)((uint32)0U << 4U)  /* SCS[4] */
                     | (uint32)((uint32)0U << 5U)  /* SCS[5] */
-                    | (uint32)((uint32)1U << 8U)  /* ENA */
+                    | (uint32)((uint32)0U << 8U)  /* ENA */
                     | (uint32)((uint32)1U << 9U)  /* CLK */
                     | (uint32)((uint32)1U << 10U)  /* SIMO[0] */
                     | (uint32)((uint32)1U << 11U)  /* SOMI[0] */
@@ -557,15 +557,15 @@ uint32 i ;
     mibspiREG3->MIBSPIE = (mibspiREG3->MIBSPIE & 0xFFFFFFFEU) | 1U;
 
     /** MIBSPI3 master mode and clock configuration */
-    mibspiREG3->GCR1 = (mibspiREG3->GCR1 & 0xFFFFFFFCU) | ((uint32)((uint32)1U << 1U)  /* CLOKMOD */
-                  | 1U);  /* MASTER */
+    mibspiREG3->GCR1 = (mibspiREG3->GCR1 & 0xFFFFFFFCU) | ((uint32)((uint32)0U << 1U)  /* CLOKMOD */
+                  | 0U);  /* MASTER */
 
     /** MIBSPI3 enable pin configuration */
     mibspiREG3->INT0 = (mibspiREG3->INT0 & 0xFEFFFFFFU) | (uint32)((uint32)0U << 24U);  /* ENABLE HIGHZ */
 
     /** - Delays */
-    mibspiREG3->DELAY = (uint32)((uint32)1U << 24U)  /* C2TDELAY */
-                      | (uint32)((uint32)1U << 16U)  /* T2CDELAY */
+    mibspiREG3->DELAY = (uint32)((uint32)0U << 24U)  /* C2TDELAY */
+                      | (uint32)((uint32)0U << 16U)  /* T2CDELAY */
                       | (uint32)((uint32)0U << 8U)   /* T2EDELAY */
                       | (uint32)((uint32)0U << 0U);  /* C2EDELAY */
 
@@ -693,7 +693,7 @@ uint32 i ;
                 mibspiRAM3->tx[i].control = (uint16)((uint16)4U << 13U)  /* buffer mode */
                                           | (uint16)((uint16)0U << 12U)  /* chip select hold */
                                           | (uint16)((uint16)0U << 10U)  /* enable WDELAY */
-                                          | (uint16)((uint16)1U << 11U)  /* lock transmission */
+                                          | (uint16)((uint16)0U << 11U)  /* lock transmission */
                                           | (uint16)((uint16)0U << 8U)  /* data format */
 										  /*SAFETYMCUSW 334 S MR:10.5 <APPROVED> "LDRA Tool issue" */
                                           | ((uint16)(~((uint16)0xFFU ^ (uint16)CS_0)) & (uint16)0x00FFU);  /* chip select */
@@ -722,7 +722,7 @@ uint32 i ;
                 mibspiRAM3->tx[i].control = (uint16)((uint16)4U << 13U)  /* buffer mode */
                                           | (uint16)((uint16)0U << 12U)  /* chip select hold */
                                           | (uint16)((uint16)0U << 10U)  /* enable WDELAY */
-                                          | (uint16)((uint16)1U << 11U)  /* lock transmission */
+                                          | (uint16)((uint16)0U << 11U)  /* lock transmission */
                                           | (uint16)((uint16)1U << 8U)  /* data format */
 										  /*SAFETYMCUSW 334 S MR:10.5 <APPROVED> "LDRA Tool issue" */
                                           | ((uint16)(~((uint16)0xFFU ^ (uint16)CS_0)) & (uint16)0x00FFU);  /* chip select */
@@ -954,7 +954,7 @@ uint32 i ;
                     | (uint32)((uint32)0U << 11U); /* SOMI */
 
     /** - MIBSPI3 Port direction */
-    mibspiREG3->PC1 = (uint32)((uint32)1U << 0U)  /* SCS[0] */
+    mibspiREG3->PC1 = (uint32)((uint32)0U << 0U)  /* SCS[0] */
                     | (uint32)((uint32)1U << 1U)  /* SCS[1] */
                     | (uint32)((uint32)1U << 2U)  /* SCS[2] */
                     | (uint32)((uint32)1U << 3U)  /* SCS[3] */
