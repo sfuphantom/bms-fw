@@ -15,6 +15,7 @@
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
 #include "os_task.h"
+#include "hv_driver.h"
 
 // private function only for use in vSensorReadTask
 // reads high voltage current using the functions in current_transducer.h/c
@@ -46,6 +47,9 @@ void vSensorReadTask(void *pvParameters)
 
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
+    uint16 adcTest = 2021;
+
+
 
     do{
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
@@ -63,6 +67,11 @@ void vSensorReadTask(void *pvParameters)
         BMS_Read_All(true);
 
         HVCurrentRead(); //check for over or under max or min main battery current
+
+        simulateVoltageHVADC(adcTest);
+        getBatteryVoltageHV();
+
+        adcTest--;
 
 
         //UARTprintf("sensor read task \n\r");

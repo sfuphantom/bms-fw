@@ -100,18 +100,14 @@ int main(void)
     }
 
     // initializes all FreeRTOS tasks and timers
-    //xphRtosInit();
+    xphRtosInit();
 
     // start FreeRTOS task scheduling
-    //vTaskStartScheduler();
+    vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    _enable_IRQ();  // Enables global interrupts
-    mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
-    gioInit();      // Initialize the GIO module;
-    hetInit();
-    sciInit();
-    socInit();
+    //_enable_IRQ();  // Enables global interrupts
+    //mibspiInit();
     while(1)
     {
         simulateVoltageHVADC(2021);
@@ -150,7 +146,7 @@ void phantomSystemInit()
 
     while ((BMS_UART->FLR & 0x4) == 4);
 
-    _enable_interrupt_();
+    //enable_interrupt_();
     canInit();
     canEnableErrorNotification(canREG1);
 
