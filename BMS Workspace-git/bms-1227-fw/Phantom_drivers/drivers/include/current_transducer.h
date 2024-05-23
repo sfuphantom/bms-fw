@@ -30,8 +30,8 @@ static unsigned int adcOutputValue; // number output by adcGetData from 0 to 409
 // methods
 double getHVsensorVoltage();
 double getHVsensorCurrent();
-_Bool overHVCurrentFaultCheck(); // Fault check method for current above +200A
-_Bool underHVCurrentFaultCheck(); // Fault check method for current below -200A
+_Bool overCurrentFaultCheckHV(); // Fault check method for current above +200A
+_Bool underCurrentFaultCheckHV(); // Fault check method for current below -200A
 
 
 #endif /* PHANTOM_DRIVERS_CURRENT_TRANSDUCER_CURRENT_TRANSDUCER_H_ */

@@ -17,13 +17,11 @@
  *
  */
 
-
-#include <current_transducer.h>
-#include <phantom_sci.h>
 #include <task_slave_pipeline.h>
 #include "gio.h"
 #include "sci.h"
 #include "rti.h"
+#include "Phantom_sci.h"
 #include "can.h"
 #include "reg_het.h"
 #include "sys_main.h"
@@ -32,6 +30,8 @@
 #include "pinmux.h"
 #include "testinterface.h"
 #include "agentactor.h"
+#include "hv_driver.h"
+#include "mibspi.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -41,8 +41,9 @@
 #include "os_timer.h"
 #include "phantom_freertos.h"
 #include "hwConfig.h"
+
+
 #include "sys_common.h"
-#include "task_sensorRead.h"
 
 // Includes for HV Voltage reading driver test
 
@@ -73,7 +74,7 @@ BMSState_t BMSState;
 int main(void)
   {
     /* USER CODE BEGIN (3) */
-
+    UARTprintf("begin main");
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
 
@@ -106,9 +107,6 @@ int main(void)
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while(1);
-
-
-
 }
 
 
@@ -142,7 +140,7 @@ void phantomSystemInit()
 
     while ((BMS_UART->FLR & 0x4) == 4);
 
-    _enable_interrupt_();
+    //enable_interrupt_();
     canInit();
     canEnableErrorNotification(canREG1);
 
