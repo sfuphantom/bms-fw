@@ -74,7 +74,7 @@ BMSState_t BMSState;
 int main(void)
   {
     /* USER CODE BEGIN (3) */
-
+    UARTprintf("begin main");
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
 
@@ -106,13 +106,7 @@ int main(void)
     vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    //_enable_IRQ();  // Enables global interrupts
-    //mibspiInit();
-    while(1)
-    {
-        simulateVoltageHVADC(2021);
-        getBatteryVoltageHV();
-    }
+    while(1);
 }
 
 

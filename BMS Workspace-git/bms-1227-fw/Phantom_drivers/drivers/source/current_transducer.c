@@ -39,7 +39,7 @@ double getHVsensorCurrent()
 }
 
 // Fault check method for current above +200A
-_Bool overHVCurrentFaultCheck()
+_Bool overCurrentFaultCheckHV()
 {
     overCurrentFlag = false;
 
@@ -52,7 +52,7 @@ _Bool overHVCurrentFaultCheck()
 }
 
 // Fault check method for below above -200A
-_Bool underHVCurrentFaultCheck()
+_Bool underCurrentFaultCheckHV()
 {
     underCurrentFlag = false;
 

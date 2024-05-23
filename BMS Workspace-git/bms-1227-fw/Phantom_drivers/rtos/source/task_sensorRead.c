@@ -20,7 +20,7 @@
 // private function only for use in vSensorReadTask
 // reads high voltage current using the functions in current_transducer.h/c
 // checks for under/over voltage current and assigns appropriate flags to global BMSDataPtr
-static void HVCurrentRead()
+static void currentCheckHV()
 {
     UARTprintf("Reading main battery current...\n\r");
     // global variables in Current_transducer.h store these ADC voltage and accumulator current such that HVcurrent_Range_Check can read them
@@ -30,12 +30,30 @@ static void HVCurrentRead()
     // set OVER_CURRENT_FLAG to 1 when current is ABOVE the maximum +200A
     // this will put BMS to FAULT state in vStateMachineTask, which will trigger shutdown
     // returns 0 on normal operating current
-    BMSDataPtr->Flags.OVER_CURRENT_FLAG = overHVCurrentFaultCheck();
+    BMSDataPtr->Flags.OVER_CURRENT_FLAG = overCurrentFaultCheckHV();
 
     // set UNDER_CURRENT_FLAG to 1 when current is BELOW the minimum -200A
     // this will put BMS to FAULT state in vStateMachineTask, which will trigger shutdown
     // returns 0 on normal operating current
-    BMSDataPtr->Flags.UNDER_CURRENT_FLAG = underHVCurrentFaultCheck();
+    BMSDataPtr->Flags.UNDER_CURRENT_FLAG = underCurrentFaultCheckHV();
+}
+
+static void voltageCheckHV()
+{
+    UARTprintf("Reading main battery voltage...\n\r");
+    // global variables in Current_transducer.h store these ADC voltage and accumulator current such that HVcurrent_Range_Check can read them
+    simulateVoltageHVADC(2021); // this function uses mibspi3 to simulate the behavior of the ADS7044 ADC that reads HV voltage
+    getBatteryVoltageHV();         // this reads voltage from the ADS7044, it drives the mibspi1 CS[0] pin low which initiates the transfer
+
+    // set OVER_CURRENT_FLAG to 1 when current is ABOVE the maximum +200A
+    // this will put BMS to FAULT state in vStateMachineTask, which will trigger shutdown
+    // returns 0 on normal operating current
+    BMSDataPtr->Flags.OVER_VOLTAGE_FLAG = overVoltageFaultCheckHV();
+
+    // set UNDER_CURRENT_FLAG to 1 when current is BELOW the minimum -200A
+    // this will put BMS to FAULT state in vStateMachineTask, which will trigger shutdown
+    // returns 0 on normal operating current
+    BMSDataPtr->Flags.UNDER_VOLTAGE_FLAG = underVoltageFaultCheckHV();
 }
 
 
@@ -47,8 +65,6 @@ void vSensorReadTask(void *pvParameters)
 
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
-    uint16 adcTest = 2021;
-
 
 
     do{
@@ -62,17 +78,12 @@ void vSensorReadTask(void *pvParameters)
 
         //BMS_Balance_SIM();
 
-        //thermistorRead();
+        //thermistorRead(); //TODO: implement this
 
         BMS_Read_All(true);
 
-        HVCurrentRead(); //check for over or under max or min main battery current
-
-        simulateVoltageHVADC(adcTest);
-        getBatteryVoltageHV();
-
-        adcTest--;
-
+        currentCheckHV(); //check for over  max or under min main battery current
+        voltageCheckHV(); //check for over max or under min main battery voltage
 
         //UARTprintf("sensor read task \n\r");
     } while(1);

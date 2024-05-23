@@ -31,7 +31,10 @@ typedef struct bmsFlags
 							   //TODO: If 1, put BMS in FAULT state
 	uint8_t UNDER_CURRENT_FLAG;//if 1, then the current transducer has read under -200A instantaneous current
                                //TODO: If 1, put BMS in FAULT state
-
+    uint8_t OVER_VOLTAGE_FLAG; //if 1, then the ADS7044 has read over 4.2 volts per cell instantaneous
+                               //TODO: If 1, put BMS in FAULT state
+    uint8_t UNDER_VOLTAGE_FLAG;//if 1, then the ADS7044 has read under 3.1 volts per cell instantaneous
+                               //TODO: If 1, put BMS in FAULT state
 } bmsFlags;
 
 typedef struct bmsData
