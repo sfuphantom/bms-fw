@@ -845,61 +845,7 @@ void rtiGetConfigValue(rti_config_reg_t *config_reg, config_value_type_t type)
 }
 
 
-/* USER CODE BEGIN (76) */
-/* USER CODE END */
 
-/** @fn void rtiCompare1Interrupt(void)
-*   @brief RTI1 Compare 1 Interrupt Handler
-*
-*   RTI1 Compare 1 interrupt handler 
-*
-*/
-#pragma CODE_STATE(rtiCompare1Interrupt, 32)
-#pragma INTERRUPT(rtiCompare1Interrupt, IRQ)
-
-/* SourceId : RTI_SourceId_023 */
-/* DesignId : RTI_DesignId_022 */
-/* Requirements : HL_SR95 */
-void rtiCompare1Interrupt(void)
-{
-/* USER CODE BEGIN (77) */
-/* USER CODE END */
-
-    rtiREG1->INTFLAG = 2U;
-    rtiNotification(rtiNOTIFICATION_COMPARE1);
-
-/* USER CODE BEGIN (78) */
-/* USER CODE END */
-}
-
-
-
-/* USER CODE BEGIN (82) */
-/* USER CODE END */
-
-/** @fn void rtiCompare3Interrupt(void)
-*   @brief RTI1 Compare 3 Interrupt Handler
-*
-*   RTI1 Compare 3 interrupt handler 
-*
-*/
-#pragma CODE_STATE(rtiCompare3Interrupt, 32)
-#pragma INTERRUPT(rtiCompare3Interrupt, IRQ)
-
-/* SourceId : RTI_SourceId_025 */
-/* DesignId : RTI_DesignId_022 */
-/* Requirements : HL_SR95 */
-void rtiCompare3Interrupt(void)
-{
-/* USER CODE BEGIN (83) */
-/* USER CODE END */
-
-    rtiREG1->INTFLAG = 8U;
-    rtiNotification(rtiNOTIFICATION_COMPARE3);
-
-/* USER CODE BEGIN (84) */
-/* USER CODE END */
-}
 
 
 

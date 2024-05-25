@@ -50,11 +50,13 @@
 
 #include "esm.h"
 #include "sys_selftest.h"
+#include "adc.h"
 #include "can.h"
 #include "gio.h"
 #include "mibspi.h"
 #include "sci.h"
 #include "het.h"
+#include "rti.h"
 #include "sys_dma.h"
 
 /* USER CODE BEGIN (0) */
@@ -105,6 +107,26 @@ void memoryPort1TestFailNotification(uint32 groupSelect, uint32 dataSelect, uint
 
 /* USER CODE BEGIN (8) */
 /* USER CODE END */
+#pragma WEAK(rtiNotification)
+void rtiNotification(uint32 notification)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (9) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (10) */
+/* USER CODE END */
+#pragma WEAK(adcNotification)
+void adcNotification(adcBASE_t *adc, uint32 group)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (11) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (12) */
+/* USER CODE END */
 #pragma WEAK(canErrorNotification)
 void canErrorNotification(canBASE_t *node, uint32 notification)
 {
@@ -151,15 +173,15 @@ void mibspiNotification(mibspiBASE_t *mibspi, uint32 flags)
 
 /* USER CODE BEGIN (26) */
 /* USER CODE END */
-#pragma WEAK(mibspiGroupNotification)
-void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
-{
-/*  enter user code between the USER CODE BEGIN and USER CODE END. */
-/* USER CODE BEGIN (27) */
-/* USER CODE END */
-}
-/* USER CODE BEGIN (28) */
-/* USER CODE END */
+//#pragma WEAK(mibspiGroupNotification)
+//void mibspiGroupNotification(mibspiBASE_t *mibspi, uint32 group)
+//{
+///*  enter user code between the USER CODE BEGIN and USER CODE END. */
+///* USER CODE BEGIN (27) */
+///* USER CODE END */
+//}
+///* USER CODE BEGIN (28) */
+///* USER CODE END */
 
 #pragma WEAK(sciNotification)
 void sciNotification(sciBASE_t *sci, uint32 flags)     
@@ -180,10 +202,6 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
 }
 
 /* USER CODE BEGIN (30) */
-void rtiNotification(uint32 notification)
-{
-
-}
 /* USER CODE END */
 
 #pragma WEAK(pwmNotification)

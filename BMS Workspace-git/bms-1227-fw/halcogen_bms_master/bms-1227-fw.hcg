@@ -210,7 +210,8 @@
         <NAME>rti.h</NAME>
       </HDRRTI>
       <SRCRTI>
-        </SRCRTI>
+        <NAME>rti.c</NAME>
+      </SRCRTI>
       <HDRGIO_R>
         <NAME>reg_gio.h</NAME>
       </HDRGIO_R>
@@ -267,7 +268,9 @@
       <HDRADC>
         <NAME>adc.h</NAME>
       </HDRADC>
-      <SRCADC/>
+      <SRCADC>
+        <NAME>adc.c</NAME>
+      </SRCADC>
       <HET1ASMHDR>
         <NAME/>
       </HET1ASMHDR>
@@ -438,7 +441,7 @@
         <PATH>include\rti.h</PATH>
       </HDRRTI>
       <SRCRTI>
-        <PATH></PATH>
+        <PATH>source\rti.c</PATH>
       </SRCRTI>
     </FILENAMES>
   </RTI>
@@ -529,7 +532,7 @@
         <PATH>include\adc.h</PATH>
       </HDRADC>
       <SRCADC>
-        <PATH/>
+        <PATH>source\adc.c</PATH>
       </SRCADC>
     </FILENAMES>
   </ADC>

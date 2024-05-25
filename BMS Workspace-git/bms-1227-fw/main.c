@@ -72,7 +72,7 @@ BMSState_t BMSState;
 /* USER CODE END */
 
 int main(void)
-  {
+    {
     /* USER CODE BEGIN (3) */
     UARTprintf("begin main");
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
@@ -97,6 +97,16 @@ int main(void)
     else
     {
         BMSState = BMS_RUNNING;
+    }
+
+    _enable_IRQ();  // Enables global interrupts
+     mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
+
+    while(1)
+    {
+        simulateVoltageHVADC(2021); // this function uses mibspi3 to simulate the behavior of the ADS7044 ADC that reads HV voltage
+        getBatteryVoltageHV();         // this reads voltage from the ADS7044, it drives the mibspi1 CS[0] pin low which initiates the transfer
+
     }
 
     // initializes all FreeRTOS tasks and timers
