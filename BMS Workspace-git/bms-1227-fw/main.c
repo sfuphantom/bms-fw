@@ -42,7 +42,7 @@
 #include "phantom_freertos.h"
 #include "hwConfig.h"
 
-
+#include "shutdown.h"
 #include "sys_common.h"
 
 // Includes for HV Voltage reading driver test
@@ -79,7 +79,8 @@ int main(void)
     phantomSystemInit();
 
     // Register the BMS agent and actor tasks:
-    if(!initSlavePipeline())
+    //if(!initSlavePipeline())
+    if(false)
     {
         while(true){
             // TODO: spam printing debug messages

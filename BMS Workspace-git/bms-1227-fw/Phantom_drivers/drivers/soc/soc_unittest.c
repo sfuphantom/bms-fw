@@ -149,12 +149,4 @@ void testUpdateBattCapacity(void)
 	printf("\n");
 }
 
-// Run test functions in here
-int main(void)
-{
-	// testGetSOCFromVoltage();
-	// testGetOCV();
-	// testUpdateSOC();
-	// testUpdateBattCapacity();
-	return 0;
-}
+
