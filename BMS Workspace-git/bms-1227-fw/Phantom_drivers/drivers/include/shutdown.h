@@ -2,7 +2,7 @@
 #define SHUTDOWN_H
 
 
-void checkFaultAndShutdown(BMSState_t BMSState);
-
+void shutdown(void);
+extern BMSState_t BMSState;
 
 #endif

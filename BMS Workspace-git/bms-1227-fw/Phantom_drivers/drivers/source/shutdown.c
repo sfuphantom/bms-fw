@@ -36,42 +36,19 @@
 
 
 
-int shutdown(void){
+void shutdown(void){
     // Initialize the GIO module
-    gioInit();
-    BMSState_t BMSState;
-    BMSState = BMS_FAULT;
+    //gioInit();
 
     // Configure GIOA5 as an output pin
     gioSetDirection(gioPORTA, gioPORTA->DIR | (1 << 5));
+    gioSetBit(gioPORTA, 5, 1);
+    BMSState = BMS_FAULT;
 
-    while (1)
-    {
-        int i;
-        gioSetBit(gioPORTA, 5, 1);
-        for(i=0; i<99999999; i++){int a = i;}//delay
-        gioSetBit(gioPORTA, 5, 0);
-        for(i=0; i<99999999; i++){int a = i;}///delay
-        //checkFaultAndShutdown(BMSState);
-    }
+    //TODO: reset conditions?
 
-    return 0;
+    return;
 }
 
-void checkFaultAndShutdown(BMSState_t BMSState){
-    if (BMSState == BMS_FAULT){
-        // Set GIOA5 high
-        gioSetBit(gioPORTA, 5, 1);
-
-        //Set GIOA5 low when reset (TBD)
-        //if(reset){
-        //gioSetBit(gioPORTA, 5, 0);}
-
-    }
-    else
-    {
-       return;
-    }
-}
 
 

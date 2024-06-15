@@ -100,6 +100,9 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
+
+}
+
     // initializes all FreeRTOS tasks and timers
     xphRtosInit();
 

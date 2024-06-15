@@ -66,19 +66,21 @@ void vSensorReadTask(void *pvParameters)
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
-    static int shutdownDelay;
+    //static int shutdownDelay;
 
 
     do{
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        shutdownDelay ++;
-        if(shutdownDelay%2){
-            gioSetBit(gioPORTA, 5, 1);
+        //shutdownDelay ++;
+
+        /*if(shutdownDelay%2){
+            //gioSetBit(gioPORTA, 5, 1);
+            shutdown();
         }
         else{
-            gioSetBit(gioPORTA, 5, 0);
-        }
+            shutdown();
+        }*/
 
         if(!getBMSinitFlag())
         {
@@ -93,6 +95,9 @@ void vSensorReadTask(void *pvParameters)
 
         currentCheckHV(); //check for over  max or under min main battery current
         voltageCheckHV(); //check for over max or under min main battery voltage
+
+
+
 
         //UARTprintf("sensor read task \n\r");
     } while(1);
