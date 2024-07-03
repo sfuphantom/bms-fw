@@ -90,7 +90,7 @@ void vStateMachineTask(void *pvParameters){
         if (STATE_PRINT) {
             UARTSend(PC_UART, "********BMS FAULT********");
             UARTSend(PC_UART, "\n\r");
-            shutdown(BMSState);
+            shutdownHV(BMSState);
         }
 
         // TODO: Pull down GPIO that is connected to Shutdown Circuit

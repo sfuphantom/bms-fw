@@ -101,7 +101,7 @@ int main(void)
     }
 
 
-}
+
 
     // initializes all FreeRTOS tasks and timers
     xphRtosInit();

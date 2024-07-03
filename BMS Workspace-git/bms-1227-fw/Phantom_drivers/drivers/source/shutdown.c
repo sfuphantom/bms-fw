@@ -36,13 +36,14 @@
 
 
 
-void shutdown(void){
+void shutdownHV(void){
     // Initialize the GIO module
     //gioInit();
 
     // Configure GIOA5 as an output pin
+    // bit masking to set direction of gioPORTA to the direction of the 5th bit (BMS_FLT_PIN).
     gioSetDirection(gioPORTA, gioPORTA->DIR | (1 << 5));
-    gioSetBit(gioPORTA, 5, 1);
+    gioSetBit(gioPORTA, BMS_FLT_PIN, PIN_LEVEL_ON);
     BMSState = BMS_FAULT;
 
     //TODO: reset conditions?

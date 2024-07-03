@@ -66,21 +66,12 @@ void vSensorReadTask(void *pvParameters)
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
-    //static int shutdownDelay;
+
 
 
     do{
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         TickType_t xLastWakeTime = xTaskGetTickCount();
-        //shutdownDelay ++;
-
-        /*if(shutdownDelay%2){
-            //gioSetBit(gioPORTA, 5, 1);
-            shutdown();
-        }
-        else{
-            shutdown();
-        }*/
 
         if(!getBMSinitFlag())
         {
