@@ -39,3 +39,4 @@ void initBMSData()
 	memset(BMSDataPtr->SlaveVoltage.BMS_Slave_3, 0, CELLS_PER_BOARD*sizeof (double));
 	memset(BMSDataPtr->SlaveVoltage.BMS_Slave_4, 0, CELLS_PER_BOARD*sizeof (double));
 }
+

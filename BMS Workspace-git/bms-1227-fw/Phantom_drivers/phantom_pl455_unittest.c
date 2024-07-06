@@ -40,9 +40,3 @@ void testBMSBalance(void)
 	return;
 }
 
-int main()
-{
-	// testBMSBalance();
-
-	return 0;
-}

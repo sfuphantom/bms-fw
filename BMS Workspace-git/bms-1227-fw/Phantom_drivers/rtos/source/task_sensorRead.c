@@ -67,6 +67,8 @@ void vSensorReadTask(void *pvParameters)
     xLastWakeTime = xTaskGetTickCount();
 
 
+
+
     do{
         vTaskDelayUntil(&xLastWakeTime, xFrequency);
         TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -84,6 +86,9 @@ void vSensorReadTask(void *pvParameters)
 
         currentCheckHV(); //check for over  max or under min main battery current
         voltageCheckHV(); //check for over max or under min main battery voltage
+
+
+
 
         //UARTprintf("sensor read task \n\r");
     } while(1);
