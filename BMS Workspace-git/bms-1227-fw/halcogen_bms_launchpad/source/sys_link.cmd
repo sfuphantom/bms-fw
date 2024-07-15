@@ -84,10 +84,6 @@ SECTIONS
     .kernelHEAP   : {} > RAM
     .bss          : {} > RAM
     .data         : {} > RAM    
-    .sysmem       : {} > RAM
-    FEE_TEXT_SECTION : {} > FLASH0 
-    FEE_CONST_SECTION : {} > FLASH0 
-    FEE_DATA_SECTION : {} > RAM
 
 /* USER CODE BEGIN (4) */
 /* USER CODE END */

@@ -29,7 +29,7 @@
 #define battery_numbers = 96; // 96 batteries
 
 
-typedef struct can_message1{
+typedef struct {
     uint8_t byte1;
     uint8_t byte2;
     uint8_t byte3;
@@ -38,8 +38,8 @@ typedef struct can_message1{
     uint8_t byte6;
     uint8_t byte7;
     uint8_t byte8;
-    const int id = 0x1806E6F4;
-};
+//    const int id = 0x1806E6F4;
+}can_message1;
 
 
 
