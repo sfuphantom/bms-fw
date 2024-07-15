@@ -44,12 +44,14 @@
 
 /* USER CODE BEGIN (0) */
 ///////////////////* USER CODE END */
-#include "can.h"
 
 /* Include Files */
 
 #include "sys_common.h"
 #include "system.h"
+#include "can.h"
+#include "sci.h"
+
 
 /* USER CODE BEGIN (1) */
 ///////////////////* USER CODE END */
@@ -64,7 +66,9 @@
 
 /* USER CODE BEGIN (2) */
 #define D_SIZE 9
-uint8_t tx_data[D_SIZE] = {'H', 'E', 'R', 'C', 'U', 'L', 'E', 'S', '\0'};
+uint8_t rx_data[D_SIZE] = {0};
+uint32_t error = 0;
+
 uint32_t checkPackets(uint8_t *src_packet, uint8_t *dst_packet, uint32_t psize);
 
 ///////////////////* USER CODE END */
@@ -75,8 +79,15 @@ int main(void)
     //initialize can 1
     canInit();
 
-    //transmit on can1
-    canTransmit(canREG1, CANMESSAGE_BOX1, tx_data);
+    sciInit(); // initiate the SCI (uart) module
+
+    while(!canIsRxMessageArrived(canREG1, CANMESSAGE_BOX1)); // wait until message recieved on can1
+
+    canGetData(canREG1, CANMESSAGE_BOX1, rx_data); // recieve on can1
+
+    sciSend(scilinREG, D_SIZE, rx_data)// sends the ambient light sensor data
+
+    error = checkPackets(&tx_data[0], &rx_data[0], D_SIZE);
 
     //run forever
     while(1);
@@ -92,7 +103,7 @@ uint32_t checkPackets(uint8_t * src_packet, uint8_t* dst_packet, uint32_t psize)
     uint32_t cnt = psize;
     while(cnt--){
         if((*src_packet++) != (*dst_packet++)){
-            err++;
+            err++; // data error
         }
     }
     return (err);
@@ -103,6 +114,12 @@ uint32_t checkPackets(uint8_t * src_packet, uint8_t* dst_packet, uint32_t psize)
 void canMessageNotification(canBASE_t *node, uint32_t notification){
     return;
 
+}
+
+
+void sciNotification(sciBASE_t *sci, unisnged flags)
+{
+    return;
 }
 
 // can error notification (Not used by must be provided)

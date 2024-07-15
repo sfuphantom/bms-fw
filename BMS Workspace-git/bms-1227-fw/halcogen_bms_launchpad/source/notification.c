@@ -51,6 +51,7 @@
 #include "esm.h"
 #include "sys_selftest.h"
 #include "can.h"
+#include "sci.h"
 #include "sys_dma.h"
 
 /* USER CODE BEGIN (0) */
@@ -128,6 +129,16 @@ void canMessageNotification(canBASE_t *node, uint32 messageBox)
 /* USER CODE BEGIN (16) */
 /* USER CODE END */
 
+#pragma WEAK(sciNotification)
+void sciNotification(sciBASE_t *sci, uint32 flags)     
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (29) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (30) */
+/* USER CODE END */
 
 
 
