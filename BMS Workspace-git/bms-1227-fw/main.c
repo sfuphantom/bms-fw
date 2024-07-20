@@ -27,11 +27,13 @@
 #include "sys_main.h"
 #include "soc.h"
 #include "phantom_pl455.h"
+#include "pl455.h"
 #include "pinmux.h"
 #include "testinterface.h"
 #include "agentactor.h"
 #include "hv_driver.h"
 #include "mibspi.h"
+#include "het.h"
 
 #include "FreeRTOS.h"
 #include "FreeRTOSConfig.h"
@@ -41,6 +43,7 @@
 #include "os_timer.h"
 #include "phantom_freertos.h"
 #include "hwConfig.h"
+#include "a_tp_sci.h"
 
 
 #include "sys_common.h"
@@ -99,18 +102,41 @@ int main(void)
         BMSState = BMS_RUNNING;
     }
 
+
+
+//    while(1)
+//    {
+//        simulateVoltageHVADC(2021); // this function uses mibspi3 to simulate the behavior of the ADS7044 ADC that reads HV voltage
+//        getBatteryVoltageHV();         // this reads voltage from the ADS7044, it drives the mibspi1 CS[0] pin low which initiates the transfer
+//
+//    }
+
+
     _enable_IRQ();  // Enables global interrupts
-     mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
+    mibspiInit();   // Initialize the mibspi3 module; mibspi3 = mibspiREG3
+    gioInit();
 
-    while(1)
-    {
-        simulateVoltageHVADC(2021); // this function uses mibspi3 to simulate the behavior of the ADS7044 ADC that reads HV voltage
-        getBatteryVoltageHV();         // this reads voltage from the ADS7044, it drives the mibspi1 CS[0] pin low which initiates the transfer
+    // BMS slave testing loop
+    //tp_sciInit(); // custom SCI init function
 
+    sciInit();
+    hetInit();
+    sciSetBaudrate(BMS_UART, BAUDRATE);
+    BMS_init();
+    //CommClear();
+    //CommReset();
+    //WakePL455();
+    while(1) {
+        BMS_Read_All(1);
+        //BMS_ProcessState();
+        getCurrentReadings();
+        //CommClear();
+        //CommReset();
+        delayms(700);
     }
 
-    // initializes all FreeRTOS tasks and timers
-    xphRtosInit();
+
+    xphRtosInit();  // initializes all FreeRTOS tasks and timers
 
     // start FreeRTOS task scheduling
     vTaskStartScheduler();
@@ -160,9 +186,6 @@ void phantomSystemInit()
 
     sciReceive(PC_UART, 1, (unsigned char *)&command);
     displayPrompt();
-
-
-
     UARTprintf("\n\rBATTERY MANAGEMENT SYSTEM INITIALIZED\n\n\r");
 }
 /* USER CODE END */

@@ -544,15 +544,15 @@ void BMS_Read_All(bool update)
 
         sciReceive(BMS_UART, BMSByteArraySize*TOTALBOARDS, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
 
-        delayms(5); // for the tms to record all the data first
+        delayms(10); // for the tms to record all the data first
     }
 
-    BMSDataPtr->Data.minimumCellVoltage = 5;
+    BMSDataPtr->Data.minimumCellVoltage = 5; // set this to 5 since none of our cell voltages should ever be that high. therefore the next one will always be min
     uint8 j;
     sint8 i;
     uint8 totalCellCount = TOTALCELLS*TOTALBOARDS;
     uint8 cellCount = TOTALCELLS;
-    uint8 voltageLoopCounter = cellCount*2+1; 
+    uint8 voltageLoopCounter = cellCount*2+1;
     uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2; 
     for (i = TOTALBOARDS-1; i > -1; i--) {
         for (j = 0; j < voltageLoopCounter; j = j + 2) {
@@ -564,9 +564,9 @@ void BMS_Read_All(bool update)
                 continue;
             }
 
-            uint32 tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
-            double div = tempVal/65535.0; //FFFF
-            double fin = div * 5.0;
+            uint32 tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]<<8 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+            uint32 div = tempVal/65535.0; //FFFF
+            uint32 fin = div * 5.0;
 
             if (i == 0) {
                 BMSDataPtr->SlaveVoltage.BMS_Slave_1[cellCount - 1] = fin;
@@ -1053,8 +1053,8 @@ void getCurrentReadings(void)
 
 
             uint32 tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
-            double div = tempVal/65535.0; //FFFF
-            double fin = div * 5.0;
+            uint32 div = tempVal/65535.0; //FFFF
+            uint32 fin = div * 5.0;
 
             if(i == 0) {
                 BMSDataPtr->SlaveVoltage.BMS_Slave_1[x] = fin;

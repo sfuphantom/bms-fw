@@ -8,7 +8,7 @@
 #include <phantom_sci.h>
 #include "task_slave_pipeline.h"
 
-
+// TODO: figure out what agent and actor tasks are supposed to be doing
 
 static void initAgent();
 static void initActor();

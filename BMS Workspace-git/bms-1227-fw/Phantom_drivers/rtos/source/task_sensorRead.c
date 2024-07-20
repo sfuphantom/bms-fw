@@ -16,6 +16,7 @@
 #include "FreeRTOSConfig.h"
 #include "os_task.h"
 #include "hv_driver.h"
+#include "gio.h"
 
 // private function only for use in vSensorReadTask
 // reads high voltage current using the functions in current_transducer.h/c
@@ -67,8 +68,22 @@ void vSensorReadTask(void *pvParameters)
     // Initialize the xLastWakeTime variable with the current time;
     xLastWakeTime = xTaskGetTickCount();
 
+    static int shutdownDelay = 0;
 
     do{
+        vTaskDelayUntil(&xLastWakeTime, xFrequency);
+        TickType_t xLastWakeTime = xTaskGetTickCount();
+
+
+        shutdownDelay ++;
+        if(shutdownDelay%2){
+            gioSetBit(gioPORTA, 5, 1);
+        }
+        else{
+            gioSetBit(gioPORTA, 5, 0);
+        }
+
+
 
         if(!getBMSinitFlag())
         {
@@ -79,13 +94,11 @@ void vSensorReadTask(void *pvParameters)
 
         //thermistorRead(); //TODO: implement this
 
-        BMS_Read_All(true);
+        //BMS_Read_All(true);
 
-        currentCheckHV(); //check for over  max or under min main battery current
-        voltageCheckHV(); //check for over max or under min main battery voltage
+        //currentCheckHV(); //check for over  max or under min main battery current
+        //voltageCheckHV(); //check for over max or under min main battery voltage
 
-        vTaskDelayUntil(&xLastWakeTime, xFrequency);
-        TickType_t xLastWakeTime = xTaskGetTickCount();
         //UARTprintf("sensor read task \n\r");
     } while(1);
 

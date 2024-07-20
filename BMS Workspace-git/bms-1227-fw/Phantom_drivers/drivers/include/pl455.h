@@ -44,7 +44,7 @@ BOOL GetFaultStat();
 bool getBMSinitFlag(void);
 void setBMSinitFlag(bool state);
 
-uint16  B2SWORD(uint16 wIN);
+uint16 B2SWORD(uint16 wIN);
 uint32 B2SDWORD(uint32 dwIN);
 uint32 B2SINT24(uint32 dwIN24);
 

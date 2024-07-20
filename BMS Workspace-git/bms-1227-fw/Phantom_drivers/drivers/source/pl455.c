@@ -23,6 +23,7 @@
 #include "reg_het.h"
 #include "pl455.h"
 #include "datatypes.h"
+#include "het.h"
 
 #include "gio.h"
 #include <stdlib.h>
@@ -98,23 +99,62 @@ void ResetPL455()
 void WakePL455()
 {
     // toggle wake signal
+    int smallTime = 2800; // us
+    int largeTime = 18; // ms
 
-
-    gioSetBit(hetPORT1, 9, 0); // assert wake (active low)
+    //gioSetBit(hetPORT1, 9, 0); // assert wake (active low)
     delayus(10);
-    gioSetBit(hetPORT1, 9, 1); // deassert wake
+    //gioSetBit(hetPORT1, 9, 1); // deassert wake
 
+    // trying GIO_A7 as WAKE for BMS slave since HET1_9 seemed to be constantly high and would not respond to gioSetBit
+    // the following sequence emulates the WAKE signal from the FTDI USB cable which is confirmed to read voltages correctly with the PL455A GUI
+    // all timings checked correct with oscilloscope
+    gioSetBit(gioPORTA, 7, 1);
+    delayms(2000);             // start high for a long time, like the scope trace
+    gioSetBit(gioPORTA, 7, 0);
+    delayms(128);             // first drop observed on scope lasts for 100 ms, these delay functions tend to delay for shorter than they say they do
+    gioSetBit(gioPORTA, 7, 1);
+    delayus(smallTime);              // first high pulse is around 2.8 ms
 
-    //gioSetBit(gioPORTA, 0, 1);
-    //delayms(100);
-    //gioSetBit(gioPORTA, 0, 0);
+    // These common low and high pulses repeat 7 times, with the final high pulse followed by a low pulse
+    gioSetBit(gioPORTA, 7, 0);
+    delayus(smallTime);              // initial low pulse ("common low pulse" length = 2.8 ms)
 
+    gioSetBit(gioPORTA, 7, 1);  // high pulse 1
+    delayms(largeTime);                // this "common high pulse" lasts around 14.2 ms
+    gioSetBit(gioPORTA, 7, 0);
+    delayus(smallTime);              // low pulse 1
 
+    gioSetBit(gioPORTA, 7, 1); // high pulse 2
+    delayms(largeTime);
+    gioSetBit(gioPORTA, 7, 0); // low pulse 2
+    delayus(smallTime);
 
+    gioSetBit(gioPORTA, 7, 1); // high pulse 3
+    delayms(largeTime);
+    gioSetBit(gioPORTA, 7, 0); // low pulse 3
+    delayus(smallTime);
 
+    gioSetBit(gioPORTA, 7, 1); // high pulse 4
+    delayms(largeTime);
+    gioSetBit(gioPORTA, 7, 0); // low pulse 4
+    delayus(smallTime);
 
+    gioSetBit(gioPORTA, 7, 1); // high pulse 5
+    delayms(largeTime);
+    gioSetBit(gioPORTA, 7, 0); // low pulse 5
+    delayus(smallTime);
 
+    gioSetBit(gioPORTA, 7, 1); // high pulse 6
+    delayms(largeTime);
+    gioSetBit(gioPORTA, 7, 0); // low pulse 6
+    delayus(smallTime);
 
+    gioSetBit(gioPORTA, 7, 1); // high pulse 7
+    delayms(largeTime);
+    gioSetBit(gioPORTA, 7, 0); // low pulse 7
+    delayus(smallTime);
+    gioSetBit(gioPORTA, 7, 1); // finish high
 }
 
 BOOL GetFaultStat()
@@ -413,27 +453,6 @@ int  WriteFrame(BYTE bID, uint16 wAddr, BYTE * pData, BYTE bLen, BYTE bWriteType
 
 
     //return bPktLen;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 int  ReadReg(BYTE bID, uint16 wAddr, void * pData, BYTE bLen, uint32 dwTimeOut)
