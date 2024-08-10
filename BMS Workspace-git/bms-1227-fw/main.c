@@ -67,7 +67,7 @@ void printRandoms(int lower, int upper, int count);
 
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
-
+int readcheck = 0;
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
@@ -77,6 +77,23 @@ BMSState_t BMSState;
 int main(void)
     {
     /* USER CODE BEGIN (3) */
+/* CAN TEST
+    canInit();
+
+    uint8_t tx_data[9] = { 'P', 'H', 'A', 'N', 'T', 'O', 'M', 'm', "\0" };
+    while(1) {
+        canTransmit(canREG1, canMESSAGE_BOX1, tx_data);
+        delayms(500);
+    }
+*/
+   /*
+    uint8_t rx_data[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    while(!canIsRXMessageArrived(canREG1, canMESSAGE_BOX1)));
+    canGetData(canREG1, canMESSAGE_BOX1, rx_data);
+    */
+
+
     UARTprintf("begin main");
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
@@ -121,18 +138,26 @@ int main(void)
 
     sciInit();
     hetInit();
-    sciSetBaudrate(BMS_UART, BAUDRATE);
+    //sciSetBaudrate(BMS_UART, BAUDRATE);
     BMS_init();
     //CommClear();
     //CommReset();
     //WakePL455();
+
+
     while(1) {
+        //BMS_Balance();
         BMS_Read_All(1);
+        //BMS_Read_Single(0);
+        //BMS_Read_Single(1);
         //BMS_ProcessState();
-        getCurrentReadings();
+        //getCurrentReadings();
         //CommClear();
         //CommReset();
-        delayms(700);
+        if(BMSDataPtr->SlaveVoltage.BMS_Slave_1[0] != 0) readcheck ++;
+        if(BMSDataPtr->SlaveVoltage.BMS_Slave_1[2] != 0) readcheck ++;
+        if(BMSDataPtr->SlaveVoltage.BMS_Slave_1[4] != 0) readcheck ++;
+        delayms(500);
     }
 
 
@@ -143,6 +168,7 @@ int main(void)
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while(1);
+
 }
 
 

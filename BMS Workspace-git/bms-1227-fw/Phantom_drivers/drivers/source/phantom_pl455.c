@@ -27,7 +27,7 @@ static const uint8 TOTALCELLS = 10;
 static const uint8 TOTALAUX = 8;
 
 BYTE  SingleSlaveReading[BMSByteArraySize];
-BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
+volatile BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
 
 volatile BMS_FLAGS BMS = {{0}, {0}, {0}, {0}, 0};
 BMS_SLAVE_STATE bmsSlaveState[TOTALBOARDS];
@@ -52,8 +52,8 @@ void BMS_init()
         CommReset();
 
         // TODO: Make sci init function with these functions built in
-        sciEnableNotification(PC_UART, SCI_RX_INT);
-        sciReceive(PC_UART, 1, (unsigned char *)&command);
+        //sciEnableNotification(PC_UART, SCI_RX_INT);
+        //sciReceive(PC_UART, 1, (unsigned char *)&command);
 
         for(nDev_ID = 0; nDev_ID < TOTALBOARDS>>1; nDev_ID++) {
                 nSent = WriteReg(nDev_ID, 12, 0x40, 1, FRMWRT_ALL_NR);  // send out broadcast pwrdown command
@@ -552,7 +552,7 @@ void BMS_Read_All(bool update)
     sint8 i;
     uint8 totalCellCount = TOTALCELLS*TOTALBOARDS;
     uint8 cellCount = TOTALCELLS;
-    uint8 voltageLoopCounter = cellCount*2+1;
+    uint8 voltageLoopCounter = cellCount*2;
     uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2; 
     for (i = TOTALBOARDS-1; i > -1; i--) {
         for (j = 0; j < voltageLoopCounter; j = j + 2) {

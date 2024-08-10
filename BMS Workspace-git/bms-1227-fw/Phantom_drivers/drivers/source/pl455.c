@@ -102,10 +102,13 @@ void WakePL455()
     int smallTime = 2800; // us
     int largeTime = 18; // ms
 
-    //gioSetBit(hetPORT1, 9, 0); // assert wake (active low)
-    delayus(10);
-    //gioSetBit(hetPORT1, 9, 1); // deassert wake
-
+    gioSetBit(gioPORTA, 7, 0);
+    delayms(200);
+    gioSetBit(gioPORTA, 7, 1);
+    delayus(200);
+    gioSetBit(gioPORTA, 7, 0);
+    delayms(200);
+/*
     // trying GIO_A7 as WAKE for BMS slave since HET1_9 seemed to be constantly high and would not respond to gioSetBit
     // the following sequence emulates the WAKE signal from the FTDI USB cable which is confirmed to read voltages correctly with the PL455A GUI
     // all timings checked correct with oscilloscope
@@ -155,6 +158,7 @@ void WakePL455()
     gioSetBit(gioPORTA, 7, 0); // low pulse 7
     delayus(smallTime);
     gioSetBit(gioPORTA, 7, 1); // finish high
+    */
 }
 
 BOOL GetFaultStat()

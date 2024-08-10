@@ -32,7 +32,7 @@
 
 //#define TOTALBOARDS 16
 #define TOTALBOARDS 1
-#define BAUDRATE 250000
+#define BAUDRATE 125000
 
 // Function Prototypes
 void ResetPL455();
