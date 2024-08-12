@@ -26,8 +26,8 @@ static uint16 HB_LED = 0;
 static const uint8 TOTALCELLS = 10;
 static const uint8 TOTALAUX = 8;
 
-BYTE  SingleSlaveReading[BMSByteArraySize];
-volatile BYTE  MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
+uint8  SingleSlaveReading[BMSByteArraySize];
+uint8 MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
 
 volatile BMS_FLAGS BMS = {{0}, {0}, {0}, {0}, 0};
 BMS_SLAVE_STATE bmsSlaveState[TOTALBOARDS];
@@ -48,8 +48,8 @@ void BMS_init()
 
 
 
-        CommClear();
-        CommReset();
+        //CommClear();
+        //CommReset(); // empty function
 
         // TODO: Make sci init function with these functions built in
         //sciEnableNotification(PC_UART, SCI_RX_INT);
@@ -60,37 +60,10 @@ void BMS_init()
                 delayms(5); //~5ms
                 WakePL455();
                 delayms(5); //~5ms
-            }
+        }
 
 
         delayms(100);
-
-            // Mask Customer Checksum Fault bit
-            nSent = WriteReg(0, 107, 0x8000, 2, FRMWRT_ALL_NR); // clear all fault summary flags
-
-            // Clear all faults
-            nSent = WriteReg(0, 82, 0xFFC0, 2, FRMWRT_ALL_NR);      // clear all fault summary flags
-            nSent = WriteReg(0, 81, 0x38, 1, FRMWRT_ALL_NR); // clear fault flags in the system status register
-    //for(;;){
-            // Auto-address all boards (section 1.2.2)
-            nSent = WriteReg(0, 14, 0x19, 1, FRMWRT_ALL_NR); // set auto-address mode on all boards
-            nSent = WriteReg(0, 12, 0x08, 1, FRMWRT_ALL_NR); // enter auto address mode on all boards, the next write to this ID will be its address
-
-            // Set addresses for all boards in daisy-chain (section 1.2.3)
-            for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
-            {
-                nSent = WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
-            }
-
-            // Enable all communication interfaces on all boards in the stack (section 1.2.1)
-            nSent = WriteReg(0, 16, 0x10F8, 2, FRMWRT_ALL_NR);  // set communications baud rate and enable all interfaces on all boards in stack
-
-        delayms(1);
-
-        /* Set communications interfaces appropriately for their position in the stack, and
-         * for baud rate used in the application (set by BAUDRATE define in pl455.h).
-         * (section 1.2.4)
-         */
 
         switch(BAUDRATE)
             {
@@ -100,7 +73,9 @@ void BMS_init()
                 sciSetBaudrate(BMS_UART, BAUDRATE);
                 break;
             case 250000:
-                delayms(1);
+                sciSetBaudrate(BMS_UART, BAUDRATE);
+                delayms(10);
+                nSent = WriteReg(0, 16, 0x10F8, 2, FRMWRT_ALL_R);  // set communications baud rate and enable all interfaces
                 break;
             case 500000:
                 nSent = WriteReg(0, 16, 0x20F8, 2, FRMWRT_ALL_NR);  // set communications baud rate and enable all interfaces
@@ -113,20 +88,50 @@ void BMS_init()
                 sciSetBaudrate(BMS_UART, BAUDRATE);
                 break;
             }
-    //}
+
+            // Mask Customer Checksum Fault bit
+            nSent = WriteReg(0, 107, 0x8000, 2, FRMWRT_ALL_NR); // clear all fault summary flags
+
+            // Clear all faults
+            nSent = WriteReg(0, 82, 0xFFC0, 2, FRMWRT_ALL_NR);      // clear all fault summary flags
+            nSent = WriteReg(0, 81, 0x38, 1, FRMWRT_ALL_NR); // clear fault flags in the system status register
+
+            // Auto-address all boards (section 1.2.2)
+            nSent = WriteReg(0, 14, 0x19, 1, FRMWRT_ALL_NR); // set auto-address mode on all boards
+            nSent = WriteReg(0, 12, 0x08, 1, FRMWRT_ALL_NR); // enter auto address mode on all boards, the next write to this ID will be its address
+
+            // Set addresses for all boards in daisy-chain (section 1.2.3)
+            for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+            {
+                nSent = WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
+            }
+
+            // Enable all communication interfaces on all boards in the stack (section 1.2.1)
+            // not necessary here since there is already a switch statement below that does this
+            //nSent = WriteReg(0, 16, 0x10F8, 2, FRMWRT_ALL_NR);  // set communications baud rate and enable all interfaces on all boards in stack
+
+        delayms(1);
+
+        /* Set communications interfaces appropriately for their position in the stack, and
+         * for baud rate used in the application (set by BAUDRATE define in pl455.h).
+         * (section 1.2.4)
+         */
        for (nDev_ID = TOTALBOARDS - 1; nDev_ID >= 0; --nDev_ID)
        {
 
                 //nRead = ReadReg(nDev_ID, 10, &wTemp, 1, 0); // 0ms timeout
                 //delayms(100);
 
-            nRead = ReadReg(nDev_ID, 10, &wTemp, 1, 0); // 0ms timeout
+           // Here we are reading register 10 which is the device address register
+           // this should have been set earlier, but that's doubtful since we are enabling the communications here
+           // and the communications were not enabled earlier such that we could have set the address
+            nRead = ReadReg(nDev_ID, 10, &wTemp, 1, 500); // 500ms timeout
 
 
-            if(nRead == 0) // if nothing is read then this board doesn't exist
+            if(nRead == 0) { // if nothing is read then this board doesn't exist
                 nTopFound = 0;
-            else // a response was received
-            {
+            //else // a response was received
+            //{
                 if(nTopFound == 0)
                 { // if the last board was not present but this one is, this is the top board
 

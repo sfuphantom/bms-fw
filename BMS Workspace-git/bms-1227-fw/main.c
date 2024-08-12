@@ -152,11 +152,6 @@ int main(void)
         //BMS_Read_Single(1);
         //BMS_ProcessState();
         //getCurrentReadings();
-        //CommClear();
-        //CommReset();
-        if(BMSDataPtr->SlaveVoltage.BMS_Slave_1[0] != 0) readcheck ++;
-        if(BMSDataPtr->SlaveVoltage.BMS_Slave_1[2] != 0) readcheck ++;
-        if(BMSDataPtr->SlaveVoltage.BMS_Slave_1[4] != 0) readcheck ++;
         delayms(500);
     }
 

@@ -102,11 +102,11 @@ void WakePL455()
     int smallTime = 2800; // us
     int largeTime = 18; // ms
 
-    gioSetBit(gioPORTA, 7, 0);
-    delayms(200);
     gioSetBit(gioPORTA, 7, 1);
-    delayus(200);
+    delayms(200);
     gioSetBit(gioPORTA, 7, 0);
+    delayus(200);
+    gioSetBit(gioPORTA, 7, 1);
     delayms(200);
 /*
     // trying GIO_A7 as WAKE for BMS slave since HET1_9 seemed to be constantly high and would not respond to gioSetBit
@@ -243,8 +243,6 @@ int  WriteReg(BYTE bID, uint16 wAddr, uint64 dwData, BYTE bLen, BYTE bWriteType)
 
 int  WriteFrame(BYTE bID, uint16 wAddr, BYTE * pData, BYTE bLen, BYTE bWriteType)
 {
-
-
     int    bPktLen = 0;
     BYTE   pFrame[32];
 
