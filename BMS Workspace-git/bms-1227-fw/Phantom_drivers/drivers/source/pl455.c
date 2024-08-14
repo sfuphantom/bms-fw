@@ -238,6 +238,7 @@ int  WriteReg(BYTE bID, uint16 wAddr, uint64 dwData, BYTE bLen, BYTE bWriteType)
     default:
         break;
     }
+    delayms(2);
     return bRes;
 }
 

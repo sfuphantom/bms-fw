@@ -14,9 +14,8 @@
 #include "hal_stdtypes.h"
 #include "stdint.h"
 
-
-#define BMSByteArraySize  43
 #define CELLS_PER_BOARD   10
+#define BMSByteArraySize  33
 
 typedef enum{
     SLAVE_CONNECTION_GOOD,

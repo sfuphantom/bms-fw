@@ -144,15 +144,27 @@ int main(void)
     //CommReset();
     //WakePL455();
 
+//    int retryCounter = 0;
+//    for(retryCounter = 0; retryCounter < 100; retryCounter++) {
+//        delayms(5);
+//        WriteReg(0, 16, 0x10F8, 2, FRMWRT_ALL_R); // set BMS Slave baudrate to 250k
+//        delayms(5);
+//    }
 
+    //BMS_init();
     while(1) {
-        //BMS_Balance();
         BMS_Read_All(1);
         //BMS_Read_Single(0);
-        //BMS_Read_Single(1);
-        //BMS_ProcessState();
         //getCurrentReadings();
-        delayms(500);
+        //delayms(50);
+        //WriteReg(0, 19, 0x08, 1, FRMWRT_ALL_NR); // enable cell balancing even when there's a fault
+        //delayms(10);
+        //WriteReg(0, 30, 0x00, 2, FRMWRT_ALL_NR); // Sets EN_SQUEEZE = 0 so BALANCE_EN controls the channels which are balancing
+        //delayms(10);
+        //WriteReg(0, 20, 0x00FF, 2, FRMWRT_SGL_NR ); // set cells to start balancing
+        //delayms(10);
+        //BMS_Balance();
+        delayms(50);
     }
 
 
