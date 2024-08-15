@@ -28,6 +28,7 @@ static const uint8 TOTALAUX = 0;
 double fin = 0;
 double tempVal = 0;
 double divided = 0;
+int nRead;
 
 uint8  SingleSlaveReading[BMSByteArraySize];
 uint8 MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
@@ -40,7 +41,7 @@ extern bms_data* BMSDataPtr;
 
 void BMS_init()
 {
-        int nRead, nSent, i, nTopFound = 0;
+        int nSent, i, nTopFound = 0;
         int nDev_ID = 0;
         int retryCount = 10;
         uint32_t  wTemp = 0;
@@ -131,6 +132,22 @@ void BMS_init()
          * for baud rate used in the application (set by BAUDRATE define in pl455.h).
          * (section 1.2.4)
          */
+
+        // hardcode commconfig since we know exactly how many boards there are and in what position
+
+        // top board is 1
+        // write to comconfig register 16
+        // we want only FAULTL and COMML enabled
+        // 0x0028 == 0b 0001 0000 0111 1000
+        WriteReg(1, 16, 0x1078, 2, FRMWRT_SGL_NR);
+
+        // bottom board is zero
+        // write to comcomfig register 16
+        // enable UART, 250kbaud, FAULTH, COMH
+        // 0x0868 == 0b 0001 0000 1111 1000
+        WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR);
+
+        /*
        for (nDev_ID = TOTALBOARDS - 1; nDev_ID >= 0; --nDev_ID)
        {
 
@@ -145,13 +162,11 @@ void BMS_init()
 
             if(nRead == 0) { // if nothing is read then this board doesn't exist
                 nTopFound = 0;
-            //else // a response was received
-            //{
+            }
+            else // a response was received
+            {
                 if(nTopFound == 0)
                 { // if the last board was not present but this one is, this is the top board
-
-
-
                     if(nDev_ID == 0) // this is the only board
                     {
                         switch(BAUDRATE)
@@ -233,8 +248,9 @@ void BMS_init()
                     }
                 }
             }
-        }
+       }
 
+*/
         // Clear all faults (section 1.2.7)
         nSent = WriteReg(0, 82, 0xFFC0, 2, FRMWRT_ALL_NR); // clear all fault summary flags
         nSent = WriteReg(0, 81, 0x38, 1, FRMWRT_ALL_NR); // clear fault flags in the system status register
@@ -554,8 +570,23 @@ void BMS_Read_All(bool update)
     char buf[100];
     int nDev_ID = 0;
 
-    WriteReg(nDev_ID, 13, 0x0A, 1, FRMWRT_ALL_NR); // set number of cells to 10
-    WriteReg(nDev_ID, 3, 0x03FF0000, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+    // Set addresses for all boards in daisy-chain (section 1.2.3)
+    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+    {
+        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
+        delayms(5);
+    }
+
+    WriteReg(1, 16, 0x1078, 2, FRMWRT_SGL_NR); // enable comms on top board
+
+    WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR); // enable comms on top board
+
+
+    WriteReg(nDev_ID, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+    WriteReg(nDev_ID, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+
+    WriteReg(1, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+    WriteReg(1, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
 
     if (update) {
         int nSent = WriteReg(0, 2, 0, 1, FRMWRT_ALL_R); // send sync sample command
@@ -570,6 +601,7 @@ void BMS_Read_All(bool update)
             }
         }
 
+        delayms(10);
         sciReceive(BMS_UART, BMSByteArraySize*TOTALBOARDS, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
 
         delayms(10); // for the tms to record all the data first
@@ -581,7 +613,7 @@ void BMS_Read_All(bool update)
     uint8 totalCellCount = TOTALCELLS*TOTALBOARDS;
     uint8 cellCount = TOTALCELLS;
     uint8 voltageLoopCounter = cellCount*2; // two bytes for each cell
-    uint8 auxLoopCounter = voltageLoopCounter + TOTALAUX*2; 
+    uint8 auxLoopCounter = voltageLoopCounter;// + TOTALAUX*2;
     //for (i = TOTALBOARDS-1; i > -1; i--) {
         // start at 1 since we will disregard the first byte (header containing response size)
         for (j = 1; j < voltageLoopCounter; j = j + 2) {

@@ -15,7 +15,28 @@
 #include "stdint.h"
 
 #define CELLS_PER_BOARD   10
-#define BMSByteArraySize  33
+#define BMSByteArraySize  66
+
+/* -- PL455 cell monitor register value defines --
+ * Use the datasheet and the software design reference guide (SDR) to make sense of these
+ * Datasheet: https://www.digikey.com/en/htmldatasheets/production/1988959/0/0/1/bq76pl455apfcr#pf18
+ * SDR guide: https://www.ti.com/lit/an/slva617a/slva617a.pdf?ts=1723248117863
+ *
+ * TO UNDERSTAND THESE DEFINES: look at the datasheet section commented above each one
+ *                              see the SDR for example communications
+ *
+ * Keep the register numbers as numbers since it's easier to find them in the documentation that way
+ * The values to write to the registers are defines since its easier to change them here
+ * Register numbers are appended to the name of the define (e.g. PL455_COMCONFIG_16 should be written to register 16)
+ * All register numbers are in decimal, all values to write to the registers are in hex
+ */
+
+// Datasheet 7.6.3.11
+#define PL455_COMCONFIG_250KBAUD_16 0x10F8
+
+#define PL455_NUMCAHNNEL_10VSENSE_13 0x0A
+
+#define PL455_CHANNELS_10CELL_NOAUX_3 0x03FF0000
 
 typedef enum{
     SLAVE_CONNECTION_GOOD,
