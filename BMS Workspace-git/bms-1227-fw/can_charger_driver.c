@@ -6,7 +6,7 @@
  */
 
 #include "can.h"
-#include "can_driver.h"
+#include "can_charger_driver.h"
 #include "reg_can.h"
 
 //TODO begin charging, stop charging, receive_charger_status,
