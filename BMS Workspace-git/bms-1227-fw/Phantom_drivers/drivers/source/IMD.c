@@ -35,8 +35,15 @@ void initalizeIMD(){
 //    _enable_IRQ();    //Previously commented; Initialized in phantomSystemInit()
 
     edgeEnableNotification(hetREG1, edge0);
-    gioEnableNotification(gioPORTA,5);
-    gioEnableNotification(gioPORTA,6);
+    edgeEnableNotification(hetREG1, edge1);
+    edgeEnableNotification(hetREG1, edge2);
+    edgeEnableNotification(hetREG1, edge3);
+    edgeEnableNotification(hetREG1, edge4);
+    edgeEnableNotification(hetREG1, edge5);
+    edgeEnableNotification(hetREG1, edge6);
+    edgeEnableNotification(hetREG1, edge7);
+    //gioEnableNotification(gioPORTA,5);
+    //gioEnableNotification(gioPORTA,6);
 //    rtiStartCounter(rtiCOUNTER_BLOCK1); // cant read register without this (RTI doesnt start?)    //Previously commented
 }
 
@@ -46,6 +53,7 @@ void initalizeIMD(){
 * To-do: Need to find what the tolerance is for frequency when testing (i.e. is it +- 5hz?)
 */
 void updateIMDState(unsigned int freq_value, unsigned int duty_value){
+
 
     if (freq_value <=5) currentState = Short_Circuit; //0Hz
     else if (freq_value > 5 && freq_value <=15) currentState = Normal_Condition; //10Hz, PWM is between 5-95%
@@ -86,8 +94,8 @@ void updateIsolationState(unsigned int duty_value){
 * Fn: updateIMDData
 * Purpose: Updates the message statuses for what is inside the IMDData Struct
 */
-void updateIMDData()
-    {
+
+void updateIMDData()    {
         // adding this 0.5 and then typecasting to an int (truncating all decimals)
         // basically acts as rounding the float to the nearest integer
         freq_value = (unsigned int) (frequency + 0.5);
@@ -143,6 +151,7 @@ float getIMDResistance(){
 */
 void edgeNotification(hetBASE_t * hetREG,uint32 edge)
 {
+
     // if rising edge
     if(hetREG == hetREG1 && edge == 0)
     {
@@ -150,10 +159,12 @@ void edgeNotification(hetBASE_t * hetREG,uint32 edge)
         gioToggleBit(gioPORTB,2);
 
         // pinStatus indicates if it is a rising or falling edge
-        uint32 pinStatus = gioGetBit(hetPORT1, 20);
+        uint32 pinStatus = gioGetBit(hetPORT1, 9);
 
         //if it is a rising edge, record the time (time1 = rising edge timestamp)
-        if(pinStatus == 1) time1 = rtiREG1->CNT[1].FRCx;    //TODO: change to freeRTOS register
+        if(pinStatus == 1) {
+            time1 = rtiREG1->CNT[1].FRCx;    //TODO: change to freeRTOS register
+        }
         //if(pinStatus == 1) time1 = portRTI_CNT0_FRC0_REG;
 
         // else it is a falling edge

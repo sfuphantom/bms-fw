@@ -1,6 +1,7 @@
 /*
  * main.c
  *
+ *
  *  Created on: Jul 13, 2020
  *      Author: Mahmoud Ahmed
  */
@@ -101,11 +102,11 @@ int main(void)
 //    }
 //
     xphRtosInit();
-    vTaskStartScheduler();
+   // vTaskStartScheduler();
 
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-    while (1);
+    while (1) updateIMDData();
 
 }
 
