@@ -558,6 +558,37 @@ void BMS_Slaves_Heartbeat(void)
     }
 }
 
+// Reads all thermistor values from all BMS slave boards
+void BMS_Read_Thermistor() {
+
+    // Set addresses for all boards in daisy-chain (section 1.2.3)
+    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+    {
+        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
+        delayms(5);
+    }
+
+    /* 7.6.3.3 CHANNELS - registers [3, 6]
+     * [31, 16] == 0 to select zero voltage sense inputs
+     * [15, 8] == 1 to select all aux (thermistor) inputs
+     * [7, 0] == 0 do not need internal die temperatures, total voltage, internal reference voltages
+     * entire data to write is 0b 0000 0000 0000 0000 1111 1111 0000 0000 == 0x0000FF00
+     *
+     * FRMWRT_ALL_NR writes to all BMS slave boards in the daisy chain
+     * send to address zeros since that's the bottom BMS slave board which is connected via UART to the BMS master
+     */
+    WriteReg(0, 3, 0x0000FF00, 4, FRMWRT_ALL_NR);
+
+    /* 7.6.3.4 OVERSAMPLING - register [7]
+     * [7] == 1 enable round-robin oversampling
+     * [6, 5] == 1 required by datasheet
+     * [4, 3] == 1 averaging period reccomended by datasheet
+     * [2, 0] == 4 == 0b100 average 16 samples (TODO: how many samples is enough?)
+     * entire data to write is 0b 1111 1100
+     */
+    WriteReg(0, )
+}
+
 /**
  * Reads all values in all daisy-chained slaves. Stores slave voltage
  * values in BMS data structure
@@ -582,8 +613,8 @@ void BMS_Read_All(bool update)
     WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR); // enable comms on top board
 
 
-    WriteReg(nDev_ID, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
-    WriteReg(nDev_ID, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+    WriteReg(0, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+    WriteReg(0, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
 
     WriteReg(1, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
     WriteReg(1, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
