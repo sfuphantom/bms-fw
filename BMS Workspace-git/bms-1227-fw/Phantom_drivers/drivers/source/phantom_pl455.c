@@ -586,7 +586,61 @@ void BMS_Read_Thermistor() {
      * [2, 0] == 4 == 0b100 average 16 samples (TODO: how many samples is enough?)
      * entire data to write is 0b 1111 1100
      */
-    WriteReg(0, )
+    WriteReg(0, 7, 0xFC, 1, FRMWRT_ALL_NR);
+
+    /* 7.6.3.8 NCHAN Number of VSENSE Channels - register [13]
+     * [7, 5] == 0 Reserved, always write zero
+     * [4, 0] == 0 select zero VSENSE channels (we only care about AUX channels, not VSENSE which is used for cell voltage reading)
+     * entire data to write is 0x00
+     */
+    WriteReg(0, 13, 0x00, 1, FRMWRT_ALL_NR);
+
+    /* 7.6.3.9 DEVCONFIG Device Configuration - register [14]
+     * [7, 6] == 0 Reserved, always write zero
+     * [5] == 1 Datasheet says this is normal operation mode
+     * [4] == 1 Board address is set uising auto addressing (doesn't matter since we set the addresses earlier)
+     * [3, 2] == 2 == 0b10 Disable over/under voltage comparators. Don't need them since we're doing thermistors here not cell voltage readings
+     * [1] == 0 Disable comparator hysteresis (don't need it)
+     * [0] == 0 Disable fault latching (latching means when a fault is triggered, it stays on until faults are reset rather than turning off once fault condition is gone
+     *          TODO: is no fault latching appropriate for production car?
+     * entire data to write is 0b 0011 1000 == 0x38
+     */
+    WriteReg(0, 14, 0x38, 1, FRMWRT_ALL_NR);
+
+    /* 7.6.3.10 PWRCONFIG Analog Front End (AFE) Power Configuration - register [15]
+     * [7] == 1 Always power on analog front end
+     * [6, 0] == 0 Reserved, always write zero
+     * entire data to write is 0b 1000 0000 == 0x80
+     */
+    WriteReg(0, 15, 0x80, 1, FRMWRT_ALL_NR);
+
+    /* 7.6.3.23 AUX_SPER AUX Sampling Period- registers [63, 66]
+     * each aux channel has its own independently configurable sampling period, starting at channel 0 which uses bits [31, 28], channel 1 uses bits [27, 24]
+     * see the datasheet for a table of what ADC sampling period corresponds to what register value. Generally, higher number == longer sampling period and more accuracy
+     * we will use a sampling period of 500 us which corresponds to a register value of 0xE (this choice isn't based on anything, TODO: figure out if 500 us is appropriate)
+     * entire data to write is 0xEEEE EEEE EEEE EEEE since we will set every AUX channel to use the same samplign period
+     */
+    WriteReg(0, 63, 0xEEEEEEEEEEEEEEEE, 4, FRMWRT_ALL_NR);
+
+    /* 7.6.3.41 GPIO_DIR General Purpose IO Direction - register [120]
+     * [7, 6] == 0 Reserved always write zero
+     * [5, 0] == 0 Write 1 to all of these bits to make every GPIO (AUX) channel an input since we will use them to read thermistor values
+     * entire data to write is 0x00
+     */
+    WriteReg(0, 120, 0x00, 1, FRMWRT_ALL_NR);
+
+    //TODO: Do we want pull ups or pull downs on the AUX channels? this is configurable in registers 122 and 123
+
+    //TODO: should the AUX inputs throw a GPI fault when at 0 V or 5 V (configurable in register 125)? depends how our thermistor voltage divider is configured
+
+    //TODO: under/overvoltage thresholds for AUX inputs configurable in registers 146 to 177? depends on thermistor voltage divider
+
+    //TODO: AUX offset correction configurable in registers 212 to 227, will need to test with hardware to determine this
+
+
+
+
+
 }
 
 /**
