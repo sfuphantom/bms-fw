@@ -106,5 +106,7 @@ IMDData_t getIMDData();
 * */
 float getIMDResistance();
 
+//To be tested: to record PWM(edgeNotificatin currently doesn't work)
+void readPWMValues(hetRAMBASE_t *hetRAM, uint32 pwm);
 
 #endif /* SOURCE_IMD_H_ */

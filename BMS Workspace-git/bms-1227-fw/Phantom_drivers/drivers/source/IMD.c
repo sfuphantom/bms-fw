@@ -141,72 +141,95 @@ float getIMDResistance(){
 * Purpose: Interrupt handler for when a rising or falling edge occurs
 * on the square wave that the IMD is outputting
 */
-void edgeNotification(hetBASE_t * hetREG,uint32 edge)
-{
-    // if rising edge
-    if(hetREG == hetREG1 && edge == 0)
-    {
-        //LED on board
-        gioToggleBit(gioPORTB,2);
+//void edgeNotification(hetBASE_t * hetREG,uint32 edge)
+//{
+//    // if rising edge
+//    if(hetREG == hetREG1 && edge == 0)
+//    {
+//        //LED on board
+//        gioToggleBit(gioPORTB,2);
+//
+//        // pinStatus indicates if it is a rising or falling edge
+//        uint32 pinStatus = gioGetBit(hetPORT1, 20);
+//
+//        //if it is a rising edge, record the time (time1 = rising edge timestamp)
+//        if(pinStatus == 1) time1 = rtiREG1->CNT[1].FRCx;    //TODO: change to freeRTOS register
+//        //if(pinStatus == 1) time1 = portRTI_CNT0_FRC0_REG;
+//
+//        // else it is a falling edge
+//        else
+//        {
+//            // time2 = falling edge timestamp
+//            time2 = rtiREG1->CNT[1].FRCx;   //TODO: change to freeRTOS register
+//            //time2 = portRTI_CNT0_FRC0_REG;
+//
+//            // if there is no overflow for time 1 (rising edge)
+//            //last_time1 is the last rising edge, time_1 is latest rising edge
+//            if(last_time1 <= time1)
+//            {
+//                // free running counter is one tick every 10MHz
+//                period = ((float)time1 - (float)last_time1)/FREQ_RUNNING_COUNTER;
+//                frequency = 1/period;
+//
+//                // checks if there is overflow for time2 (falling edge)
+//                // if no overflow
+//                if(time1 <= time2) time_on = ((float)time2 - (float)time1)/FREQ_RUNNING_COUNTER;
+//
+//                else
+//                // overflow occurred in time2
+//                {
+//                    time_on = ((float)time2 + (UINT32_MAX_-(float)time1))/FREQ_RUNNING_COUNTER;
+//                }
+//
+//                duty_cycle = (time_on/period);
+//                last_time1=time1;
+//            }
+//
+//            else // there is an overflow
+//            {
+//                // overflow occurred in time_1
+//                period = ((float)time1 + (UINT32_MAX_-(float)last_time1))/FREQ_RUNNING_COUNTER;
+//                frequency = 1/period;
+//
+//
+//                // if time2 is still ahead of time1
+//                if(time1 <= time2) time_on = ((float)time2 - (float)time1)/FREQ_RUNNING_COUNTER;
+//
+//                // handles if time_2 overflowed and time1 did not
+//                // we are already in the else statement where time1 overflowed so:
+//                // THIS SHOULD NEVER HAPPEN *something probably went wrong*
+//                else
+//                {
+//                    // some error occurred, should trigger an undefined fault
+//                    time_on = ((float)time2 + (UINT32_MAX_-(float)time1))/FREQ_RUNNING_COUNTER;
+//                }
+//
+//                duty_cycle = (time_on/period);
+//                last_time1=time1;
+//            }
+//        }
+//    }
+//}
 
-        // pinStatus indicates if it is a rising or falling edge
-        uint32 pinStatus = gioGetBit(hetPORT1, 20);
-
-        //if it is a rising edge, record the time (time1 = rising edge timestamp)
-        if(pinStatus == 1) time1 = rtiREG1->CNT[1].FRCx;    //TODO: change to freeRTOS register
-        //if(pinStatus == 1) time1 = portRTI_CNT0_FRC0_REG;
-
-        // else it is a falling edge
-        else
-        {
-            // time2 = falling edge timestamp
-            time2 = rtiREG1->CNT[1].FRCx;   //TODO: change to freeRTOS register
-            //time2 = portRTI_CNT0_FRC0_REG;
-
-            // if there is no overflow for time 1 (rising edge)
-            //last_time1 is the last rising edge, time_1 is latest rising edge
-            if(last_time1 <= time1)
-            {
-                // free running counter is one tick every 10MHz
-                period = ((float)time1 - (float)last_time1)/FREQ_RUNNING_COUNTER;
-                frequency = 1/period;
-
-                // checks if there is overflow for time2 (falling edge)
-                // if no overflow
-                if(time1 <= time2) time_on = ((float)time2 - (float)time1)/FREQ_RUNNING_COUNTER;
-
-                else
-                // overflow occurred in time2
-                {
-                    time_on = ((float)time2 + (UINT32_MAX_-(float)time1))/FREQ_RUNNING_COUNTER;
-                }
-
-                duty_cycle = (time_on/period);
-                last_time1=time1;
-            }
-
-            else // there is an overflow
-            {
-                // overflow occurred in time_1
-                period = ((float)time1 + (UINT32_MAX_-(float)last_time1))/FREQ_RUNNING_COUNTER;
-                frequency = 1/period;
-
-
-                // if time2 is still ahead of time1
-                if(time1 <= time2) time_on = ((float)time2 - (float)time1)/FREQ_RUNNING_COUNTER;
-
-                // handles if time_2 overflowed and time1 did not
-                // we are already in the else statement where time1 overflowed so:
-                // THIS SHOULD NEVER HAPPEN *something probably went wrong*
-                else
-                {
-                    // some error occurred, should trigger an undefined fault
-                    time_on = ((float)time2 + (UINT32_MAX_-(float)time1))/FREQ_RUNNING_COUNTER;
-                }
-
-                duty_cycle = (time_on/period);
-                last_time1=time1;
-            }
-        }
-    }
-}
+//TODO: verify if this functions works to read PWM values
+//void readPWMValues(hetRAMBASE_t *hetRAM, uint32 pwm) {
+//    hetSIGNAL_t pwmSignal; // Struct to hold PWM signal values
+//
+//    // Retrieve the signal details of the specified PWM channel
+//    pwmGetSignal(hetRAM, pwm, &pwmSignal);
+//
+//    // Convert signal parameters
+//    float frequency = pwmSignal.period > 0 ? (1.0 / (pwmSignal.period / FREQ_RUNNING_COUNTER)) : 0;
+//    float dutyCycle = pwmSignal.period > 0 ? ((float)pwmSignal.duty / pwmSignal.period) * 100.0 : 0;
+//
+//    // Round and store values
+//    freq_value = (unsigned int)(frequency + 0.5);
+//    duty_value = (unsigned int)(dutyCycle + 0.5);
+//
+//    // Update IMD states using existing functions
+//    updateIMDState(freq_value, duty_value);
+//    updateIsolationState(duty_value);
+//
+//    //Send data over serial for debugging or logging
+//    serialSendData();
+//}

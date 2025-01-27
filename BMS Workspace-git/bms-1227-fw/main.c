@@ -47,6 +47,8 @@
 
 //#include "IMD.h"
 #include "sys_common.h"
+#include "reg_ecap.h" //for ecapREG1 in capGetSignal call
+#include "ecap.h"
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
@@ -99,14 +101,23 @@ int main(void)
 //    {
 //        BMSState = BMS_RUNNING;
 //    }
-//
+
+    // Use J4 Pin 40 (HET Pin 19) for PWM
+    hetSIGNAL_t capturedSignal; // Capture signal and read PWM values
+    capGetSignal(hetRAM1, ecapGetCAP1(ecapREG1) , &capturedSignal); // Capture signal values
+    // Log captured signal for debugging
+    //UARTprintf("Captured Signal: Period = %u, Duty = %u\n", capturedSignal.period, capturedSignal.duty);
+    // Read and process PWM values
+    //readPWMValues(hetRAM1, pwmChannel);
+
     xphRtosInit();
     vTaskStartScheduler();
 
 
+
+
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while (1);
-
 }
 
 
@@ -136,6 +147,7 @@ void phantomSystemInit()
     hetInit();
     sciInit();
     socInit();
+
 
     while ((BMS_UART->FLR & 0x4) == 4);
 

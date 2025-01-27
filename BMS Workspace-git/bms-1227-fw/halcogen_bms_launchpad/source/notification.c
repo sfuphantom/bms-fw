@@ -50,18 +50,18 @@
 
 #include "esm.h"
 #include "sys_selftest.h"
+#include "adc.h"
 #include "can.h"
 #include "gio.h"
 #include "mibspi.h"
 #include "sci.h"
 #include "het.h"
 #include "sys_dma.h"
-#include "hwConfig.h"
 
 /* USER CODE BEGIN (0) */
 #include "sys_main.h"
 #include "testinterface.h"
-
+#include "hwConfig.h"
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;
 /* USER CODE END */
@@ -104,6 +104,16 @@ void memoryPort1TestFailNotification(uint32 groupSelect, uint32 dataSelect, uint
 }
 
 /* USER CODE BEGIN (8) */
+/* USER CODE END */
+#pragma WEAK(adcNotification)
+void adcNotification(adcBASE_t *adc, uint32 group)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (11) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (12) */
 /* USER CODE END */
 #pragma WEAK(canErrorNotification)
 void canErrorNotification(canBASE_t *node, uint32 notification)
