@@ -50,7 +50,7 @@
 
 static const uint32 s_het1pwmPolarity[8U] =
 {
-    3U,
+    1U,
     3U,
     3U,
     3U,
@@ -101,7 +101,11 @@ static const hetINSTRUCTION_t het1PROGRAM[58U] =
         /* Program */
         0x000055C0U,
         /* Control */
+<<<<<<< HEAD
         (0x00004006U | (uint32)((uint32)30U << 8U) | (uint32)((uint32)3U << 3U)),
+=======
+        (0x00004006U | (uint32)((uint32)30U << 8U) | (uint32)((uint32)1U << 3U)),
+>>>>>>> 5537d18cef1e39320909df46c193755b23955143
         /* Data */
         0x00000000U,
         /* Reserved */
@@ -373,7 +377,7 @@ static const hetINSTRUCTION_t het1PROGRAM[58U] =
         /* Program */
         0x00025440U,
         /* Control */
-        (0x00024007U | (uint32)((uint32)9U << 8U) | (uint32)((uint32)1U << 4U)),
+        (0x00024007U | (uint32)((uint32)9U << 8U) | (uint32)((uint32)3U << 4U)),
         /* Data */
         0x00000000U,
         /* Reserved */
@@ -781,7 +785,11 @@ static const hetINSTRUCTION_t het1PROGRAM[58U] =
         /* Program */
         0x00054201U,
         /* Control */
+<<<<<<< HEAD
         (0x00004007U | (uint32)((uint32)1U << 22U) | (uint32)((uint32)30U << 8U) | (uint32)((uint32)3U << 3U)),
+=======
+        (0x00004007U | (uint32)((uint32)1U << 22U) | (uint32)((uint32)30U << 8U) | (uint32)((uint32)1U << 3U)),
+>>>>>>> 5537d18cef1e39320909df46c193755b23955143
         /* Data */
         15200128U,
         /* Reserved */
@@ -1366,7 +1374,7 @@ void hetInit(void)
                  | (uint32) 0x00000000U
                  | (uint32) 0x00000000U
                  | (uint32) 0x00000000U
-                 | (uint32) 0x00000000U
+                 | (uint32) 0x00020000U
                  | (uint32) 0x00000000U
                  | (uint32) 0x00000000U
                  | (uint32) 0x00000000U
@@ -1418,7 +1426,7 @@ void hetInit(void)
                      | (uint32) 0x00000000U
                      | (uint32) 0x00000000U
                      | (uint32) 0x00000000U
-                     | (uint32) 0x00000000U
+                     | (uint32) 0x00020000U
                      | (uint32) 0x00000000U
                      | (uint32) 0x00000000U
                      | (uint32) 0x00000000U
@@ -1932,5 +1940,71 @@ void het1GetConfigValue(het_config_reg_t *config_reg, config_value_type_t type)
     }
 }
 
+/* USER CODE BEGIN (5) */
+/* USER CODE END */
 
+/** @fn void het1HighLevelInterrupt(void)
+*   @brief Level 0 Interrupt for HET1
+*/
+#pragma CODE_STATE(het1HighLevelInterrupt, 32)
+#pragma INTERRUPT(het1HighLevelInterrupt, IRQ)
+
+/* SourceId : HET_SourceId_018 */
+/* DesignId : HET_DesignId_017 */
+/* Requirements : HL_SR371, HL_SR380, HL_SR381 */
+void het1HighLevelInterrupt(void)
+{
+    uint32 vec = hetREG1->OFF1;
+
+    if (vec < 18U)
+    {
+        if ((vec & 1U) != 0U)
+        {
+            pwmNotification(hetREG1,(vec >> 1U) - 1U, pwmEND_OF_PERIOD);
+        }
+        else
+        {
+            pwmNotification(hetREG1,(vec >> 1U) - 1U, pwmEND_OF_DUTY);
+        }
+    }
+    else
+    {
+        edgeNotification(hetREG1,vec - 18U);
+    }
+}
+
+/* USER CODE BEGIN (6) */
+/* USER CODE END */
+
+/** @fn void het1LowLevelInterrupt(void)
+*   @brief Level 1 Interrupt for HET1
+*/
+#pragma CODE_STATE(het1LowLevelInterrupt, 32)
+
+#pragma INTERRUPT(het1LowLevelInterrupt, IRQ)
+
+/* SourceId : HET_SourceId_019 */
+/* DesignId : HET_DesignId_017 */
+/* Requirements : HL_SR371, HL_SR380, HL_SR381 */
+void het1LowLevelInte
+rrupt(void)
+{
+    uint32 vec = hetREG1->OFF2;
+
+    if (vec < 18U)
+    {
+        if ((vec & 1U) != 0U)
+        {
+            pwmNotification(hetREG1,(vec >> 1U) - 1U, pwmEND_OF_PERIOD);
+        }
+        else
+        {
+            pwmNotification(hetREG1,(vec >> 1U) - 1U, pwmEND_OF_DUTY);
+        }
+    }
+    else
+    {
+        edgeNotification(hetREG1,vec - 18U);
+    }
+}
 

@@ -1,6 +1,7 @@
 /*
  * main.c
  *
+ *
  *  Created on: Jul 13, 2020
  *      Author: Mahmoud Ahmed
  */
@@ -111,13 +112,18 @@ int main(void)
     //readPWMValues(hetRAM1, pwmChannel);
 
     xphRtosInit();
-    vTaskStartScheduler();
+   // vTaskStartScheduler();
 
 
 
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
+<<<<<<< HEAD
     while (1);
+=======
+    while (1) updateIMDData();
+
+>>>>>>> 5537d18cef1e39320909df46c193755b23955143
 }
 
 

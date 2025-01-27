@@ -59,6 +59,7 @@
 #include "sys_dma.h"
 
 /* USER CODE BEGIN (0) */
+#include "hwConfig.h"
 #include "sys_main.h"
 #include "testinterface.h"
 #include "hwConfig.h"
@@ -207,6 +208,7 @@ void edgeNotification(hetBASE_t * hetREG,uint32 edge)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (37) */
+    return;
 /* USER CODE END */
 }
 
