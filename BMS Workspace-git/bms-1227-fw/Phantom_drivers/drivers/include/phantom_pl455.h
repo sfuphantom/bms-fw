@@ -14,7 +14,7 @@
 #include "hal_stdtypes.h"
 #include "stdint.h"
 
-#define CELLS_PER_BOARD   10
+#define CELLS_PER_BOARD   6
 #define BMSByteArraySize  66
 
 /* -- PL455 cell monitor register value defines --
@@ -68,6 +68,8 @@ typedef struct BMS_FLAGS{
 void BMS_init(void);
 void BMS_Read_Single(uint8_t device);
 void BMS_Read_All(bool update);
+void BMS_Read_Voltage(bool update);
+void BMS_Read_init();
 //void BMS_Read_All_NP_SIM();
 void BMS_ProcessState(void);
 void BMS_ReconnectSlave(uint8_t device);

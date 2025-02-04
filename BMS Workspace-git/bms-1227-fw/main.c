@@ -17,7 +17,7 @@
  *
  */
 
-#include <task_slave_pipeline.h>
+#include "task_slave_pipeline.h"
 #include "gio.h"
 #include "sci.h"
 #include "rti.h"
@@ -135,7 +135,6 @@ int main(void)
 
     // BMS slave testing loop
     //tp_sciInit(); // custom SCI init function
-
     sciInit();
     hetInit();
     //sciSetBaudrate(BMS_UART, BAUDRATE);

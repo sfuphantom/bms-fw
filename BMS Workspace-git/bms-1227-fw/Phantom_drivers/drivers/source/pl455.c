@@ -102,11 +102,11 @@ void WakePL455()
     int smallTime = 2800; // us
     int largeTime = 18; // ms
 
-    gioSetBit(gioPORTA, 7, 1);
+    gioSetBit(gioPORTA, 2, 1);
     delayms(200);
-    gioSetBit(gioPORTA, 7, 0);
+    gioSetBit(gioPORTA, 2, 0);
     delayus(200);
-    gioSetBit(gioPORTA, 7, 1);
+    gioSetBit(gioPORTA, 2, 1);
     delayms(200);
 /*
     // trying GIO_A7 as WAKE for BMS slave since HET1_9 seemed to be constantly high and would not respond to gioSetBit

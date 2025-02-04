@@ -562,11 +562,16 @@ void BMS_Slaves_Heartbeat(void)
 void BMS_Read_Thermistor() {
 
     // Set addresses for all boards in daisy-chain (section 1.2.3)
-    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
-    {
-        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
-        delayms(5);
-    }
+//    for (int nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+//    {
+//        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
+//        delayms(5);
+//    };
+
+//    for(int i = 0; i<2 ; i++){
+//        WriteReg(i, 10, i, 1, 0x70);
+//        delayms(5);
+//    }
 
     /* 7.6.3.3 CHANNELS - registers [3, 6]
      * [31, 16] == 0 to select zero voltage sense inputs
@@ -641,6 +646,108 @@ void BMS_Read_Thermistor() {
 
 
 
+}
+
+void BMS_Read_Voltage( bool update){
+    WriteReg(0, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+    WriteReg(0, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+
+    int nDev_ID;
+    if(update){
+        int nSent = WriteReg(0, 2, 0, 1, FRMWRT_ALL_R); // send sync sample command
+        if (nSent != 1) {
+            for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
+                BMS.CELL_RW_ERROR_FLAG[nDev_ID]++;
+            }
+        }
+        else {
+            for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
+                BMS.CELL_RW_ERROR_FLAG[nDev_ID] = 0;
+            }
+        }
+
+        delayms(10);
+        sciReceive(BMS_UART, BMSByteArraySize*TOTALBOARDS, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
+
+        delayms(10); // for the tms to record all the data first
+
+
+
+    }
+
+    BMSDataPtr->Data.minimumCellVoltage = 5; // set this to 5 since none of our cell voltages should ever be that high. therefore the next one will always be min
+
+    int j = 0; //changed this from uint8 to int
+    int i = 0; // changed this from sint8 to int
+    uint8 totalCellCount = TOTALCELLS*TOTALBOARDS;
+    uint8 cellCount = TOTALCELLS;
+    uint8 voltageLoopCounter = cellCount*2; // two bytes for each cell
+    uint8 auxLoopCounter = voltageLoopCounter;// + TOTALAUX*2;
+    for(i = 0; i< TOTALBOARDS; i++){
+        for(j = 0; j < voltageLoopCounter; j+=2 ){
+            double ADC_val = ((MultipleSlaveReading[j+BMSByteArraySize*i])*16*16) + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+            double volt_val = (tempVal/65535.0) * 5; //divide by 0xFFFF ---- multiply by 5 to get the final voltage value
+
+            if (i == 0) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_1[cellCount - 1] = volt_val;
+            }
+            else if (i == 1) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_2[cellCount - 1] = volt_val;
+            }
+            else if (i == 2) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_3[cellCount - 1] = volt_val;
+            }
+            else if (i == 3) {
+                BMSDataPtr->SlaveVoltage.BMS_Slave_4[cellCount - 1] = volt_val;
+            }
+
+            if (volt_val < BMSDataPtr->Data.minimumCellVoltage) {
+                BMSDataPtr->Data.minimumCellVoltage = volt_val;
+            }
+
+            totalCellCount--;
+            cellCount--;
+        }
+
+        cellCount = TOTALCELLS;
+    }
+
+    char buf[100];
+    if (BMS.TOTAL_CELL_ERROR_COUNTER > 4) {
+            BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = true;
+        }
+
+        if (TASK_PRINT) {
+            snprintf(buf, 26, "NUMBER OF CELL ERRORS: %d\n\r", BMS.TOTAL_CELL_ERROR_COUNTER);
+            UARTSend(PC_UART, buf);
+            UARTSend(PC_UART, "\n\r");
+        }
+
+        BMS.TOTAL_CELL_ERROR_COUNTER = 0;
+
+
+
+}
+
+void BMS_Read_init(){
+    char buf[100];
+    int nDev_ID = 0;
+
+    // Set addresses for all boards in daisy-chain (section 1.2.3)
+    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+    {
+        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
+        delayms(5);
+    }
+
+    WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR); // enable comms on top board
+
+
+    WriteReg(0, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+    WriteReg(0, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+
+//        WriteReg(1, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+//        WriteReg(1, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
 }
 
 /**

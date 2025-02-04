@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include "stdlib.h"
 #include "hwConfig.h"
+#include <stdlib.h>
 
 
 static unsigned char chr;
