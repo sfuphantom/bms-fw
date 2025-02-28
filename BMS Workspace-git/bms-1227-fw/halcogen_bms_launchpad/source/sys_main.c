@@ -63,23 +63,13 @@
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-<<<<<<< HEAD
 int main(void)
 {
 /* USER CODE BEGIN (3) */
-/* USER CODE END */
+///* USER CODE END */
 
     return 0;
 }
-=======
-//int main(void)
-//{
-///* USER CODE BEGIN (3) */
-///* USER CODE END */
-//
-//    return 0;
-//}
->>>>>>> 5537d18cef1e39320909df46c193755b23955143
 
 
 /* USER CODE BEGIN (4) */

@@ -55,7 +55,9 @@
 #include "gio.h"
 #include "mibspi.h"
 #include "sci.h"
+#include "spi.h"
 #include "het.h"
+#include "ecap.h"
 #include "sys_dma.h"
 
 /* USER CODE BEGIN (0) */
@@ -192,6 +194,26 @@ void sciNotification(sciBASE_t *sci, uint32 flags)
 
 /* USER CODE BEGIN (30) */
 /* USER CODE END */
+#pragma WEAK(spiNotification)
+void spiNotification(spiBASE_t *spi, uint32 flags)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (31) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (32) */
+/* USER CODE END */
+#pragma WEAK(spiEndNotification)
+void spiEndNotification(spiBASE_t *spi)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (33) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (34) */
+/* USER CODE END */
 
 #pragma WEAK(pwmNotification)
 void pwmNotification(hetBASE_t * hetREG,uint32 pwm, uint32 notification)
@@ -208,7 +230,6 @@ void edgeNotification(hetBASE_t * hetREG,uint32 edge)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (37) */
-    return;
 /* USER CODE END */
 }
 
@@ -237,6 +258,15 @@ void hetNotification(hetBASE_t *het, uint32 offset)
 /* USER CODE BEGIN (50) */
 /* USER CODE END */
 
+#pragma WEAK(ecapNotification)
+void ecapNotification(ecapBASE_t *ecap,uint16 flags)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (51) */
+/* USER CODE END */
+}
+/* USER CODE BEGIN (52) */
+/* USER CODE END */
 
 /* USER CODE BEGIN (53) */
 /* USER CODE END */

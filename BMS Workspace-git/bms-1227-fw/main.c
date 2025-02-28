@@ -63,7 +63,6 @@
 */
 
 /* USER CODE BEGIN (2) */
-void printRandoms(int lower, int upper, int count);
 
 
 int UART_RX_RDY = 0;
@@ -114,20 +113,12 @@ int main(void)
     xphRtosInit();
    // vTaskStartScheduler();
 
-
-
-
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
-<<<<<<< HEAD
     while (1);
-=======
-    while (1) updateIMDData();
 
->>>>>>> 5537d18cef1e39320909df46c193755b23955143
 }
-
-
 /* USER CODE BEGIN (4) */
+
 
 // Called periodically every 1ms
 void socTimer(TimerHandle_t xTimers)
@@ -173,3 +164,4 @@ void phantomSystemInit()
 
 /* USER CODE BEGIN (4) */
 /* USER CODE END */
+
