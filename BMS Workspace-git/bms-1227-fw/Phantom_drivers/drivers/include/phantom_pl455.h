@@ -17,6 +17,7 @@
 #define CELLS_PER_BOARD   6
 #define BMSByteArraySize  66
 
+//#define BMSByteArraySize  44
 /* -- PL455 cell monitor register value defines --
  * Use the datasheet and the software design reference guide (SDR) to make sense of these
  * Datasheet: https://www.digikey.com/en/htmldatasheets/production/1988959/0/0/1/bq76pl455apfcr#pf18

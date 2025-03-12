@@ -138,7 +138,7 @@ int main(void)
     sciInit();
     hetInit();
     //sciSetBaudrate(BMS_UART, BAUDRATE);
-    BMS_init();
+//    BMS_init();
     //CommClear();
     //CommReset();
     //WakePL455();
@@ -150,9 +150,11 @@ int main(void)
 //        delayms(5);
 //    }
 
-    //BMS_init();
+    BMS_init();
+//    BMS_Read_Init_V2();
     while(1) {
         BMS_Read_All(1);
+//        BMS_Read_Volt();
         //BMS_Read_Single(0);
         //getCurrentReadings();
         //delayms(50);

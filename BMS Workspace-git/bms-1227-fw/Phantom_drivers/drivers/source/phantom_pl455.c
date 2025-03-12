@@ -30,11 +30,16 @@ double tempVal = 0;
 double divided = 0;
 int nRead;
 
+uint8 ToSAddr;
+uint8 BoSAddr;
+
 uint8  SingleSlaveReading[BMSByteArraySize];
 uint8 MultipleSlaveReading[BMSByteArraySize*(TOTALBOARDS)];
+int BoardAddressReading[TOTALBOARDS] = {9, 9};
+
 
 volatile BMS_FLAGS BMS = {{0}, {0}, {0}, {0}, 0};
-BMS_SLAVE_STATE bmsSlaveState[TOTALBOARDS];
+BMS_SLAVE_STATE bmsSlaveState[TOTALBOARDS*2];
 
 extern bms_data* BMSDataPtr;
 
@@ -121,7 +126,19 @@ void BMS_init()
                 nSent = WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
                 delayms(5);
             }
+//            WriteReg(0, 10, 0x01, 1, FRMWRT_SGL_NR);
+//            delayms(5);
+//            WriteReg(1, 10, 0x01, 1, FRMWRT_SGL_NR);
+//            delayms(5);
+            //Mohnish
+            for(nDev_ID =0; nDev_ID < TOTALBOARDS; nDev_ID++){
+//                uint8 t = 9;
+                ReadReg(nDev_ID, 10, &BoardAddressReading[nDev_ID] , 1, 5);
+//                BoardAddressReading[nDev_ID] = t;
+            }
 
+            WriteReg(0, 40, 0x0, 1, FRMWRT_ALL_NR);
+//            WriteReg(1, 40, 0x0, 1, FRMWRT_ALL_NR);
             // Enable all communication interfaces on all boards in the stack (section 1.2.1)
             // not necessary here since there is already a switch statement below that does this
             //nSent = WriteReg(0, 16, 0x10F8, 2, FRMWRT_ALL_NR);  // set communications baud rate and enable all interfaces on all boards in stack
@@ -138,14 +155,14 @@ void BMS_init()
         // top board is 1
         // write to comconfig register 16
         // we want only FAULTL and COMML enabled
-        // 0x0028 == 0b 0001 0000 0111 1000
-        WriteReg(1, 16, 0x1078, 2, FRMWRT_SGL_NR);
+        // 0x1078 == 0b 0001 0000 0111 1000
+        WriteReg(1, 16, 0x1028, 2, FRMWRT_SGL_NR);
 
         // bottom board is zero
         // write to comcomfig register 16
         // enable UART, 250kbaud, FAULTH, COMH
         // 0x0868 == 0b 0001 0000 1111 1000
-        WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR);
+        WriteReg(0, 16, 0x10D8, 2, FRMWRT_SGL_NR);
 
         /*
        for (nDev_ID = TOTALBOARDS - 1; nDev_ID >= 0; --nDev_ID)
@@ -251,9 +268,15 @@ void BMS_init()
        }
 
 */
+        //Mohnish
+        for(nDev_ID = TOTALBOARDS - 1; nDev_ID >= 0; nDev_ID --){
+            nSent = WriteReg(nDev_ID, 82, 0xFFC0, 2, FRMWRT_SGL_NR); // clear all fault summary flags
+            nSent = WriteReg(nDev_ID, 81, 0x38, 1, FRMWRT_SGL_NR);
+            delayms(5);
+        }
         // Clear all faults (section 1.2.7)
-        nSent = WriteReg(0, 82, 0xFFC0, 2, FRMWRT_ALL_NR); // clear all fault summary flags
-        nSent = WriteReg(0, 81, 0x38, 1, FRMWRT_ALL_NR); // clear fault flags in the system status register
+//        nSent = WriteReg(0, 82, 0xFFC0, 2, FRMWRT_ALL_NR); // clear all fault summary flags
+//        nSent = WriteReg(0, 81, 0x38, 1, FRMWRT_ALL_NR); // clear fault flags in the system status register
 
         delayms(10);
 
@@ -262,27 +285,44 @@ void BMS_init()
 
         // Configure AFE (section 2.2.1)-------------------------------------------------------------------------------------------------
 
-        nDev_ID = 0;
-        nSent = WriteReg(nDev_ID, 60, 0x00, 1, FRMWRT_SGL_NR); // set 0 mux delay
-        nSent = WriteReg(nDev_ID, 61, 0x00, 1, FRMWRT_SGL_NR); // 0 initial delay
+//        nDev_ID = 1;
+        nSent = WriteReg(0, 60, 0x00, 1, FRMWRT_SGL_NR); // set 0 mux delay
+//        nSent = WriteReg(nDev_ID, 61, 0x00, 1, FRMWRT_SGL_NR); // 0 initial delay
+//
+        //Mohnish
+        for(nDev_ID = TOTALBOARDS-1; nDev_ID >=0; nDev_ID--){
+//            WriteReg(0, 61, 0x00, 1, FRMWRT_SGL_NR);
+            WriteReg(nDev_ID, 61, 0x00, 1, FRMWRT_SGL_NR);
+        }
         //nSent = WriteReg(nDev_ID, 62, 0xDD, 1, FRMWRT_SGL_NR);
 
         // Configure voltage and internal sample period (section 2.2.2)
-        nDev_ID = 0;
-        nSent = WriteReg(nDev_ID, 62, 0xEE, 1, FRMWRT_SGL_NR); // 500 us sampling for VSENSE inputs and internal die temp
-
+//        nDev_ID = 1;
+//        nSent = WriteReg(nDev_ID, 62, 0xEE, 1, FRMWRT_SGL_NR); // 500 us sampling for VSENSE inputs and internal die temp
+//        Mohnish
+        for(nDev_ID = TOTALBOARDS-1; nDev_ID >=0; nDev_ID--){
+            WriteReg(nDev_ID, 62, 0xEE, 1, FRMWRT_SGL_NR); // 500 us sampling for VSENSE inputs and internal die temp
+        }
 
         // Configure the oversampling rate (section 2.2.3)
-        nDev_ID = 0;
-        nSent = WriteReg(nDev_ID, 7, 0xFD, 1, FRMWRT_SGL_NR); // configure oversampling
+//        nDev_ID = 1;
+//        nSent = WriteReg(nDev_ID, 7, 0xFD, 1, FRMWRT_SGL_NR); // configure oversampling
+        //Mohnish
+        for(nDev_ID = TOTALBOARDS-1; nDev_ID >=0; nDev_ID--){
+            WriteReg(nDev_ID, 7, 0xFD, 1, FRMWRT_SGL_NR);
+        }
 
         // Clear and check faults (section 2.2.4)
-        nDev_ID = 0;
-        nSent = WriteReg(nDev_ID, 81, 0x38, 1, FRMWRT_SGL_NR); // clear fault flags in the system status register
-        nSent = WriteReg(nDev_ID, 82, 0xFFC0, 2, FRMWRT_SGL_NR); // clear all fault summary flags
-        nRead = ReadReg(nDev_ID, 81, &wTemp, 1, 0); // 0ms timeout
-        nRead = ReadReg(nDev_ID, 82, &wTemp, 2, 0); // 0ms timeout
-
+//        nDev_ID = 1;
+//        nSent = WriteReg(nDev_ID, 81, 0x38, 1, FRMWRT_SGL_NR); // clear fault flags in the system status register
+//        nSent = WriteReg(nDev_ID, 82, 0xFFC0, 2, FRMWRT_SGL_NR); // clear all fault summary flags
+//        nRead = ReadReg(nDev_ID, 81, &wTemp, 1, 0); // 0ms timeout
+//        nRead = ReadReg(nDev_ID, 82, &wTemp, 2, 0); // 0ms timeout
+//        Mohnish
+        for(nDev_ID = TOTALBOARDS-1; nDev_ID >=0; nDev_ID--){
+            WriteReg(nDev_ID, 81, 0x38, 1, FRMWRT_SGL_NR); // clear fault flags in the system status register
+            WriteReg(nDev_ID, 82, 0xFFC0, 2, FRMWRT_SGL_NR); // clear all fault summary flags
+        }
         // Select number of cells and channels to sample (section 2.2.5.1)
         nDev_ID = 0;
 
@@ -292,10 +332,10 @@ void BMS_init()
         // Set cell over-voltage and cell under-voltage thresholds on a single board (section 2.2.6.1)
 
         nDev_ID = 0;
-        nSent = WriteReg(nDev_ID, 144, 0xD70A, 2, FRMWRT_SGL_NR); // set OV threshold = 4.2000V
-        nSent = WriteReg(nDev_ID, 142, 0xA3D6, 2, FRMWRT_SGL_NR); // set UV threshold = 3.2000V
+        nSent = WriteReg(nDev_ID, 144, 0xD70A, 2, FRMWRT_ALL_NR); // set OV threshold = 4.2000V
+        nSent = WriteReg(nDev_ID, 142, 0xA3D6, 2, FRMWRT_ALL_NR); // set UV threshold = 3.2000V
 
-        nSent = WriteReg(nDev_ID, 120, 0x17, 1, FRMWRT_ALL_NR); // set GPIO direction for GPIO4 and GPIO[2:0] as outputs, GPIO3 and GPIO5 as inputs
+//        nSent = WriteReg(nDev_ID, 120, 0x17, 1, FRMWRT_ALL_NR); // set GPIO direction for GPIO4 and GPIO[2:0] as outputs, GPIO3 and GPIO5 as inputs
 
         // Configure cell-balancing (datasheet, Section 7.6.3.13)
         nDev_ID = 0;
@@ -729,6 +769,11 @@ void BMS_Read_Voltage( bool update){
 
 }
 
+void BMS_Read_Addr(){
+    ReadReg(0, 10, &BoardAddressReading[0], 1, 10);
+    ReadReg(1, 10, &BoardAddressReading[2], 1, 10);
+}
+
 void BMS_Read_init(){
     char buf[100];
     int nDev_ID = 0;
@@ -748,6 +793,234 @@ void BMS_Read_init(){
 
 //        WriteReg(1, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
 //        WriteReg(1, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+
+    BMS_Read_Addr();
+}
+
+
+
+
+void BMS_Read_Init_V2(){
+    delayms(100);
+    WriteReg(0, 210, 0x00, 1, FRMWRT_ALL_NR);
+    WriteReg(0, 211, 0x00, 1, FRMWRT_ALL_NR);
+    // All of the 1.2.X steps are used to properly set up boards and auto-addressing
+    /*
+     * SWD 1.2.1
+     * Communications Configuration - reg 16-17
+     * [15:14] = 0
+     * [13:12] = 01 -> select baud rate of 250K
+     * [11:8] = 0
+     * [7] = 1
+     * [6] = 1
+     * [5] = 1
+     * [4] = 1
+     * [3] = 1
+     * [2:0] = 0
+    */
+    sciSetBaudrate(BMS_UART, BAUDRATE);
+    delayms(20);
+    WriteReg(0, 16,0x10F8, 2, FRMWRT_ALL_NR);// test with the PDF values
+
+    /*
+     * SWD 1.2.2
+     * Device COnfiguration - reg 14
+     * [7:6] = 0
+     * [5] = 0
+     * [4] = 1
+     * [3:0] = 0
+     */
+    WriteReg(0, 14, 0x11, 1, FRMWRT_ALL_NR);// 0x10 - test
+    delayms(5);
+
+    /*
+     * SWD 1.2.2
+     * Device Control - reg 12
+     * [7:4] = 0
+     * [3] = 1
+     * [2:0] = 0*/
+    WriteReg(0, 12, 0x08, 1, FRMWRT_ALL_NR);
+    delayms(5);
+
+    //For loop to auto-address all the daisy chained boards
+    /*SWD 1.2.3
+     * Device Address - reg 10
+     * [7:5] = 0
+     * [4:0] = DEV_ADDR -> sets the device address that the device will respond to*/
+    int devNum;
+    for(devNum = 0; devNum< TOTALBOARDS;devNum++){
+        WriteReg(0, 10, devNum, 1, FRMWRT_ALL_NR);
+        delayms(5);
+    }
+
+    /*SWD 1.2.4
+     * */
+    uint8 boardAddr[TOTALBOARDS+1]; // a plus one to make sure that we get all the board addresses
+
+    for(devNum = 0; devNum <= TOTALBOARDS; devNum++){
+        ReadReg(devNum, 10, boardAddr[devNum], 1, 5); // not sure what time unit it uses for the 5
+    }
+
+    ToSAddr = boardAddr[TOTALBOARDS]; // top of stack address
+    BoSAddr = boardAddr[0]; // Bottom of Stack address
+    /*SWD 1.2.5
+     * Disable High-Side Reciever on Differential Interface on Top of Stack
+     * Communications Configuration - reg 16-17
+     * [15:14] = 0 -> RSVD
+     * [13:12] = 01 -> select baud rate of 250K
+     * [11:8] = 0 -> RSVD
+     * [7] = 0 -> UART_EN : single-ended transmitter interface
+     * [6] = 0 -> Disable high-side differential receiver interface
+     * [5] = 1 -> Enable differential low-side transmission interface
+     * [4] = 0 -> Disable high-side fault differential receiver interface
+     * [3] = 1 -> Disable differential fault output heartbeat
+     * [2:0] = 0 -> RSVD
+     * */
+    WriteReg(ToSAddr, 16, 0x1028 , 2, FRMWRT_SGL_NR);
+
+    /*SWD 1.2.6
+     * Disable Low-Side Transmitter on Differential Interface on Bottom of Stack
+     * [15:14] = 0 -> RSVD
+     * [13:12] = 01 -> select baud rate of 250K
+     * [11:8] = 0 -> RSVD
+     * [7] = 1 -> UART_EN : Enable single-ended transmitter interface
+     * [6] = 1 -> Enable high-side differential receiver interface
+     * [5] = 0 -> Disable differential low-side transmission interface
+     * [4] = 1 -> Enable high-side fault differential receiver interface
+     * [3] = 1 -> Disable differential fault output heartbeat
+     * [2:0] = 0 -> RSVD*/
+    WriteReg(BoSAddr, 16, 0x10D8, 2, FRMWRT_SGL_NR); // might want to do 0x10C0 - double check
+
+    /*SWD 1.2.7
+     * Fault Summary - reg 82-83
+     * Set all bits to 1 to reset all faults ([5:0] = 0 - RSVD)*/
+    for(devNum = ToSAddr; devNum >=0; devNum--){
+        WriteReg(devNum, 82, 0xFFC0, 2, FRMWRT_SGL_NR);
+        delayms(5);
+    }
+
+    //EVERYTHING ABOVE THIS SHOULD BE IT'S OWN FUNCTION CALLED INIT
+    // Configure Analog Front End - 2.2.X
+
+    /*SWD 2.2.1
+     *Initial Sampling Delay - reg 61
+     *[7] = 0 -> RSVD
+     *[6:4] = 0 -> no delay
+     *[3]  = 0 ->  RSVD
+     *[2:0] = 0 -> no delay
+     */
+    WriteReg(ToSAddr, 61, 0x00, 1, FRMWRT_SGL_NR); // FRMWRT_ALL_NR
+
+    /*SWD 2.2.2
+     * Cell Voltage and Internal Temperature Sampling Interval - reg 62
+     * [7:4] = E -> Value sets the ADC sampling interval that will be used for the cell voltages
+     * [3:0] = E ->  value sets the ADC sampling interval that will be used for the analog die internal temperature channel
+     * Both above are set to 500 us
+     * */
+    WriteReg(ToSAddr, 62, 0xEE, 1, FRMWRT_SGL_NR); // FRMWRT_ALL_NR
+
+    /*SWD 2.2.3
+     * Command Oversampling - reg 7
+     * [7] = 1
+     * [6:5] = 11
+     * [4:3] = 11
+     * [2:0] =  */
+    WriteReg(ToSAddr, 7, 0xFD, 1, FRMWRT_SGL_NR); // I said no oversampling but I think we should use it
+
+    /*SWD 2.2.4 - Clear and check faults
+     * Device Status - reg 81
+     * Fault Summary - reg 82*/
+
+    WriteReg(ToSAddr, 81, 0x38 , 1, FRMWRT_SGL_NR);
+    delayms(5);
+    WriteReg(ToSAddr, 82, 0xFFC0, 2, FRMWRT_SGL_NR);
+    delayms(5);
+
+    /*2.2.5.2 - Select Number of Cells and Channels on all Modules Simultaneously
+     *
+     * Number of channels - reg 13
+     * [7:5] = 0 -> RSVD
+     * [4:0] = 0A -> set 10 channels to read, might want to use a macro here...?
+     *
+     * Channel Select - reg 3
+     * [31:16] = 0000 0011 1111 1111 -> Choose which cells will read Voltages. This selects cells 1- 10
+     * [15:8] = 1111 1111 -> Choose which aux channels are used. Selects all 8 -> might want to make this 00 and enable them later..?
+     * [7] = 0 -> Disabled Digital die temperature
+     * [6] = 0 -> Disable analog die temperature
+     * [5] = 0 -> Disable VDD18 internal digital supply
+     * [4:3] = 00 -> RSVD
+     * [2] = 0
+     * [1] = 0
+     * [0] = 0
+     * */
+    WriteReg(FRMWRT_ALL_NR, 13, 0x0A , 1, FRMWRT_SGL_NR);
+    WriteReg(FRMWRT_ALL_NR, 3, 0x03FFFF00, 4, FRMWRT_SGL_NR);
+
+
+    /*2.2.6.2  Set Identical Cell Overvoltage and Undervoltage Thresholds on All Modules Simultaneously
+     *
+     * Cell Overvoltage Threshold - reg 144
+     * [15:2] =
+     * */
+    WriteReg(FRMWRT_ALL_NR, 144, 0xD70A, 2, FRMWRT_ALL_NR);// set OV threshold = 4.2000V
+    WriteReg(FRMWRT_ALL_NR, 142, 0xA3D6, 2, FRMWRT_ALL_NR);// set UV threshold = 3.2000V
+
+
+}
+
+void BMS_Read_Volt(){
+    /*
+     * Command - reg 2
+     * [7:6] = 0 -> RSVD
+     * [4:0] = ToSAddr
+     * 000 */
+    WriteReg(ToSAddr, 2, ToSAddr, 1, FRMWRT_ALL_R);
+    sciReceive(BMS_UART, BMSByteArraySize, MultipleSlaveReading);
+    char buf[100];
+
+    BMSDataPtr->Data.minimumCellVoltage = 5; // set this to 5 since none of our cell voltages should ever be that high. therefore the next one will always be min
+        uint8 j = 0;
+        sint8 i = 0;
+        uint8 totalCellCount = TOTALCELLS*TOTALBOARDS;
+        uint8 cellCount = TOTALCELLS;
+        uint8 voltageLoopCounter = cellCount*2; // two bytes for each cell
+        uint8 auxLoopCounter = voltageLoopCounter;// + TOTALAUX*2;
+        for (i = TOTALBOARDS-1; i > -1; i--) {
+            // start at 1 since we will disregard the first byte (header containing response size)
+            for (j = 1; j < voltageLoopCounter; j = j + 2) {
+                if (j == 0) {
+                    if (TASK_PRINT) {
+                        snprintf(buf, 30, "Header -> Decimal: %d, Hex: %X\n\n\r", MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+BMSByteArraySize*i]);
+                        UARTSend(PC_UART, buf);
+                    }
+                    continue;
+                }
+    //            BMSByteArraySize = 22;
+                tempVal = ((MultipleSlaveReading[j+BMSByteArraySize*i])*16*16) + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+                divided = tempVal/65535.0; //divide by 0xFFFF
+                fin = divided * 5.0; // multipy by 5 to get the final voltage value
+
+                if (i == 0) {
+                    BMSDataPtr->SlaveVoltage.BMS_Slave_1[cellCount - 1] = fin;
+                }
+                if (i == 1) {
+                    BMSDataPtr->SlaveVoltage.BMS_Slave_2[cellCount - 1] = fin;
+                }
+                if (i == 2) {
+                    BMSDataPtr->SlaveVoltage.BMS_Slave_3[cellCount - 1] = fin;
+                }
+                if (i == 3) {
+                    BMSDataPtr->SlaveVoltage.BMS_Slave_4[cellCount - 1] = fin;
+                }
+
+                if (fin < BMSDataPtr->Data.minimumCellVoltage) {
+                    BMSDataPtr->Data.minimumCellVoltage = fin;
+                }
+                totalCellCount--;
+                cellCount--;
+            }
+                cellCount = TOTALCELLS;
+        }
 }
 
 /**
@@ -762,26 +1035,27 @@ void BMS_Read_All(bool update)
     char buf[100];
     int nDev_ID = 0;
 
-    // Set addresses for all boards in daisy-chain (section 1.2.3)
-    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
-    {
-        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
-        delayms(5);
-    }
+//    // Set addresses for all boards in daisy-chain (section 1.2.3)
+//    for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++)
+//    {
+//        WriteReg(nDev_ID, 10, nDev_ID, 1, FRMWRT_ALL_NR); // send address to each board
+//        delayms(5);
+//    }
+//
+//    WriteReg(1, 16, 0x1078, 2, FRMWRT_SGL_NR); // enable comms on top board
+//
+//    WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR); // enable comms on top board
 
-    WriteReg(1, 16, 0x1078, 2, FRMWRT_SGL_NR); // enable comms on top board
 
-    WriteReg(0, 16, 0x10F8, 2, FRMWRT_SGL_NR); // enable comms on top board
-
-
-    WriteReg(0, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
-    WriteReg(0, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
-
-    WriteReg(1, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
-    WriteReg(1, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+//    WriteReg(0, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+//    WriteReg(0, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
+//
+//    WriteReg(1, 13, PL455_NUMCAHNNEL_10VSENSE_13, 1, FRMWRT_ALL_NR); // set number of cells to 10
+//    WriteReg(1, 3, PL455_CHANNELS_10CELL_NOAUX_3, 4, FRMWRT_ALL_NR); // select 10 cells, no aux or temps
 
     if (update) {
-        int nSent = WriteReg(0, 2, 0, 1, FRMWRT_ALL_R); // send sync sample command
+        //TOTALBOARDS - 1 was prev 0
+        int nSent = WriteReg(0, 2, 1, 1, FRMWRT_ALL_R); // send sync sample command
         if (nSent != 1) {
             for (nDev_ID = 0; nDev_ID < TOTALBOARDS; nDev_ID++) {
                 BMS.CELL_RW_ERROR_FLAG[nDev_ID]++;
@@ -794,9 +1068,9 @@ void BMS_Read_All(bool update)
         }
 
         delayms(10);
-        sciReceive(BMS_UART, BMSByteArraySize*TOTALBOARDS, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
+        sciReceive(BMS_UART, BMSByteArraySize, MultipleSlaveReading); //1 header, 32x2 cells, 2x16 AUX, 4 dig die, 4 ana die, 2 CRC
 
-        delayms(10); // for the tms to record all the data first
+        delayms(1000); // for the tms to record all the data first
     }
 
     BMSDataPtr->Data.minimumCellVoltage = 5; // set this to 5 since none of our cell voltages should ever be that high. therefore the next one will always be min
@@ -806,7 +1080,7 @@ void BMS_Read_All(bool update)
     uint8 cellCount = TOTALCELLS;
     uint8 voltageLoopCounter = cellCount*2; // two bytes for each cell
     uint8 auxLoopCounter = voltageLoopCounter;// + TOTALAUX*2;
-    //for (i = TOTALBOARDS-1; i > -1; i--) {
+    for (i = TOTALBOARDS-1; i > -1; i--) {
         // start at 1 since we will disregard the first byte (header containing response size)
         for (j = 1; j < voltageLoopCounter; j = j + 2) {
             if (j == 0) {
@@ -816,7 +1090,7 @@ void BMS_Read_All(bool update)
                 }
                 continue;
             }
-
+//            BMSByteArraySize = 22;
             tempVal = ((MultipleSlaveReading[j+BMSByteArraySize*i])*16*16) + MultipleSlaveReading[j+1+BMSByteArraySize*i];
             divided = tempVal/65535.0; //divide by 0xFFFF
             fin = divided * 5.0; // multipy by 5 to get the final voltage value
@@ -880,42 +1154,42 @@ void BMS_Read_All(bool update)
             cellCount--;
         }
             cellCount = TOTALCELLS;
-    //}
-
-    uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
-    for (i = TOTALBOARDS-1; i > -1; i--) {
-        for (j = voltageLoopCounter; j < auxLoopCounter; j = j + 2) {
-            
-            //int tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
-            //double div = tempVal/65535.0; //FFFF
-            //double fin = div * 5.0;
-            double resistance = 10000*(fin/(4.56-fin));
-
-            // TODO: Check for high temperature -> Indicate on BMS.TOTAL_CELL_ERROR_COUNTER
-
-            if (TASK_PRINT) {
-                snprintf(buf, 70, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
-                UARTSend(PC_UART, buf);
-                UARTSend(PC_UART, "\n\r");
-            }
-            
-            auxCount--;
-        }
-
-        double digDieTemp = ((((MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i])/65535.0)*5) - 2.287) * 131.944;
-        double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
-        
-        if (TASK_PRINT) {
-            snprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
-            UARTSend(PC_UART, buf);
-            UARTSend(PC_UART, "\n\r");
-
-            snprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
-            UARTSend(PC_UART, buf);
-            UARTSend(PC_UART, "\n\r");
-        }
-
     }
+
+//    uint8 auxCount = TOTALAUX*TOTALBOARDS-1;
+//    for (i = TOTALBOARDS-1; i > -1; i--) {
+//        for (j = voltageLoopCounter; j < auxLoopCounter; j = j + 2) {
+//
+//            //int tempVal = MultipleSlaveReading[j+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[j+1+BMSByteArraySize*i];
+//            //double div = tempVal/65535.0; //FFFF
+//            //double fin = div * 5.0;
+//            double resistance = 10000*(fin/(4.56-fin));
+//
+//            // TODO: Check for high temperature -> Indicate on BMS.TOTAL_CELL_ERROR_COUNTER
+//
+//            if (TASK_PRINT) {
+//                snprintf(buf, 70, "AUX %d: Hex: %X %X Voltage: %fV Resistance: %f Ohms\n\n\r", auxCount, MultipleSlaveReading[j+BMSByteArraySize*i], MultipleSlaveReading[j+1+BMSByteArraySize*i], fin, resistance);
+//                UARTSend(PC_UART, buf);
+//                UARTSend(PC_UART, "\n\r");
+//            }
+//
+//            auxCount--;
+//        }
+//
+//        double digDieTemp = ((((MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i])/65535.0)*5) - 2.287) * 131.944;
+//        double anaDieTemp = ((((MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i]*16*16 + MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i])/65535.0)*5) - 1.8078) * 147.514;
+//
+//        if (TASK_PRINT) {
+//            snprintf(buf, 50, "Digital Die: Hex: %X %X Temp: %f degrees C\n\r", MultipleSlaveReading[auxLoopCounter+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+1+BMSByteArraySize*i], digDieTemp);
+//            UARTSend(PC_UART, buf);
+//            UARTSend(PC_UART, "\n\r");
+//
+//            snprintf(buf, 49, "Analog Die: Hex: %X %X Temp: %f degrees C\n\n\r", MultipleSlaveReading[auxLoopCounter+2+BMSByteArraySize*i], MultipleSlaveReading[auxLoopCounter+3+BMSByteArraySize*i], anaDieTemp);
+//            UARTSend(PC_UART, buf);
+//            UARTSend(PC_UART, "\n\r");
+//        }
+//
+//    }
 
     if (BMS.TOTAL_CELL_ERROR_COUNTER > 4) {
         BMSDataPtr->Flags.TOTAL_CELL_ERROR_FLAG = true;
