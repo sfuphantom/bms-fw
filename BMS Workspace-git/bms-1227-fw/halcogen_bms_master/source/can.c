@@ -274,6 +274,176 @@ void canInit(void)
     canREG1->CTL &= ~(uint32)(0x00000041U);
 
 
+    /** @b Initialize @b CAN2: */
+
+    /** - Setup control register
+    *     - Disable automatic wakeup on bus activity
+    *     - Local power down mode disabled
+    *     - Disable DMA request lines
+    *     - Enable global Interrupt Line 0 and 1
+    *     - Disable debug mode
+    *     - Release from software reset
+    *     - Enable/Disable parity or ECC
+    *     - Enable/Disable auto bus on timer
+    *     - Setup message completion before entering debug state
+    *     - Setup normal operation mode
+    *     - Request write access to the configuration registers
+    *     - Setup automatic retransmission of messages
+    *     - Disable error interrupts
+    *     - Disable status interrupts
+    *     - Enter initialization mode
+    */
+    canREG2->CTL = (uint32)0x00000000U 
+                 | (uint32)0x00000000U 
+                 | (uint32)((uint32)0x00000005U << 10U)
+                 | 0x00020043U;
+
+    /** - Clear all pending error flags and reset current status */
+    canREG2->ES |= 0xFFFFFFFFU;
+
+    /** - Assign interrupt level for messages */
+    canREG2->INTMUXx[0U] = (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U;
+
+    canREG2->INTMUXx[1U] = (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U
+                         | (uint32)0x00000000U;
+
+
+    /** - Setup auto bus on timer period */
+    canREG2->ABOTR = (uint32)0U;
+
+
+    /** - Initialize message 1 
+    *     - Wait until IF1 is ready for use 
+    *     - Set message mask
+    *     - Set message control word
+    *     - Set message arbitration
+    *     - Set IF1 control byte
+    *     - Set IF1 message number
+    */
+    /*SAFETYMCUSW 28 D MR:NA <APPROVED> "Potentially infinite loop found - Hardware Status check for execution sequence" */
+    while ((canREG2->IF1STAT & 0x80U) ==0x80U)
+    { 
+    } /* Wait */
+
+
+    canREG2->IF1MSK  = 0xC0000000U | (uint32)((uint32)((uint32)0x000007FFU & (uint32)0x1FFFFFFFU) << (uint32)0U);
+    canREG2->IF1ARB  = (uint32)0x80000000U | (uint32)0x40000000U | (uint32)0x00000000U | (uint32)((uint32)((uint32)1U & (uint32)0x1FFFFFFFU) << (uint32)0U);
+    canREG2->IF1MCTL = 0x00001000U | (uint32)0x00000000U | (uint32)0x00000000U | (uint32)0x00000000U | (uint32)8U;
+    canREG2->IF1CMD  = (uint8) 0xF8U;
+    canREG2->IF1NO   = 1U;
+
+    /** - Setup IF1 for data transmission 
+    *     - Wait until IF1 is ready for use 
+    *     - Set IF1 control byte
+    */
+    /*SAFETYMCUSW 28 D MR:NA <APPROVED> "Potentially infinite loop found - Hardware Status check for execution sequence" */
+    while ((canREG2->IF1STAT & 0x80U) ==0x80U)
+    { 
+    } /* Wait */
+    canREG2->IF1CMD  = 0x87U;
+
+    /** - Setup IF2 for reading data
+    *     - Wait until IF1 is ready for use 
+    *     - Set IF1 control byte
+    */
+    /*SAFETYMCUSW 28 D MR:NA <APPROVED> "Potentially infinite loop found - Hardware Status check for execution sequence" */
+    while ((canREG2->IF2STAT & 0x80U) ==0x80U)
+    { 
+    } /* Wait */
+    canREG2->IF2CMD = 0x17U;
+
+    /** - Setup bit timing 
+    *     - Setup baud rate prescaler extension
+    *     - Setup TSeg2
+    *     - Setup TSeg1
+    *     - Setup sample jump width
+    *     - Setup baud rate prescaler
+    */
+    canREG2->BTR = (uint32)((uint32)0U << 16U) |
+                   (uint32)((uint32)(2U - 1U) << 12U) |
+                   (uint32)((uint32)((3U + 2U) - 1U) << 8U) |
+                   (uint32)((uint32)(2U - 1U) << 6U) |
+                   (uint32)19U;		
+
+
+   /** - CAN2 Port output values */
+    canREG2->TIOC =  (uint32)((uint32)1U  << 18U )
+                   | (uint32)((uint32)0U  << 17U )
+                   | (uint32)((uint32)0U  << 16U )  
+                   | (uint32)((uint32)1U  << 3U )  
+                   | (uint32)((uint32)1U  << 2U )    
+                   | (uint32)((uint32)1U << 1U );
+                   
+    canREG2->RIOC =  (uint32)((uint32)1U  << 18U )    
+                   | (uint32)((uint32)0U  << 17U )  
+                   | (uint32)((uint32)0U  << 16U )   
+                   | (uint32)((uint32)1U  << 3U )  
+                   | (uint32)((uint32)0U  << 2U )
+                   | (uint32)((uint32)0U <<1U );   
+
+    /** - Leave configuration and initialization mode  */
+    canREG2->CTL &= ~(uint32)(0x00000041U);
 
 
     /**   @note This function has to be called before the driver can be used.\n
@@ -1241,6 +1411,57 @@ void can1GetConfigValue(can_config_reg_t *config_reg, config_value_type_t type)
         config_reg->CONFIG_RIOC    = canREG1->RIOC;   
     }
 }
+/** @fn void can2GetConfigValue(can_config_reg_t *config_reg, config_value_type_t type)
+*   @brief Get the initial or current values of the CAN2 configuration registers
+*
+*    @param[in] *config_reg: pointer to the struct to which the initial or current 
+*                           value of the configuration registers need to be stored
+*    @param[in] type:     whether initial or current value of the configuration registers need to be stored
+*                        - InitialValue: initial value of the configuration registers will be stored 
+*                                       in the struct pointed by config_reg
+*                        - CurrentValue: initial value of the configuration registers will be stored 
+*                                       in the struct pointed by config_reg
+*
+*   This function will copy the initial or current value (depending on the parameter 'type') 
+*   of the configuration registers to the struct pointed by config_reg
+*
+*/
+/* SourceId : CAN_SourceId_018 */
+/* DesignId : CAN_DesignId_017 */
+/* Requirements : HL_SR224 */
+void can2GetConfigValue(can_config_reg_t *config_reg, config_value_type_t type)
+{
+    if (type == InitialValue)
+    {
+        config_reg->CONFIG_CTL     = CAN2_CTL_CONFIGVALUE;    
+        config_reg->CONFIG_ES      = CAN2_ES_CONFIGVALUE;     
+        config_reg->CONFIG_BTR     = CAN2_BTR_CONFIGVALUE;    
+        config_reg->CONFIG_TEST    = CAN2_TEST_CONFIGVALUE;   
+        config_reg->CONFIG_ABOTR   = CAN2_ABOTR_CONFIGVALUE;  
+        config_reg->CONFIG_INTMUX0 = CAN2_INTMUX0_CONFIGVALUE;
+        config_reg->CONFIG_INTMUX1 = CAN2_INTMUX2_CONFIGVALUE;
+        config_reg->CONFIG_INTMUX2 = CAN2_INTMUX2_CONFIGVALUE;
+        config_reg->CONFIG_INTMUX3 = CAN2_INTMUX3_CONFIGVALUE;
+        config_reg->CONFIG_TIOC    = CAN2_TIOC_CONFIGVALUE;   
+        config_reg->CONFIG_RIOC    = CAN2_RIOC_CONFIGVALUE;    
+    }
+    else
+    {
+    /*SAFETYMCUSW 134 S MR:12.2 <APPROVED> "LDRA Tool issue" */
+        config_reg->CONFIG_CTL     = canREG2->CTL;   
+        config_reg->CONFIG_ES      = canREG2->ES;     
+        config_reg->CONFIG_BTR     = canREG2->BTR;    
+        config_reg->CONFIG_TEST    = canREG2->TEST;   
+        config_reg->CONFIG_ABOTR   = canREG2->ABOTR;  
+        config_reg->CONFIG_INTMUX0 = canREG2->INTMUXx[0];
+        config_reg->CONFIG_INTMUX1 = canREG2->INTMUXx[1];
+        config_reg->CONFIG_INTMUX2 = canREG2->INTMUXx[2];
+        config_reg->CONFIG_INTMUX3 = canREG2->INTMUXx[3];
+        config_reg->CONFIG_TIOC    = canREG2->TIOC;
+        config_reg->CONFIG_RIOC    = canREG2->RIOC;   
+    }
+}
+
 
 
 

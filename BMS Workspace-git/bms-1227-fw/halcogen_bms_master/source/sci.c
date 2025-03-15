@@ -166,7 +166,7 @@ void sciInit(void)
     scilinREG->GCR1 = (uint32)((uint32)1U << 25U)  /* enable transmit */
                     | (uint32)((uint32)1U << 24U)  /* enable receive */
                     | (uint32)((uint32)1U << 5U)   /* internal clock (device has no clock pin) */
-                    | (uint32)((uint32)(1U-1U) << 4U)  /* number of stop bits */
+                    | (uint32)((uint32)(2U-1U) << 4U)  /* number of stop bits */
                     | (uint32)((uint32)0U << 3U)  /* even parity, otherwise odd */
                     | (uint32)((uint32)0U << 2U)  /* enable parity */
                     | (uint32)((uint32)1U << 1U);  /* asynchronous timing mode */
@@ -183,12 +183,12 @@ void sciInit(void)
 
 
     /** - set SCI pins default output value */
-    scilinREG->PIO3 = (uint32)((uint32)1U << 2U)  /* tx pin */
+    scilinREG->PIO3 = (uint32)((uint32)0U << 2U)  /* tx pin */
                     | (uint32)((uint32)0U << 1U); /* rx pin */
 
 
     /** - set SCI pins output direction */
-    scilinREG->PIO1 = (uint32)((uint32)1U << 2U)  /* tx pin */
+    scilinREG->PIO1 = (uint32)((uint32)0U << 2U)  /* tx pin */
                     | (uint32)((uint32)0U << 1U); /* rx pin */
 
 
@@ -199,7 +199,7 @@ void sciInit(void)
 
     /** - set SCI pins pullup/pulldown enable */
     scilinREG->PIO7 = (uint32)((uint32)0U << 2U)  /* tx pin */
-                    | (uint32)((uint32)1U << 1U); /* rx pin */
+                    | (uint32)((uint32)0U << 1U); /* rx pin */
 
 
     /** - set SCI pins pullup/pulldown select */

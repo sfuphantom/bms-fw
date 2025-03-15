@@ -48,6 +48,9 @@
 // Includes for HV Voltage reading driver test
 
 /* USER CODE BEGIN (1) */
+#include "can.h"
+#include "system.h"
+#include "sci.h"
 /* USER CODE END */
 
 /** @fn void main(void)
@@ -69,11 +72,20 @@ int RTI_TIMEOUT = 0;
  *                          STATE ENUMERATION
  *********************************************************************************/
 BMSState_t BMSState;
+
+#define D_SIZE 9
+
+uint8 tx_data[D_SIZE] = {'H', 'E', 'R', 'C', 'U', 'L', 'E', 'S', '\0'};
+uint32 checkPackets(uint8 *src_packet, uint8 *dst_packet, uint32 psize);
+
+uint8 rx_data[D_SIZE] = {0};
+uint32 error = 0;
 /* USER CODE END */
 
 int main(void)
   {
     /* USER CODE BEGIN (3) */
+    /*
     UARTprintf("begin main");
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
@@ -111,11 +123,62 @@ int main(void)
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while(1);
+    */
+
+    //Initialize can 1 for transmitting and can2 for receiving
+        canInit();
+
+        //Initialize sci for receiving
+        sciInit();
+
+        //transmit on can1
+        canTransmit(canREG1, CANMESSAGE_BOX1, tx_data);
+
+        while(!canIsRxMessageArrived(canREG2, CANMESSAGE_BOX1));
+        canGetData(canREG2, CANMESSAGE_BOX1, rx_data);
+
+        sciSend(scilinREG, D_SIZE, rx_data);
+
+        error = checkPackets(&tx_data[0], &rx_data[0], D_SIZE);
+
+
+        //run forever
+        while(1);
+        return 0;
 }
 
 
 
 /* USER CODE BEGIN (4) */
+
+uint32 checkPackets(uint8 *src_packet, uint8 *dst_packet, uint32 psize){
+    uint32 err = 0;
+    uint32 cnt = psize;
+
+    while(cnt--){
+        if((*src_packet++) != (*dst_packet++)){
+            err++;
+        }
+    }
+    return err;
+}
+
+void canMessageNotification(canBASE_t *node, uint32 messageBox ){
+    return;
+}
+
+void canErrorNotification(canBASE_t *node, uint32 notification){
+    return;
+}
+
+void esmGroup1Notification(unsigned channel){
+    return;
+}
+
+void esmGroup2Notification(unsigned channel){
+    return;
+}
+
 
 // Called periodically every 1ms
 void socTimer(TimerHandle_t xTimers)

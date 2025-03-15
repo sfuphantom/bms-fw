@@ -295,7 +295,7 @@ extern "C" {
 #define PINMUX_PIN_53_EQEP1A                 ((uint32)((uint32)0x4U <<  PINMUX_PIN_53_SHIFT))
 
 #define PINMUX_PIN_54_MIBSPI3NENA            ((uint32)((uint32)0x1U <<  PINMUX_PIN_54_SHIFT))
-#define CHARGER_ENABLE_PIN                   ((uint32)((uint32)0x2U <<  PINMUX_PIN_54_SHIFT))
+#define PINMUX_PIN_54_MIBSPI3NCS_5           ((uint32)((uint32)0x2U <<  PINMUX_PIN_54_SHIFT))
 #define PINMUX_PIN_54_HET1_31                ((uint32)((uint32)0x4U <<  PINMUX_PIN_54_SHIFT))
 #define PINMUX_PIN_54_EQEP1B                 ((uint32)((uint32)0x8U <<  PINMUX_PIN_54_SHIFT))
 
