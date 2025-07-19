@@ -65,6 +65,16 @@ void printRandoms(int lower, int upper, int count);
 int UART_RX_RDY = 0;
 int RTI_TIMEOUT = 0;
 
+/*CAN DEFINE*/
+
+#define  D_SIZE 9
+
+uint8  tx_data[D_SIZE]  = {'H','E','R','C','U','L','E','S','\0'};
+// uint8 tx_data[D_SIZE] = {0,0,0,0,0,0,0,0,0};
+uint8  rx_data[D_SIZE] = {0};
+uint32 error = 0;
+
+
 /*********************************************************************************
  *                          STATE ENUMERATION
  *********************************************************************************/
@@ -75,39 +85,63 @@ int main(void)
   {
     /* USER CODE BEGIN (3) */
     UARTprintf("begin main");
-    initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-    phantomSystemInit();
+    // initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
+    // phantomSystemInit();
 
-    // Register the BMS agent and actor tasks:
-    //if(!initSlavePipeline())
-    if(false)
-    {
-        while(true){
-            // TODO: spam printing debug messages
-            UARTprintf("Unable to initialize slave pipeline!\r\n");
-        }
-    }
-    // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
+    // // Register the BMS agent and actor tasks:
+    // //if(!initSlavePipeline())
+    // if(false)
+    // {
+    //     while(true){
+    //         // TODO: spam printing debug messages
+    //         UARTprintf("Unable to initialize slave pipeline!\r\n");
+    //     }
+    // }
+    // // BMS_init();      // Initialize BMS slaves. Initialization must be re-added after PL455 rewrite.
 
-    // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
+    // // TODO: Initialize modern temperature here. Replaces line: InitializeTemperature() and setupThermistor()
 
-    if (true)
-    { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
-        BMSState = BMS_CHARGING;
-    }
-    else
-    {
-        BMSState = BMS_RUNNING;
-    }
+    // if (true)
+    // { // Pin 17 on X1 connector (MIBSPI3_NCS_5) is used to indicate charging mode
+    //     BMSState = BMS_CHARGING;
+    // }
+    // else
+    // {
+    //     BMSState = BMS_RUNNING;
+    // }
 
 
 
 
     // initializes all FreeRTOS tasks and timers
-    xphRtosInit();
+    // xphRtosInit();
 
-    // start FreeRTOS task scheduling
-    vTaskStartScheduler();
+    // // start FreeRTOS task scheduling
+    // vTaskStartScheduler();
+
+
+    /*START OF CAN*/
+    /* initialize can 1 and 2   */
+    canInit(); /* can1 -> can2 */                                      
+
+    /* transmit on can1 */
+    // while(1){
+    //     canTransmit(canREG1, canMESSAGE_BOX1, tx_data); 
+    // }
+
+    /*... wait until message receive on can2 */
+    while(!canIsRxMessageArrived(canREG2, canMESSAGE_BOX2));
+    canGetData(canREG2, canMESSAGE_BOX2, rx_data);  /* receive on can2  */
+    char rx[100];
+    int i = 0;
+    for ( i = 0; i < D_SIZE; i++) {
+        sprintf(rx, "%u", rx_data[i]);  // Convert single byte to string
+        UARTprintf(rx);  // Print the string (from the beginning)
+    }
+    
+    /* check received data patterns */
+    // error = checkPackets(&tx_data[0],&rx_data[0],D_SIZE);
+
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
     while(1);
