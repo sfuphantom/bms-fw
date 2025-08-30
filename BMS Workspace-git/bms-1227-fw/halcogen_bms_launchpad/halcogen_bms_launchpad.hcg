@@ -416,7 +416,9 @@
       <HDRECAP>
         <NAME>ecap.h</NAME>
       </HDRECAP>
-      <SRCECAP/>
+      <SRCECAP>
+        <NAME>ecap.c</NAME>
+      </SRCECAP>
       <HDREQEP_R>
         <NAME>reg_eqep.h</NAME>
       </HDREQEP_R>
@@ -758,7 +760,7 @@
         <PATH>include\ecap.h</PATH>
       </HDRECAP>
       <SRCECAP>
-        <PATH/>
+        <PATH>source\ecap.c</PATH>
       </SRCECAP>
     </FILENAMES>
   </ECAP>

@@ -468,10 +468,10 @@ typedef struct etpwm_config_reg
 
 #define ETPWM1_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
 #define ETPWM1_TBPHS_CONFIGVALUE          0x00000000U
-#define ETPWM1_TBPRD_CONFIGVALUE          1000U
+#define ETPWM1_TBPRD_CONFIGVALUE          79U
 #define ETPWM1_CMPCTL_CONFIGVALUE         0x00000000U
-#define ETPWM1_CMPA_CONFIGVALUE           50U
-#define ETPWM1_CMPB_CONFIGVALUE           50U
+#define ETPWM1_CMPA_CONFIGVALUE           40U
+#define ETPWM1_CMPB_CONFIGVALUE           40U
 #define ETPWM1_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
 #define ETPWM1_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
 #define ETPWM1_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
@@ -483,7 +483,7 @@ typedef struct etpwm_config_reg
 #define ETPWM1_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
 #define ETPWM1_ETSEL_CONFIGVALUE          ((uint16)(((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
 #define ETPWM1_ETPS_CONFIGVALUE           ((uint16)1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
-#define ETPWM1_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)3U << 8U) | (uint16)((uint16)0U << 5U))
+#define ETPWM1_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)3U << 8U) | (uint16)((uint16)0U << 5U))
 #define ETPWM1_DCTRIPSEL_CONFIGVALUE      0x00000000U
 #define ETPWM1_DCACTL_CONFIGVALUE         0x00000000U
 #define ETPWM1_DCBCTL_CONFIGVALUE         0x00000000U

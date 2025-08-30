@@ -40,9 +40,11 @@ void testBMSBalance(void)
 	return;
 }
 
-int main()
-{
-	// testBMSBalance();
 
-	return 0;
-}
+///////////////////////////////////////////////this was causing errors,
+//int main()
+//{
+//	// testBMSBalance();
+//
+//	return 0;
+//}

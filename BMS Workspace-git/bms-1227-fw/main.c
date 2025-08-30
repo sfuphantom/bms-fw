@@ -17,7 +17,11 @@
  *  GIOA1       -> bq76PL455A-Q1 EVM J3 pin 2 (nFAULT)
  *
  */
-
+#include "stdio.h"
+#include "system.h"
+#include "etpwm.h"
+#include "ecap.h"
+#include "hal_stdtypes.h"
 
 #include "task_imd.h"
 #include <task_slave_pipeline.h>
@@ -74,9 +78,13 @@ int RTI_TIMEOUT = 0;
 extern BMSState_t BMSState;
 /* USER CODE END */
 
+float64 globle_period,globle_duty;
+const ecapBASE_t* ecapREG1G = 0xFCF79300U;
+
 int main(void)
 {
     /* USER CODE BEGIN (3) */
+//    do{
 
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
     phantomSystemInit();
@@ -100,24 +108,91 @@ int main(void)
 //    else
 //    {
 //        BMSState = BMS_RUNNING;
-//    }
+//     }
 
-    // Use J4 Pin 40 (HET Pin 19) for PWM
-    hetSIGNAL_t capturedSignal; // Capture signal and read PWM values
-    capGetSignal(hetRAM1, ecapGetCAP1(ecapREG1) , &capturedSignal); // Capture signal values
+    //etpwmInit();
+    ecapInit();
+
+//    uint32 C1=0;
+//    uint32 C2=0;
+//    uint32 C3=0;
+//    uint32 P = 0;
+//    uint32 P_D = 0;
+//    uint32 duty = 0;
+//    uint32 freq = 0;
+
+    hetSIGNAL_t * capturedSignal;
+
+//    while(1){
+
+//        uint32 iter=0;
+//        while(iter<10000){iter++;
+//
+//        // Use J4 Pin 40 (HET Pin 19) for PWM
+//            //hetSIGNAL_t * capturedSignal; // Capture signal and read PWM values
+////            capGetSignal(hetRAM1, ecapGetCAP1(ecapREG1) , capturedSignal); // Capture signal values
+////
+////            C1=ecapGetCAP1(ecapREG1);
+////            C2=ecapGetCAP2(ecapREG1);
+////            C3=ecapGetCAP3(ecapREG1);
+////
+////            P = C3-C1;
+////            P_D = C2-C1;
+////
+////            if (P != 0)// prevent divide by 0
+////                {duty=P_D/P;freq = 1/P;}
+////            else
+////                {duty = 0;freq = 0;}
+//
+//        //ecapNotification(ecapBASE_t *capturedSignal,uint16 flags);
+//
+//
+//
+//
+//
+//        }
+//        iter=0;
+
+
+
     // Log captured signal for debugging
     //UARTprintf("Captured Signal: Period = %u, Duty = %u\n", capturedSignal.period, capturedSignal.duty);
     // Read and process PWM values
-    //readPWMValues(hetRAM1, pwmChannel);
+//    readPWMValues(hetRAM1, pwmChannel);
+    //}
 
     xphRtosInit();
-   // vTaskStartScheduler();
+    vTaskStartScheduler();
 
     // infinite loop to prevent code from ending. The scheduler will now pre-emptively switch between tasks.
+//}
     while (1);
 
 }
 /* USER CODE BEGIN (4) */
+
+///////////////////////////////////// Tanjosh
+void ecapNotification(ecapBASE_t *ecap,uint16 flags)
+{
+    uint32 C1 =0;
+    uint32 C2 =0;
+    uint32 C3 =0;
+    float64 duty, period;
+
+    C1 = ecapGetCAP1(ecapREG1G);
+    C2 = ecapGetCAP2(ecapREG1G);
+    C3 = ecapGetCAP3(ecapREG1G);
+
+    duty = (cap2 - cap1)*1000/VCLK4_FREQ;
+    period = (cap3 - cap1)*1000/VCLK4_FREQ;
+
+    printf("Duty = %fns\n", duty);
+    printf("Period = %fns\n\n", period);
+
+    globle_period = period;
+    globle_duty=duty;
+}
+/////////////////////////////////////////
 
 
 // Called periodically every 1ms

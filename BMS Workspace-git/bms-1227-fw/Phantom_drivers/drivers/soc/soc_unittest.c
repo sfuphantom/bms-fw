@@ -150,11 +150,12 @@ void testUpdateBattCapacity(void)
 }
 
 // Run test functions in here
-int main(void)
-{
-	// testGetSOCFromVoltage();
-	// testGetOCV();
-	// testUpdateSOC();
-	// testUpdateBattCapacity();
-	return 0;
-}
+///////////////////////////////////////////////this was causing errors,
+//int main(void)
+//{
+//	// testGetSOCFromVoltage();
+//	// testGetOCV();
+//	// testUpdateSOC();
+//	// testUpdateBattCapacity();
+//	return 0;
+//}
