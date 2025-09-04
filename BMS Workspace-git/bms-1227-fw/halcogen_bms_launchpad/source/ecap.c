@@ -781,6 +781,42 @@ void ecap6GetConfigValue(ecap_config_reg_t *config_reg, config_value_type_t type
 	}
 }
 
+/** @fn void ecap1Interrupt(void)
+*   @brief eCAP1 Interrupt Handler
+*
+*   Interrupt handler for eCAP1 interrupt 
+*
+*/
+#pragma CODE_STATE(ecap1Interrupt, 32)
+#pragma INTERRUPT(ecap1Interrupt, IRQ)
+
+/* SourceId : ECAP_SourceId_032 */
+/* DesignId : ECAP_DesignId_021 */
+/* Requirements : HL_ECAP_SR15 */
+void ecap1Interrupt(void)
+{
+    uint16 Int_Flag = ecapREG1->ECFLG & ecapREG1->ECEINT;
+    
+/* USER CODE BEGIN (2) */
+/* USER CODE END */
+
+    /* Clear Events, */
+    /* Note : Current Implementation clears multiple all events set
+       before this point, User notification function is called with Flags and user must take care of handling */    
+    ecapREG1->ECCLR = Int_Flag;
+    
+    /* Clears the interrupt flag and enables further interrupts to be generated
+       if an event flags is set to 1. */
+    ecapREG1->ECCLR = 1U;
+    
+    /* Passing the Interrupt Flag to the user Notification Function */
+    ecapNotification(ecapREG1,Int_Flag);
+
+/* USER CODE BEGIN (3) */
+/* USER CODE END */
+
+}
+
 
 
 /*end of file*/

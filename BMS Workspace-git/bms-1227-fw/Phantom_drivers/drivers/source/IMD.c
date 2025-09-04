@@ -26,6 +26,7 @@ IsolationStateEnum isolationState;
 * Purpose: Initializes all functions required to make reading the IMD work
 */
 void initalizeIMD(){
+  /*  
     hetInit();    //Initialized in phantomSystemInit()
 //    gioInit();    //Initialized in phantomSystemInit()
 //    rtiInit();    //Previously commented
@@ -45,6 +46,53 @@ void initalizeIMD(){
     //gioEnableNotification(gioPORTA,5);
     //gioEnableNotification(gioPORTA,6);
 //    rtiStartCounter(rtiCOUNTER_BLOCK1); // cant read register without this (RTI doesnt start?)    //Previously commented
+*/
+
+    etpwmSetClkDiv(etpwmREG1, ClkDiv_by_1, HspClkDiv_by_1);
+
+    /* Set the time period as 1000 ns (Divider value = (1000ns * 90MHz) - 1 = 89)*/
+    etpwmSetTimebasePeriod(etpwmREG1, 89);
+
+    /* Configure Compare A value as half the time period */
+    etpwmSetCmpA(etpwmREG1, 45);
+
+    /* Configure mthe module to set PWMA value as 1 when CTR=0 and as 0 when CTR=CmpA  */
+    etpwmActionQualConfig_t configPWMA;
+    configPWMA.CtrEqZero_Action = ActionQual_Set;
+    configPWMA.CtrEqCmpAUp_Action = ActionQual_Clear;
+    configPWMA.CtrEqPeriod_Action = ActionQual_Disabled;
+    configPWMA.CtrEqCmpADown_Action = ActionQual_Disabled;
+    configPWMA.CtrEqCmpBUp_Action = ActionQual_Disabled;
+    configPWMA.CtrEqCmpBDown_Action = ActionQual_Disabled;
+    etpwmSetActionQualPwmA(etpwmREG1, configPWMA);
+
+    /* Start counter in CountUp mode */
+    etpwmSetCount(etpwmREG1, 0);
+    etpwmSetCounterMode(etpwmREG1, CounterMode_Up);
+    etpwmStartTBCLK();
+
+    /* Configure ECAP1 */
+    /* Configure Event 1 to Capture the rising edge */
+    ecapSetCaptureEvent1(ecapREG1, RISING_EDGE, RESET_DISABLE);
+
+    /* Configure Event 2 to Capture the falling edge */
+    ecapSetCaptureEvent2(ecapREG1, FALLING_EDGE, RESET_DISABLE);
+
+    /* Configure Event 3 to Capture the rising edge with reset counter enable */
+    ecapSetCaptureEvent3(ecapREG1, RISING_EDGE, RESET_ENABLE);
+
+    /* Set Capure mode as Continuous and Wrap event as CAP3  */
+    ecapSetCaptureMode(ecapREG1, CONTINUOUS, CAPTURE_EVENT3);
+
+    /* Start counter */
+    ecapStartCounter(ecapREG1);
+
+    /* Enable Loading on Capture */
+    ecapEnableCapture(ecapREG1);
+
+    /* Enable Interrupt for CAP3 event */
+    ecapEnableInterrupt(ecapREG1, ecapInt_CEVT3);
+
 }
 
 /*

@@ -53,10 +53,12 @@
 #include "adc.h"
 #include "can.h"
 #include "gio.h"
+#include "lin.h"
 #include "mibspi.h"
 #include "sci.h"
 #include "spi.h"
 #include "het.h"
+#include "etpwm.h"
 #include "ecap.h"
 #include "sys_dma.h"
 
@@ -154,6 +156,16 @@ void gioNotification(gioPORT_t *port, uint32 bit)
 
 /* USER CODE BEGIN (20) */
 /* USER CODE END */
+#pragma WEAK(linNotification)
+void linNotification(linBASE_t *lin, uint32 flags)      
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (23) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (24) */
+/* USER CODE END */
 #pragma WEAK(mibspiNotification)
 void mibspiNotification(mibspiBASE_t *mibspi, uint32 flags)
 {
@@ -250,6 +262,23 @@ void hetNotification(hetBASE_t *het, uint32 offset)
 /* USER CODE BEGIN (43) */
 /* USER CODE END */
 
+#pragma WEAK(etpwmNotification)
+void etpwmNotification(etpwmBASE_t *node)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (44) */
+/* USER CODE END */
+}
+#pragma WEAK(etpwmTripNotification)
+void etpwmTripNotification(etpwmBASE_t *node,uint16 flags)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (45) */
+/* USER CODE END */
+}
+
+/* USER CODE BEGIN (46) */
+/* USER CODE END */
 
 /* USER CODE BEGIN (47) */
 /* USER CODE END */
@@ -263,6 +292,7 @@ void ecapNotification(ecapBASE_t *ecap,uint16 flags)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (51) */
+
 /* USER CODE END */
 }
 /* USER CODE BEGIN (52) */

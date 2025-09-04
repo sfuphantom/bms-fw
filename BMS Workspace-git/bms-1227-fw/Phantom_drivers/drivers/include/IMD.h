@@ -15,6 +15,8 @@
 #include "sci.h"
 #include "stdlib.h" // contains ltoa
 #include "sys_common.h"
+#include "ecap.h"
+#include "etpwm.h"
 
 // ENUMS FOR IMD MESSAGE MAPPING
 
