@@ -90,15 +90,10 @@ void ecapInit(void)
     */
     ecapREG1->ECCTL2 = (uint16)((uint16)CONTINUOUS << 0U)      /* Capture Mode */
                      | (uint16)((uint16)CAPTURE_EVENT3 << 1U)       /* Stop/Wrap value */
-                     | (uint16)((uint16)1U << 9U)      /* Enable/Disable APWM mode */
+                     | (uint16)((uint16)0U << 9U)      /* Enable/Disable APWM mode */
                      | (uint16)0x00000010U;      /* Start counter */
     
     
-    /** - Setup PWM period or frequency */
-    ecapREG1->CAP1 = 79U;   
-    
-    /** - Setup the duty cycle */   
-    ecapREG1->CAP2 = 40U;  
 
     /** - Set interrupt enable */
      ecapREG1->ECEINT = 0x0000U    /* Enable/Disable Capture Event 1 Interrupt  */

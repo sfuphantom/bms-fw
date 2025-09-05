@@ -87,8 +87,61 @@ int main(void)
 //    do{
 
     initBMSData(); // Initializes BMS data structure and ensures pointers are set properly
-    phantomSystemInit();
-    initalizeIMD();     //TODO: list all initializations here before entering state machine
+    // phantomSystemInit();
+    _enable_interrupt_();
+    /* Alternate code for configuring ETPWM and ECAP */
+        /* Configure ETPWM1 */
+    /* Set the TBCLK frequency =  VCLK4 frequency = 90MHz */
+    etpwmSetClkDiv(etpwmREG1, ClkDiv_by_1, HspClkDiv_by_1);
+
+    /* Set the time period as 1000 ns (Divider value = (1000ns * 90MHz) - 1 = 89)*/
+    etpwmSetTimebasePeriod(etpwmREG1, 89);
+
+    /* Configure Compare A value as half the time period */
+    etpwmSetCmpA(etpwmREG1, 45);
+
+    /* Configure mthe module to set PWMA value as 1 when CTR=0 and as 0 when CTR=CmpA  */
+    etpwmActionQualConfig_t configPWMA;
+    configPWMA.CtrEqZero_Action = ActionQual_Set;
+    configPWMA.CtrEqCmpAUp_Action = ActionQual_Clear;
+    configPWMA.CtrEqPeriod_Action = ActionQual_Disabled;
+    configPWMA.CtrEqCmpADown_Action = ActionQual_Disabled;
+    configPWMA.CtrEqCmpBUp_Action = ActionQual_Disabled;
+    configPWMA.CtrEqCmpBDown_Action = ActionQual_Disabled;
+    etpwmSetActionQualPwmA(etpwmREG1, configPWMA);
+
+    /* Start counter in CountUp mode */
+    etpwmSetCount(etpwmREG1, 0);
+    etpwmSetCounterMode(etpwmREG1, CounterMode_Up);
+    etpwmStartTBCLK();
+
+    /* Configure ECAP1 */
+    /* Configure Event 1 to Capture the rising edge */
+    ecapSetCaptureEvent1(ecapREG1, RISING_EDGE, RESET_DISABLE);
+
+    /* Configure Event 2 to Capture the falling edge */
+    ecapSetCaptureEvent2(ecapREG1, FALLING_EDGE, RESET_DISABLE);
+
+    /* Configure Event 3 to Capture the rising edge with reset counter enable */
+    ecapSetCaptureEvent3(ecapREG1, RISING_EDGE, RESET_ENABLE);
+
+    /* Set Capure mode as Continuous and Wrap event as CAP3  */
+    ecapSetCaptureMode(ecapREG1, CONTINUOUS, CAPTURE_EVENT3);
+
+    /* Start counter */
+    ecapStartCounter(ecapREG1);
+
+    /* Enable Loading on Capture */
+    ecapEnableCapture(ecapREG1);
+
+    /* Enable Interrupt for CAP3 event */
+    ecapEnableInterrupt(ecapREG1, ecapInt_CEVT3);
+    
+// #endif
+    /*  ... run forever  */
+    while(1);
+
+    // initalizeIMD();     //TODO: list all initializations here before entering state machine
 
     // Register the BMS agent and actor tasks:
 //    if(initSlavePipeline())
@@ -172,26 +225,25 @@ int main(void)
 /* USER CODE BEGIN (4) */
 
 ///////////////////////////////////// Tanjosh
-void ecapNotification(ecapBASE_t *ecap,uint16 flags)
-{
-    uint32 C1 =0;
-    uint32 C2 =0;
-    uint32 C3 =0;
-    float64 duty, period;
+// void ecapNotification(ecapBASE_t *ecap,uint16 flags)
+// {
+//     uint32 C1, C2, C3;
+//     float64 duty, period, freq;
 
-    C1 = ecapGetCAP1(ecapREG1G);
-    C2 = ecapGetCAP2(ecapREG1G);
-    C3 = ecapGetCAP3(ecapREG1G);
+//     C1 = ecapGetCAP1(ecapREG1);
+//     C2 = ecapGetCAP2(ecapREG1);
+//     C3 = ecapGetCAP3(ecapREG1);
+//     // duty = (C2 - C1)*1000/VCLK4_FREQ;
+//     // period = (C3 - C1)*1000/VCLK4_FREQ;
+//     period = (C3 - C1);
+//     duty = (C2-C1)/period;
 
-    duty = (cap2 - cap1)*1000/VCLK4_FREQ;
-    period = (cap3 - cap1)*1000/VCLK4_FREQ;
+//     period *= 1000/VCLK4_FREQ;
+//     freq =1/ period;
+//     printf("Duty = %fns\n", duty);
+//     printf("Period = %fns\n\n", period);
 
-    printf("Duty = %fns\n", duty);
-    printf("Period = %fns\n\n", period);
-
-    globle_period = period;
-    globle_duty=duty;
-}
+// }
 /////////////////////////////////////////
 
 

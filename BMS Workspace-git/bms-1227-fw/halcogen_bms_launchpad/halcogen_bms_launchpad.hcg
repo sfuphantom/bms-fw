@@ -306,7 +306,9 @@
       <HDRLIN>
         <NAME>lin.h</NAME>
       </HDRLIN>
-      <SRCLIN/>
+      <SRCLIN>
+        <NAME>lin.c</NAME>
+      </SRCLIN>
       <HDRMIBSPI_R>
         <NAME>reg_mibspi.h</NAME>
       </HDRMIBSPI_R>
@@ -409,7 +411,9 @@
       <HDRETPWM>
         <NAME>etpwm.h</NAME>
       </HDRETPWM>
-      <SRCETPWM/>
+      <SRCETPWM>
+        <NAME>etpwm.c</NAME>
+      </SRCETPWM>
       <HDRECAP_R>
         <NAME>reg_ecap.h</NAME>
       </HDRECAP_R>
@@ -608,7 +612,7 @@
         <PATH>include\lin.h</PATH>
       </HDRLIN>
       <SRCLIN>
-        <PATH/>
+        <PATH>source\lin.c</PATH>
       </SRCLIN>
     </FILENAMES>
   </LIN>
@@ -747,7 +751,7 @@
         <PATH>include\etpwm.h</PATH>
       </HDRETPWM>
       <SRCETPWM>
-        <PATH/>
+        <PATH>source\etpwm.c</PATH>
       </SRCETPWM>
     </FILENAMES>
   </ETPWM>

@@ -79,16 +79,16 @@ void etpwmInit(void)
     etpwmREG1->TBCTL = (uint16)0U << 7U;
 
     /** - Sets time-base clock prescale bits */
-    etpwmREG1->TBCTL |= (uint16)((uint16)1U << 10U);
+    etpwmREG1->TBCTL |= (uint16)((uint16)7U << 10U);
 
     /** - Sets time period or frequency for ETPWM block both PWMA and PWMB*/
-    etpwmREG1->TBPRD = 19U;
+    etpwmREG1->TBPRD = 0U;
 
     /** - Setup the duty cycle for PWMA */
-    etpwmREG1->CMPA = 10U;
+    etpwmREG1->CMPA = 1U;
 
     /** - Setup the duty cycle for PWMB */
-    etpwmREG1->CMPB = 10U;
+    etpwmREG1->CMPB = 1U;
 
     /** - Force EPWMxA output high when counter reaches zero and low when counter reaches Compare A value */
     etpwmREG1->AQCTLA = ((uint16)((uint16)ActionQual_Set   << 0U)
@@ -111,10 +111,10 @@ void etpwmInit(void)
                       | (uint16)((uint16)0U << 0U));  /* Enable/Disable Falling Edge Delay  */
 
     /** - Set the rising edge delay  */
-    etpwmREG1->DBRED = 4U;
+    etpwmREG1->DBRED = 0U;
 
     /** - Set the falling edge delay  */
-    etpwmREG1->DBFED = 4U ;
+    etpwmREG1->DBFED = 0U ;
 
     /** - Enable the chopper module for ETPWMx
     *     -Sets the One shot pulse width in a chopper modulated wave

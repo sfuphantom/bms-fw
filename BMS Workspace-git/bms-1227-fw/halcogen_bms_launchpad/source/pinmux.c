@@ -172,7 +172,7 @@ void muxInit(void){
     
     pinMuxReg->PINMMR1 =    PINMUX_PIN_5_GIOA_1 | PINMUX_PIN_6_MIBSPI3NCS_4;
     
-    pinMuxReg->PINMMR2 =    PINMUX_PIN_9_GIOA_2 | PINMUX_PIN_14_GIOA_5;
+    pinMuxReg->PINMMR2 =    PINMUX_PIN_9_GIOA_2 | PINMUX_PIN_14_ETPWM1A;
     
     pinMuxReg->PINMMR3 =    PINMUX_PIN_15_HET1_22 | PINMUX_PIN_16_GIOA_6;
     
