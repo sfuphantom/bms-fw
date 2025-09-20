@@ -69,6 +69,12 @@
 #include "hwConfig.h"
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;
+
+
+
+#define ecap_sec2counts  VCLK4_FREQ * (1000000);
+
+
 /* USER CODE END */
 #pragma WEAK(esmGroup1Notification)
 void esmGroup1Notification(uint32 channel)
@@ -287,28 +293,35 @@ void etpwmTripNotification(etpwmBASE_t *node,uint16 flags)
 /* USER CODE BEGIN (50) */
 /* USER CODE END */
 
+
 #pragma WEAK(ecapNotification)
 void ecapNotification(ecapBASE_t *ecap,uint16 flags)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (51) */
- uint32 C1, C2, C3;
+
+    uint32 C1, C2, C3;
     float64 duty, period, freq;
 
     C1 = ecapGetCAP1(ecapREG1);
     C2 = ecapGetCAP2(ecapREG1);
     C3 = ecapGetCAP3(ecapREG1);
-    // duty = (C2 - C1)*1000/VCLK4_FREQ;
-    // period = (C3 - C1)*1000/VCLK4_FREQ;
+
     period = (C3 - C1);
     if (period > 0){
     
         duty = (C2-C1)/period;
 
-        period *= (1/VCLK4_FREQ)/1000000;
-        freq =1/ period;
+        period /= ecap_sec2counts;
+        freq = 1/period;
+
+
         printf("Duty = %fns\n", duty);
         printf("Period = %fns\n\n", period);
+    }
+    else {
+        duty = 0;
+        freq = 0;
     }
 
 /* USER CODE END */

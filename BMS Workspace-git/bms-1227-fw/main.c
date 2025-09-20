@@ -166,46 +166,7 @@ int main(void)
     //etpwmInit();
     ecapInit();
 
-//    uint32 C1=0;
-//    uint32 C2=0;
-//    uint32 C3=0;
-//    uint32 P = 0;
-//    uint32 P_D = 0;
-//    uint32 duty = 0;
-//    uint32 freq = 0;
-
     hetSIGNAL_t * capturedSignal;
-
-//    while(1){
-
-//        uint32 iter=0;
-//        while(iter<10000){iter++;
-//
-//        // Use J4 Pin 40 (HET Pin 19) for PWM
-//            //hetSIGNAL_t * capturedSignal; // Capture signal and read PWM values
-////            capGetSignal(hetRAM1, ecapGetCAP1(ecapREG1) , capturedSignal); // Capture signal values
-////
-////            C1=ecapGetCAP1(ecapREG1);
-////            C2=ecapGetCAP2(ecapREG1);
-////            C3=ecapGetCAP3(ecapREG1);
-////
-////            P = C3-C1;
-////            P_D = C2-C1;
-////
-////            if (P != 0)// prevent divide by 0
-////                {duty=P_D/P;freq = 1/P;}
-////            else
-////                {duty = 0;freq = 0;}
-//
-//        //ecapNotification(ecapBASE_t *capturedSignal,uint16 flags);
-//
-//
-//
-//
-//
-//        }
-//        iter=0;
-
 
 
     // Log captured signal for debugging
@@ -224,27 +185,7 @@ int main(void)
 }
 /* USER CODE BEGIN (4) */
 
-///////////////////////////////////// Tanjosh
-// void ecapNotification(ecapBASE_t *ecap,uint16 flags)
-// {
-//     uint32 C1, C2, C3;
-//     float64 duty, period, freq;
 
-//     C1 = ecapGetCAP1(ecapREG1);
-//     C2 = ecapGetCAP2(ecapREG1);
-//     C3 = ecapGetCAP3(ecapREG1);
-//     // duty = (C2 - C1)*1000/VCLK4_FREQ;
-//     // period = (C3 - C1)*1000/VCLK4_FREQ;
-//     period = (C3 - C1);
-//     duty = (C2-C1)/period;
-
-//     period *= 1000/VCLK4_FREQ;
-//     freq =1/ period;
-//     printf("Duty = %fns\n", duty);
-//     printf("Period = %fns\n\n", period);
-
-// }
-/////////////////////////////////////////
 
 
 // Called periodically every 1ms
