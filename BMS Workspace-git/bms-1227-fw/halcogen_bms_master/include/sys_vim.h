@@ -103,10 +103,10 @@ extern void het1LowLevelInterrupt(void);
 extern void phantomInterrupt(void);
 extern void linLowLevelInterrupt(void);
 extern void mibspi3HighInterruptLevel(void);
-extern void het2HighLevelInterrupt(void);
 extern void sciHighLevelInterrupt(void);
 extern void phantomInterrupt(void);
 extern void sciLowLevelInterrupt(void);
+extern void ecap2Interrupt(void);
 
 /* USER CODE BEGIN (3) */
 /* USER CODE END */
@@ -335,7 +335,7 @@ typedef struct vim_config_reg
                                     | (uint32)((uint32)0U << 28U)\
                                     | (uint32)((uint32)0U << 29U)\
                                     | (uint32)((uint32)0U << 30U)\
-                                    | (uint32)((uint32)1U << 31U))
+                                    | (uint32)((uint32)0U << 31U))
 						
 #define VIM_REQMASKSET2_CONFIGVALUE	( (uint32)((uint32)1U << 0U)\
                                     | (uint32)((uint32)1U << 1U)\
@@ -379,7 +379,7 @@ typedef struct vim_config_reg
                                     | (uint32)((uint32)0U << 6U)\
                                     | (uint32)((uint32)0U << 7U)\
                                     | (uint32)((uint32)0U << 8U)\
-                                    | (uint32)((uint32)0U << 9U)\
+                                    | (uint32)((uint32)1U << 9U)\
                                     | (uint32)((uint32)0U << 10U)\
                                     | (uint32)((uint32)0U << 11U)\
                                     | (uint32)((uint32)0U << 12U)\

@@ -132,7 +132,7 @@ static const t_isrFuncPTR s_vim_init[128U] =
     &phantomInterrupt,            /* Channel 60 */
     &phantomInterrupt,            /* Channel 61 */
     &phantomInterrupt,            /* Channel 62 */
-    &het2HighLevelInterrupt,            /* Channel 63 */
+    &phantomInterrupt,            /* Channel 63 */
     &sciHighLevelInterrupt,            /* Channel 64 */
     &phantomInterrupt,            /* Channel 65 */
     &phantomInterrupt,            /* Channel 66 */
@@ -174,7 +174,7 @@ static const t_isrFuncPTR s_vim_init[128U] =
     &phantomInterrupt,            /* Channel 102 */
     &phantomInterrupt,            /* Channel 103 */
     &phantomInterrupt,            /* Channel 104 */
-    &phantomInterrupt,            /* Channel 105 */
+    &ecap2Interrupt,            /* Channel 105 */
     &phantomInterrupt,            /* Channel 106 */
     &phantomInterrupt,            /* Channel 107 */
     &phantomInterrupt,            /* Channel 108 */
@@ -426,7 +426,7 @@ void vimInit(void)
                         | (uint32)((uint32)0U << 28U)
                         | (uint32)((uint32)0U << 29U)
                         | (uint32)((uint32)0U << 30U)
-                        | (uint32)((uint32)1U << 31U);
+                        | (uint32)((uint32)0U << 31U);
 
     vimREG->REQMASKSET2 = (uint32)((uint32)1U << 0U)
                         | (uint32)((uint32)1U << 1U)
@@ -470,7 +470,7 @@ void vimInit(void)
                         | (uint32)((uint32)0U << 6U)
                         | (uint32)((uint32)0U << 7U)
                         | (uint32)((uint32)0U << 8U)
-                        | (uint32)((uint32)0U << 9U)
+                        | (uint32)((uint32)1U << 9U)
                         | (uint32)((uint32)0U << 10U)
                         | (uint32)((uint32)0U << 11U)
                         | (uint32)((uint32)0U << 12U)

@@ -52,7 +52,7 @@
 
 //#include "IMD.h"
 #include "sys_common.h"
-#include "reg_ecap.h" //for ecapREG1 in capGetSignal call
+#include "reg_ecap.h" //for ecapREG2 in capGetSignal call
 #include "ecap.h"
 
 /* USER CODE BEGIN (1) */
@@ -79,7 +79,7 @@ extern BMSState_t BMSState;
 /* USER CODE END */
 
 float64 globle_period,globle_duty;
-const ecapBASE_t* ecapREG1G = 0xFCF79300U;
+const ecapBASE_t* ecapREG2G = 0xFCF79300U;
 
 int main(void)
 {
@@ -117,25 +117,25 @@ int main(void)
 
     /* Configure ECAP1 */
     /* Configure Event 1 to Capture the rising edge */
-    ecapSetCaptureEvent1(ecapREG1, RISING_EDGE, RESET_DISABLE);
+    ecapSetCaptureEvent1(ecapREG2, RISING_EDGE, RESET_DISABLE);
 
     /* Configure Event 2 to Capture the falling edge */
-    ecapSetCaptureEvent2(ecapREG1, FALLING_EDGE, RESET_DISABLE);
+    ecapSetCaptureEvent2(ecapREG2, FALLING_EDGE, RESET_DISABLE);
 
     /* Configure Event 3 to Capture the rising edge with reset counter enable */
-    ecapSetCaptureEvent3(ecapREG1, RISING_EDGE, RESET_ENABLE);
+    ecapSetCaptureEvent3(ecapREG2, RISING_EDGE, RESET_ENABLE);
 
     /* Set Capure mode as Continuous and Wrap event as CAP3  */
-    ecapSetCaptureMode(ecapREG1, CONTINUOUS, CAPTURE_EVENT3);
+    ecapSetCaptureMode(ecapREG2, CONTINUOUS, CAPTURE_EVENT3);
 
     /* Start counter */
-    ecapStartCounter(ecapREG1);
+    ecapStartCounter(ecapREG2);
 
     /* Enable Loading on Capture */
-    ecapEnableCapture(ecapREG1);
+    ecapEnableCapture(ecapREG2);
 
     /* Enable Interrupt for CAP3 event */
-    ecapEnableInterrupt(ecapREG1, ecapInt_CEVT3);
+    ecapEnableInterrupt(ecapREG2, ecapInt_CEVT3);
     
 // #endif
     /*  ... run forever  */

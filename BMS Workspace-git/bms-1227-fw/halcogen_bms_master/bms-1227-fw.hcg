@@ -362,14 +362,18 @@
       <HDRETPWM>
         <NAME>etpwm.h</NAME>
       </HDRETPWM>
-      <SRCETPWM/>
+      <SRCETPWM>
+        <NAME>etpwm.c</NAME>
+      </SRCETPWM>
       <HDRECAP_R>
         <NAME>reg_ecap.h</NAME>
       </HDRECAP_R>
       <HDRECAP>
         <NAME>ecap.h</NAME>
       </HDRECAP>
-      <SRCECAP/>
+      <SRCECAP>
+        <NAME>ecap.c</NAME>
+      </SRCECAP>
       <HDREQEP_R>
         <NAME>reg_eqep.h</NAME>
       </HDREQEP_R>
@@ -653,7 +657,7 @@
         <PATH>include\etpwm.h</PATH>
       </HDRETPWM>
       <SRCETPWM>
-        <PATH/>
+        <PATH>source\etpwm.c</PATH>
       </SRCETPWM>
     </FILENAMES>
   </ETPWM>
@@ -666,7 +670,7 @@
         <PATH>include\ecap.h</PATH>
       </HDRECAP>
       <SRCECAP>
-        <PATH/>
+        <PATH>source\ecap.c</PATH>
       </SRCECAP>
     </FILENAMES>
   </ECAP>
