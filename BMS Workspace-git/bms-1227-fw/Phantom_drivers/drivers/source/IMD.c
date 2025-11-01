@@ -119,6 +119,27 @@ void updateIMDState(unsigned int freq_value, unsigned int duty_value){
     IMDData.IMDState = currentState;
 }
 
+
+//void updateIMDStateFloat(float64 freq_value, float64 duty_value){// same as above, just uses floats, instead of int
+//
+//
+//    if (freq_value <=5) currentState = Short_Circuit; //0Hz
+//    else if (freq_value > 5 && freq_value <=15) currentState = Normal_Condition; //10Hz, PWM is between 5-95%
+//    else if (freq_value > 15 && freq_value <=25) currentState = Undervoltage_Condition; //20Hz, PWM is between 5-95%
+//    else if (freq_value > 25 && freq_value <=35) //30Hz, PWM is between 5-10% (good) or 90-95% (bad)
+//    {
+//        if(duty_value >= 5 && duty_value <= 10) currentState = Speed_Start_Measurement_Good;
+//        else if(duty_value >= 90 && duty_value <= 95) currentState = Speed_Start_Measurement_Bad;
+//        else currentState = Undefined_Fault;
+//    }
+//    else if (freq_value > 35 && freq_value <=45 && duty_value >= 47 && duty_value <= 53) currentState = Device_Error; //40Hz, PWM is between 47.5-52.5%
+//    else if (freq_value > 45 && freq_value <=55 && duty_value >= 47 && duty_value <= 53) currentState = Connection_Fault_Earth; //50Hz, PWM is between 47.5-52.5%
+//    else currentState = Undefined_Fault; //Freq range outside known values
+//
+//    IMDData.IMDState = currentState;
+//}
+
+
 /*
 *   Fn: updateIsolationState
 *   Purpose: Message Mapping for HV/LV Isolation State
@@ -152,6 +173,20 @@ void updateIMDData()    {
         updateIMDState(freq_value,duty_value);
         updateIsolationState(duty_value);
     }
+
+
+void updateIMDDataLocal(float64 freq, float64 duty)    {//same as above, just without global variable
+        // adding this 0.5 and then typecasting to an int (truncating all decimals)
+        // basically acts as rounding the float to the nearest integer
+
+        unsigned int freq_value = (unsigned int) (freq + 0.5);
+        unsigned int duty_value = (unsigned int) (duty*100.0 + 0.5);
+
+        updateIMDState(freq_value,duty_value);
+        updateIsolationState(duty_value);
+    }
+
+
 
 /*
 * Fn: serialSendData
@@ -192,6 +227,11 @@ float getIMDResistance(){
    return IMD_resistance;
 }
 
+float getIMDResistanceLocal(float duty_val){//same as above, just without global variable
+    // Equation from data sheet correlating duty cycle with resistance
+   float IMD_resistance = 90.0*1200.0/(duty_val*100.0 - 5.0)-1200.0;
+   return IMD_resistance;
+}
 /*
 * Fn: edgeNotification
 * Purpose: Interrupt handler for when a rising or falling edge occurs

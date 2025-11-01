@@ -65,6 +65,7 @@
 #include "sys_main.h"
 #include "testinterface.h"
 #include "hwConfig.h"
+#include "IMD.h"
 extern int UART_RX_RDY;
 extern int RTI_TIMEOUT;
 
@@ -291,15 +292,22 @@ void etpwmTripNotification(etpwmBASE_t *node,uint16 flags)
 #pragma WEAK(ecapNotification)
 void ecapNotification(ecapBASE_t *ecap,uint16 flags)
 {
+
+
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (51) */
 
+    // mibspi3miso (X1, pin 5 on the right) <- input
+
     uint32 C1, C2, C3;
     float64 duty, period, freq;
+    float64 IMD_resistance;
+    IMDData_t ckeckIMDData;
 
     C1 = ecapGetCAP1(ecap);
     C2 = ecapGetCAP2(ecap);
     C3 = ecapGetCAP3(ecap);
+
 
     period = (C3 - C1);
     if (C2>C1 && C3>C1 && C3>C2){
@@ -308,7 +316,14 @@ void ecapNotification(ecapBASE_t *ecap,uint16 flags)
 
         period /= ecap_sec2counts;
         freq = 1/period;
-        0+0;
+
+
+//        IMD_resistance = 90.0*1200.0/(duty*100.0 - 5.0)-1200.0;
+        updateIMDDataLocal(freq, duty);
+        IMD_resistance = getIMDResistanceLocal(duty);
+        ckeckIMDData = getIMDData();
+
+//        0+0;
 
 //        printf("Duty = %fns\n", duty);
 //        printf("Period = %fns\n\n", period);
@@ -317,6 +332,9 @@ void ecapNotification(ecapBASE_t *ecap,uint16 flags)
         duty = 0;
         freq = 0;
     }
+
+
+
 
     //see what is wrong in helcogen, I should need these functions
     ecapResetCAP1(ecap);
