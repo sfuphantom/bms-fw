@@ -227,10 +227,16 @@ float getIMDResistance(){
    return IMD_resistance;
 }
 
-float getIMDResistanceLocal(float duty_val){//same as above, just without global variable
+uint32 getIMDResistanceLocal_uint(float64 duty_val){//same as above, just without global variable, outputs uint
     // Equation from data sheet correlating duty cycle with resistance
    float IMD_resistance = 90.0*1200.0/(duty_val*100.0 - 5.0)-1200.0;
-   return IMD_resistance;
+   uint32 IMD_R_Uint;
+   if (IMD_resistance < 0)
+       IMD_R_Uint = (uint32)(-IMD_resistance);
+   else
+       IMD_R_Uint = (uint32)(IMD_resistance);
+
+   return IMD_R_Uint;
 }
 /*
 * Fn: edgeNotification

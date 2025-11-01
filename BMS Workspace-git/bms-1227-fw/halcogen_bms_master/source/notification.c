@@ -301,45 +301,35 @@ void ecapNotification(ecapBASE_t *ecap,uint16 flags)
 
     uint32 C1, C2, C3;
     float64 duty, period, freq;
-    float64 IMD_resistance;
+    uint32 IMD_resistance;
     IMDData_t ckeckIMDData;
 
     C1 = ecapGetCAP1(ecap);
     C2 = ecapGetCAP2(ecap);
     C3 = ecapGetCAP3(ecap);
 
+    if (!(C2>C1 && C3>C2)){ return; }//if event 1 is >= event 2 or event 2 >= event 3,
+    //leave the function, the reading are invaded and it would cause the program to go to dabort if you don't
 
     period = (C3 - C1);
-    if (C2>C1 && C3>C1 && C3>C2){
+    duty = (C2-C1)/period;
+    period /= ecap_sec2counts;
+    freq = 1/period;
 
-        duty = (C2-C1)/period;
+    updateIMDDataLocal(freq, duty);
+    IMD_resistance = getIMDResistanceLocal_uint(duty);
+    ckeckIMDData = getIMDData();
 
-        period /= ecap_sec2counts;
-        freq = 1/period;
-
-
-//        IMD_resistance = 90.0*1200.0/(duty*100.0 - 5.0)-1200.0;
-        updateIMDDataLocal(freq, duty);
-        IMD_resistance = getIMDResistanceLocal(duty);
-        ckeckIMDData = getIMDData();
-
-//        0+0;
 
 //        printf("Duty = %fns\n", duty);
 //        printf("Period = %fns\n\n", period);
-    }
-    else {
-        duty = 0;
-        freq = 0;
-    }
-
-
-
 
     //see what is wrong in helcogen, I should need these functions
     ecapResetCAP1(ecap);
     ecapResetCAP2(ecap);
     ecapResetCAP3(ecap);
+
+
 /* USER CODE END */
 }
 /* USER CODE BEGIN (52) */
