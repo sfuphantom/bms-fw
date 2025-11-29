@@ -318,13 +318,14 @@ void ecapNotification(ecapBASE_t *ecap,uint16 flags)
 
     updateIMDDataLocal(freq, duty);
     IMD_resistance = getIMDResistanceLocal_uint(duty);
+        IMD_resistance /= 1000000;
     ckeckIMDData = getIMDData();
 
 
 //        printf("Duty = %fns\n", duty);
 //        printf("Period = %fns\n\n", period);
 
-    //see what is wrong in helcogen, I should need these functions
+    //see what is wrong in helcogen, I should not need these functions
     ecapResetCAP1(ecap);
     ecapResetCAP2(ecap);
     ecapResetCAP3(ecap);
